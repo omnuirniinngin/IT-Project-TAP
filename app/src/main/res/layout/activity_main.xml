@@ -4,13 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="40dp">
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:fillViewport="true"
+        android:padding="40dp"
+        android:scrollbarThumbHorizontal="@null"
+        android:scrollbarThumbVertical="@null">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -36,8 +39,9 @@
                 android:inputType="textPersonName"
                 android:hint="Full Name"
                 android:background="@drawable/edit_text_border"
-                android:padding="10dp"
-                android:layout_marginTop="10dp"/>
+                android:padding="15dp"
+                android:layout_marginTop="10dp"
+                android:drawableLeft="@drawable/ic_identity"/>
 
 
             <EditText
@@ -48,19 +52,21 @@
                 android:inputType="textEmailAddress"
                 android:hint="Email"
                 android:background="@drawable/edit_text_border"
-                android:padding="10dp"
-                android:layout_marginTop="10dp"/>
+                android:padding="15dp"
+                android:layout_marginTop="10dp"
+                android:drawableLeft="@drawable/ic_email"/>
 
             <EditText
-                android:id="@+id/editText6"
+                android:id="@+id/etPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="textPassword"
                 android:hint="Password"
                 android:background="@drawable/edit_text_border"
-                android:padding="10dp"
-                android:layout_marginTop="10dp"/>
+                android:padding="15dp"
+                android:layout_marginTop="10dp"
+                android:drawableLeft="@drawable/ic_password"/>
 
             <Button
                 android:id="@+id/btnContinue"
@@ -82,23 +88,6 @@
 
         </LinearLayout>
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:gravity="bottom">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center"/>
-
-
-    </LinearLayout>
-
-
+    </ScrollView>
 
 </RelativeLayout>
