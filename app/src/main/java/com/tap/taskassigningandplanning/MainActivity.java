@@ -36,15 +36,15 @@ public class MainActivity extends AppCompatActivity {
                 formsuccess = 3;
 
                 if(name.equals("")){
-                    etFullName.setError("This field is required.",null);
+                    etFullName.setError("This field is required.");
                     formsuccess--;
                 }
                 if(email.equals("")){
-                    etEmail.setError("This field is required.",null);
+                    etEmail.setError("This field is required.");
                     formsuccess--;
                 }
                 if(password.equals("")){
-                    etPassword.setError("This field is required.", null);
+                    etPassword.setError("This field is required.");
                     formsuccess--;
                 }
                 if(formsuccess == 3){
