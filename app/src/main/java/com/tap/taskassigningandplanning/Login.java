@@ -39,7 +39,9 @@ public class Login extends AppCompatActivity {
                     formsuccess--;
                 }
                 if(formsuccess == 2){
-                    Toast.makeText(getApplicationContext(), "Form Successfully Validated", Toast.LENGTH_SHORT).show();
+                    Intent i = new Intent(Login.this, DrawerActivity.class);
+                    startActivity(i);
+                    //Toast.makeText(getApplicationContext(), "Form Successfully Validated", Toast.LENGTH_SHORT).show();
                 }
             }
         });

@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">Task Assigning and Planning</string>
+    <string name="nav_header_title">Niño Muring</string>
+    <string name="nav_header_subtitle">STI College of Davao</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_plan">Plan</string>
+    <string name="menu_notification">Notifications</string>
+    <string name="menu_profile">Account</string>
+    <string name="menu_setting">Settings</string>
+
 </resources>
