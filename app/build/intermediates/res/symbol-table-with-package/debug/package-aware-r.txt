@@ -1131,7 +1131,9 @@ id barrier
 id beginning
 id blocking
 id bottom
+id btnCancel
 id btnContinue
+id btnCreate
 id btnCreateAccount
 id btnLogin
 id buttonPanel
@@ -1168,10 +1170,13 @@ id enterAlways
 id enterAlwaysCollapsed
 id etEmail
 id etEmailLayout
+id etEndDate
 id etFullName
 id etFullNameLayout
 id etPassword
 id etPasswordLayout
+id etPlanDescription
+id etStartDate
 id exitUntilCollapsed
 id expand_activities_button
 id expanded_menu
@@ -1482,6 +1487,9 @@ string path_password_eye
 string path_password_eye_mask_strike_through
 string path_password_eye_mask_visible
 string path_password_strike_through
+string plan_description
+string plan_end_date
+string plan_start_date
 string search_menu_title
 string status_bar_notification_info_overflow
 style AlertDialog_AppCompat

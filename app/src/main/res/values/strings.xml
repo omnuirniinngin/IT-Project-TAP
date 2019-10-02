@@ -10,4 +10,8 @@
     <string name="menu_profile">Account</string>
     <string name="menu_setting">Settings</string>
 
+    <string name="plan_description">New Plan Description</string>
+    <string name="plan_start_date">Starting Date</string>
+    <string name="plan_end_date">Ending Date</string>
+
 </resources>
