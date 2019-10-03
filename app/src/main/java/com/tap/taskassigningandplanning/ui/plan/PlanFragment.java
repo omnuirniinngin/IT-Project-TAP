@@ -1,25 +1,23 @@
 package com.tap.taskassigningandplanning.ui.plan;
 
 import android.app.DatePickerDialog;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.tap.taskassigningandplanning.MainActivity;
+import com.tap.taskassigningandplanning.NavigationBottomActivity;
 import com.tap.taskassigningandplanning.R;
 
 import java.text.SimpleDateFormat;
@@ -109,9 +107,9 @@ public class PlanFragment extends Fragment{
 public class PlanFragment extends Fragment{
     private static final String TAG = "PlanFragment";
     EditText etPlanDescription, etStartDate, etEndDate;
+    Button btnCreate, btnCancel;
     final Calendar myCalendar = Calendar.getInstance();
     DatePickerDialog.OnDateSetListener dateSetListener;
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -120,6 +118,8 @@ public class PlanFragment extends Fragment{
         etPlanDescription = (EditText) view.findViewById(R.id.etPlanDescription);
         etStartDate = (EditText) view.findViewById(R.id.etStartDate);
         etEndDate = (EditText) view.findViewById(R.id.etEndDate);
+        btnCreate = (Button) view.findViewById(R.id.btnCreate);
+        btnCancel = (Button) view.findViewById(R.id.btnCancel);
 
 
         etStartDate.setOnClickListener(new View.OnClickListener() {
@@ -171,6 +171,16 @@ public class PlanFragment extends Fragment{
                 String myFormat = "MM/dd/yy";
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat(myFormat, Locale.US);
                 etEndDate.setText(simpleDateFormat.format(myCalendar.getTime()));
+            }
+        });
+
+        btnCreate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), NavigationBottomActivity.class);
+                startActivity(intent);
+
+
             }
         });
         return view;

@@ -13,5 +13,11 @@
     <string name="plan_description">New Plan Description</string>
     <string name="plan_start_date">Starting Date</string>
     <string name="plan_end_date">Ending Date</string>
+    
+    <string name="title_activities">Activities</string>
+    <string name="title_progress">Progress</string>
+    <string name="title_task">Tasks</string>
+    <string name="title_chart">Pie Chart</string>
+    <string name="title_team">Teams</string>
 
 </resources>

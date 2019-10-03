@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation_bottom"
+    app:startDestination="@+id/navigation_activities">
+
+    <fragment
+        android:id="@+id/navigation_activities"
+        android:name="com.tap.taskassigningandplanning.utils.activities.ActivityFragment"
+        android:label="@string/title_activities"
+        tools:layout="@layout/fragment_activities" />
+
+    <fragment
+        android:id="@+id/navigation_progress"
+        android:name="com.tap.taskassigningandplanning.utils.progress.ProgressFragment"
+        android:label="@string/title_progress"
+        tools:layout="@layout/fragment_progress" />
+
+    <fragment
+        android:id="@+id/navigation_task"
+        android:name="com.tap.taskassigningandplanning.utils.task.TaskFragment"
+        android:label="@string/title_task"
+        tools:layout="@layout/fragment_task" />
+
+    <fragment
+        android:id="@+id/navigation_chart"
+        android:name="com.tap.taskassigningandplanning.utils.chart.ChartFragment"
+        android:label="@string/title_chart"
+        tools:layout="@layout/fragment_pie_chart" />
+
+    <fragment
+        android:id="@+id/navigation_team"
+        android:name="com.tap.taskassigningandplanning.utils.team.TeamFragment"
+        android:label="@string/title_team"
+        tools:layout="@layout/fragment_team" />
+
+</navigation>
