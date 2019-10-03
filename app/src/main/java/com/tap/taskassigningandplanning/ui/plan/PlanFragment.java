@@ -6,10 +6,12 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -68,7 +70,10 @@ import java.util.Locale;
         return view;
     }
 }*/
-/*public class PlanFragment extends Fragment{
+/*
+public class PlanFragment extends Fragment{
+
+    EditText etStartDate, etEndDate;
 
     Calendar calendar;
     DatePickerDialog datePickerDialog;
@@ -77,8 +82,8 @@ import java.util.Locale;
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_plan, container, false);
 
-        EditText etStartDate  = (EditText) view.findViewById(R.id.etStartDate);
-        final EditText etEndDate  = (EditText) view.findViewById(R.id.etEndDate);
+        etStartDate  = (EditText) view.findViewById(R.id.etStartDate);
+        etEndDate = (EditText) view.findViewById(R.id.etEndDate);
         etStartDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -98,44 +103,76 @@ import java.util.Locale;
         return view;
     }
 
-}*/
+}
+*/
+
 public class PlanFragment extends Fragment{
     private static final String TAG = "PlanFragment";
-    EditText etStartDate;
+    EditText etPlanDescription, etStartDate, etEndDate;
     final Calendar myCalendar = Calendar.getInstance();
     DatePickerDialog.OnDateSetListener dateSetListener;
-    int month, day, year;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_plan, container, false);
 
+        etPlanDescription = (EditText) view.findViewById(R.id.etPlanDescription);
         etStartDate = (EditText) view.findViewById(R.id.etStartDate);
-        dateSetListener = new DatePickerDialog.OnDateSetListener() {
+        etEndDate = (EditText) view.findViewById(R.id.etEndDate);
+
+
+        etStartDate.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onDateSet(DatePicker datePicker, int year, int monthOfYear, int dayOfMonth) {
-                myCalendar.set(Calendar.YEAR, year);
-                myCalendar.set(Calendar.MONTH, monthOfYear);
-                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                updateLabel();
+            public void onClick(View view) {
+
+                dateSetListener = new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker datePicker, int year, int monthOfYear, int dayOfMonth) {
+                        myCalendar.set(Calendar.YEAR, year);
+                        myCalendar.set(Calendar.MONTH, monthOfYear);
+                        myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                        updateLabel();
+                    }
+
+                };
+
+                new DatePickerDialog(getContext(), dateSetListener, myCalendar
+                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
             private void updateLabel() {
                 String myFormat = "MM/dd/yy";
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat(myFormat, Locale.US);
                 etStartDate.setText(simpleDateFormat.format(myCalendar.getTime()));
             }
-        };
-        etStartDate.setOnClickListener(new View.OnClickListener() {
+        });
+
+        etEndDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                dateSetListener = new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker datePicker, int year, int monthOfYear, int dayOfMonth) {
+                        myCalendar.set(Calendar.YEAR, year);
+                        myCalendar.set(Calendar.MONTH, monthOfYear);
+                        myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                        updateLabel();
+                    }
+
+                };
+
                 new DatePickerDialog(getContext(), dateSetListener, myCalendar
                         .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
+            private void updateLabel() {
+                String myFormat = "MM/dd/yy";
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat(myFormat, Locale.US);
+                etEndDate.setText(simpleDateFormat.format(myCalendar.getTime()));
+            }
         });
-
         return view;
     }
-
 }
