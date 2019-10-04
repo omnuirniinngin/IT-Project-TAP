@@ -11,7 +11,7 @@
 9-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml
 10
 11    <application
-11-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:5:5-26:19
+11-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:5:5-27:19
 12        android:allowBackup="true"
 12-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:6:9-35
 13        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
@@ -28,49 +28,52 @@
 19        android:testOnly="true"
 20        android:theme="@style/AppTheme" >
 20-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:11:9-40
-21        <activity
-21-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:12:9-112
-22            android:name="com.tap.taskassigningandplanning.Login"
-22-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:12:19-40
-23            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
-23-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:12:41-100
-24        <activity
-24-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:13:9-19:20
-25            android:name="com.tap.taskassigningandplanning.MainActivity"
-25-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:13:19-47
-26            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" >
-26-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:13:48-107
-27            <intent-filter>
-27-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:14:13-18:29
-28                <action android:name="android.intent.action.MAIN" />
-28-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:15:17-69
-28-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:15:25-66
-29
-30                <category android:name="android.intent.category.LAUNCHER" />
-30-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:17:17-77
-30-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:17:27-74
-31            </intent-filter>
-32        </activity>
-33        <activity
-33-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:20:9-25:20
-34            android:name="com.tap.taskassigningandplanning.DrawerActivity"
-34-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:21:13-43
-35            android:label="@string/app_name"
-35-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:22:13-45
-36            android:theme="@style/AppTheme.NoActionBar" >
-36-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:23:13-56
-37        </activity>
-38
-39        <provider
-39-->[androidx.lifecycle:lifecycle-process:2.1.0] C:\Users\user\.gradle\caches\transforms-2\files-2.1\de98a4bbc2dfc7911ae62a05941c7eba\lifecycle-process-2.1.0\AndroidManifest.xml:23:9-27:43
-40            android:name="androidx.lifecycle.ProcessLifecycleOwnerInitializer"
-40-->[androidx.lifecycle:lifecycle-process:2.1.0] C:\Users\user\.gradle\caches\transforms-2\files-2.1\de98a4bbc2dfc7911ae62a05941c7eba\lifecycle-process-2.1.0\AndroidManifest.xml:24:13-79
-41            android:authorities="com.tap.taskassigningandplanning.lifecycle-process"
-41-->[androidx.lifecycle:lifecycle-process:2.1.0] C:\Users\user\.gradle\caches\transforms-2\files-2.1\de98a4bbc2dfc7911ae62a05941c7eba\lifecycle-process-2.1.0\AndroidManifest.xml:25:13-69
-42            android:exported="false"
-42-->[androidx.lifecycle:lifecycle-process:2.1.0] C:\Users\user\.gradle\caches\transforms-2\files-2.1\de98a4bbc2dfc7911ae62a05941c7eba\lifecycle-process-2.1.0\AndroidManifest.xml:26:13-37
-43            android:multiprocess="true" />
-43-->[androidx.lifecycle:lifecycle-process:2.1.0] C:\Users\user\.gradle\caches\transforms-2\files-2.1\de98a4bbc2dfc7911ae62a05941c7eba\lifecycle-process-2.1.0\AndroidManifest.xml:27:13-40
-44    </application>
-45
-46</manifest>
+21        <activity android:name="com.tap.taskassigningandplanning.NavigationBottomActivity" />
+21-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:12:9-71
+21-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:12:19-59
+22        <activity
+22-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:13:9-112
+23            android:name="com.tap.taskassigningandplanning.Login"
+23-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:13:19-40
+24            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
+24-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:13:41-100
+25        <activity
+25-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:14:9-15:20
+26            android:name="com.tap.taskassigningandplanning.MainActivity"
+26-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:14:19-47
+27            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" >
+27-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:14:48-107
+28        </activity>
+29        <activity
+29-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:16:9-26:20
+30            android:name="com.tap.taskassigningandplanning.DrawerActivity"
+30-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:17:13-43
+31            android:label="@string/app_name"
+31-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:18:13-45
+32            android:theme="@style/AppTheme.NoActionBar" >
+32-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:19:13-56
+33            <intent-filter>
+33-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:20:13-24:29
+34                <action android:name="android.intent.action.MAIN" />
+34-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:21:17-69
+34-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:21:25-66
+35
+36                <category android:name="android.intent.category.LAUNCHER" />
+36-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:23:17-77
+36-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:23:27-74
+37            </intent-filter>
+38        </activity>
+39
+40        <provider
+40-->[androidx.lifecycle:lifecycle-process:2.1.0] C:\Users\user\.gradle\caches\transforms-2\files-2.1\de98a4bbc2dfc7911ae62a05941c7eba\lifecycle-process-2.1.0\AndroidManifest.xml:23:9-27:43
+41            android:name="androidx.lifecycle.ProcessLifecycleOwnerInitializer"
+41-->[androidx.lifecycle:lifecycle-process:2.1.0] C:\Users\user\.gradle\caches\transforms-2\files-2.1\de98a4bbc2dfc7911ae62a05941c7eba\lifecycle-process-2.1.0\AndroidManifest.xml:24:13-79
+42            android:authorities="com.tap.taskassigningandplanning.lifecycle-process"
+42-->[androidx.lifecycle:lifecycle-process:2.1.0] C:\Users\user\.gradle\caches\transforms-2\files-2.1\de98a4bbc2dfc7911ae62a05941c7eba\lifecycle-process-2.1.0\AndroidManifest.xml:25:13-69
+43            android:exported="false"
+43-->[androidx.lifecycle:lifecycle-process:2.1.0] C:\Users\user\.gradle\caches\transforms-2\files-2.1\de98a4bbc2dfc7911ae62a05941c7eba\lifecycle-process-2.1.0\AndroidManifest.xml:26:13-37
+44            android:multiprocess="true" />
+44-->[androidx.lifecycle:lifecycle-process:2.1.0] C:\Users\user\.gradle\caches\transforms-2\files-2.1\de98a4bbc2dfc7911ae62a05941c7eba\lifecycle-process-2.1.0\AndroidManifest.xml:27:13-40
+45    </application>
+46
+47</manifest>

@@ -1,23 +1,41 @@
 <resources>
     <string name="app_name">Task Assigning and Planning</string>
+    
     <string name="nav_header_title">Niño Muring</string>
     <string name="nav_header_subtitle">STI College of Davao</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
+    <!--Navigation Drawer-->
     <string name="menu_plan">Plan</string>
     <string name="menu_notification">Notifications</string>
     <string name="menu_profile">Account</string>
     <string name="menu_setting">Settings</string>
 
+    <!--Plan Fragment - Starting a plan-->
     <string name="plan_description">New Plan Description</string>
     <string name="plan_start_date">Starting Date</string>
     <string name="plan_end_date">Ending Date</string>
     
+    <!--Bottom Navigation-->
     <string name="title_activities">Activities</string>
     <string name="title_progress">Progress</string>
     <string name="title_task">Tasks</string>
     <string name="title_chart">Pie Chart</string>
     <string name="title_team">Teams</string>
+    
+    <!--ListView Activities Fragment-->
+    <string name="text_task_name">New Task</string>
+    <string name="text_note">Notes</string>
+
+    <!--Adding Activities through dialog-->
+    <string name="dialog_activity_name">Activity name</string>
+    <string name="dialog_start_date">Date Start</string>
+    <string name="dialog_end_date">Date End</string>
+    <string name="dialog_button_add"> Add</string>
+    <string name="dialog_button_cancel">Cancel</string>
+    <string name="dialog_assign_activity">Assign person</string>
+    <string name="dialog_pick_color">Color</string>
+    
 
 </resources>

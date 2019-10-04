@@ -19,22 +19,23 @@
         android:supportsRtl="true"
         android:testOnly="true"
         android:theme="@style/AppTheme" >
+        <activity android:name="com.tap.taskassigningandplanning.NavigationBottomActivity" />
         <activity
             android:name="com.tap.taskassigningandplanning.Login"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
         <activity
             android:name="com.tap.taskassigningandplanning.MainActivity"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name="com.tap.taskassigningandplanning.DrawerActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
 
         <provider
