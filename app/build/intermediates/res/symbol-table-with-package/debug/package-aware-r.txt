@@ -1601,6 +1601,10 @@ string google_app_id
 string google_crash_reporting_api_key
 string google_storage_bucket
 string hide_bottom_view_on_scroll_behavior
+string input_error_email
+string input_error_email_invalid
+string input_error_name
+string input_error_password
 string menu_notification
 string menu_plan
 string menu_profile
@@ -1620,6 +1624,7 @@ string plan_description
 string plan_end_date
 string plan_start_date
 string project_id
+string registration_success
 string search_menu_title
 string status_bar_notification_info_overflow
 string text_note

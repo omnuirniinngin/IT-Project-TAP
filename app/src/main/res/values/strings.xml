@@ -36,6 +36,14 @@
     <string name="dialog_button_cancel">Cancel</string>
     <string name="dialog_assign_activity">Assign person</string>
     <string name="dialog_pick_color">Color</string>
+
+    <!--Error fields-->
+    <string name="input_error_name">Full name is required.</string>
+    <string name="input_error_email">Email is required.</string>
+    <string name="input_error_password">Password is required.</string>
+    <string name="input_error_email_invalid">Enter a valid email</string>
+
+    <string name="registration_success">Registered Successfully</string>
     
 
 </resources>
