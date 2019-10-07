@@ -10,70 +10,129 @@
 9        android:targetSdkVersion="29" />
 9-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml
 10
-11    <application
-11-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:5:5-27:19
-12        android:allowBackup="true"
-12-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:6:9-35
-13        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
-13-->[androidx.core:core:1.1.0] C:\Users\user\.gradle\caches\transforms-2\files-2.1\57692e4753601536b7ad4be218820432\core-1.1.0\AndroidManifest.xml:24:18-86
-14        android:debuggable="true"
-15        android:icon="@mipmap/ic_launcher"
-15-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:7:9-43
-16        android:label="@string/app_name"
-16-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:8:9-41
-17        android:roundIcon="@mipmap/ic_launcher_round"
-17-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:9:9-54
-18        android:supportsRtl="true"
-18-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:10:9-35
-19        android:testOnly="true"
-20        android:theme="@style/AppTheme" >
-20-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:11:9-40
-21        <activity android:name="com.tap.taskassigningandplanning.NavigationBottomActivity" />
-21-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:12:9-71
-21-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:12:19-59
-22        <activity
-22-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:13:9-112
-23            android:name="com.tap.taskassigningandplanning.Login"
-23-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:13:19-40
-24            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
-24-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:13:41-100
-25        <activity
-25-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:14:9-15:20
-26            android:name="com.tap.taskassigningandplanning.MainActivity"
-26-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:14:19-47
-27            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" >
-27-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:14:48-107
-28        </activity>
-29        <activity
-29-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:16:9-26:20
-30            android:name="com.tap.taskassigningandplanning.DrawerActivity"
-30-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:17:13-43
-31            android:label="@string/app_name"
-31-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:18:13-45
-32            android:theme="@style/AppTheme.NoActionBar" >
-32-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:19:13-56
-33            <intent-filter>
-33-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:20:13-24:29
-34                <action android:name="android.intent.action.MAIN" />
-34-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:21:17-69
-34-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:21:25-66
-35
-36                <category android:name="android.intent.category.LAUNCHER" />
-36-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:23:17-77
-36-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:23:27-74
-37            </intent-filter>
-38        </activity>
-39
-40        <provider
-40-->[androidx.lifecycle:lifecycle-process:2.1.0] C:\Users\user\.gradle\caches\transforms-2\files-2.1\de98a4bbc2dfc7911ae62a05941c7eba\lifecycle-process-2.1.0\AndroidManifest.xml:23:9-27:43
-41            android:name="androidx.lifecycle.ProcessLifecycleOwnerInitializer"
-41-->[androidx.lifecycle:lifecycle-process:2.1.0] C:\Users\user\.gradle\caches\transforms-2\files-2.1\de98a4bbc2dfc7911ae62a05941c7eba\lifecycle-process-2.1.0\AndroidManifest.xml:24:13-79
-42            android:authorities="com.tap.taskassigningandplanning.lifecycle-process"
-42-->[androidx.lifecycle:lifecycle-process:2.1.0] C:\Users\user\.gradle\caches\transforms-2\files-2.1\de98a4bbc2dfc7911ae62a05941c7eba\lifecycle-process-2.1.0\AndroidManifest.xml:25:13-69
-43            android:exported="false"
-43-->[androidx.lifecycle:lifecycle-process:2.1.0] C:\Users\user\.gradle\caches\transforms-2\files-2.1\de98a4bbc2dfc7911ae62a05941c7eba\lifecycle-process-2.1.0\AndroidManifest.xml:26:13-37
-44            android:multiprocess="true" />
-44-->[androidx.lifecycle:lifecycle-process:2.1.0] C:\Users\user\.gradle\caches\transforms-2\files-2.1\de98a4bbc2dfc7911ae62a05941c7eba\lifecycle-process-2.1.0\AndroidManifest.xml:27:13-40
-45    </application>
-46
-47</manifest>
+11    <uses-permission android:name="android.permission.INTERNET" />
+11-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:5:5-66
+11-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:5:22-64
+12
+13    <application
+13-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:7:5-30:19
+14        android:allowBackup="true"
+14-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:8:9-35
+15        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+15-->[androidx.core:core:1.1.0] C:\Users\user\.gradle\caches\transforms-2\files-2.1\cb651b77c21a0fd33661bd0dedbeeb7a\core-1.1.0\AndroidManifest.xml:24:18-86
+16        android:debuggable="true"
+17        android:icon="@mipmap/ic_launcher"
+17-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:9:9-43
+18        android:label="@string/app_name"
+18-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:10:9-41
+19        android:roundIcon="@mipmap/ic_launcher_round"
+19-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:11:9-54
+20        android:supportsRtl="true"
+20-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:12:9-35
+21        android:testOnly="true"
+22        android:theme="@style/AppTheme" >
+22-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:13:9-40
+23        <activity android:name="com.tap.taskassigningandplanning.NavigationBottomActivity" />
+23-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:14:9-71
+23-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:14:19-59
+24        <activity
+24-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:15:9-112
+25            android:name="com.tap.taskassigningandplanning.Login"
+25-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:15:19-40
+26            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
+26-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:15:41-100
+27        <activity
+27-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:16:9-22:20
+28            android:name="com.tap.taskassigningandplanning.Registration"
+28-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:16:19-47
+29            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" >
+29-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:16:48-107
+30            <intent-filter>
+30-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:17:13-21:29
+31                <action android:name="android.intent.action.MAIN" />
+31-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:18:17-69
+31-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:18:25-66
+32
+33                <category android:name="android.intent.category.LAUNCHER" />
+33-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:20:17-77
+33-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:20:27-74
+34            </intent-filter>
+35        </activity>
+36        <activity
+36-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:23:9-29:20
+37            android:name="com.tap.taskassigningandplanning.MainActivity"
+37-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:24:13-41
+38            android:label="@string/app_name"
+38-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:25:13-45
+39            android:theme="@style/AppTheme.NoActionBar" >
+39-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:26:13-56
+40        </activity>
+41        <activity
+41-->[com.google.firebase:firebase-auth:16.0.5] C:\Users\user\.gradle\caches\transforms-2\files-2.1\7f8faf500e22534635afefff39ba5304\jetified-firebase-auth-16.0.5\AndroidManifest.xml:24:9-31:50
+42            android:name="com.google.firebase.auth.internal.FederatedSignInActivity"
+42-->[com.google.firebase:firebase-auth:16.0.5] C:\Users\user\.gradle\caches\transforms-2\files-2.1\7f8faf500e22534635afefff39ba5304\jetified-firebase-auth-16.0.5\AndroidManifest.xml:25:13-85
+43            android:excludeFromRecents="true"
+43-->[com.google.firebase:firebase-auth:16.0.5] C:\Users\user\.gradle\caches\transforms-2\files-2.1\7f8faf500e22534635afefff39ba5304\jetified-firebase-auth-16.0.5\AndroidManifest.xml:26:13-46
+44            android:exported="true"
+44-->[com.google.firebase:firebase-auth:16.0.5] C:\Users\user\.gradle\caches\transforms-2\files-2.1\7f8faf500e22534635afefff39ba5304\jetified-firebase-auth-16.0.5\AndroidManifest.xml:27:13-36
+45            android:launchMode="singleTask"
+45-->[com.google.firebase:firebase-auth:16.0.5] C:\Users\user\.gradle\caches\transforms-2\files-2.1\7f8faf500e22534635afefff39ba5304\jetified-firebase-auth-16.0.5\AndroidManifest.xml:28:13-44
+46            android:permission="com.google.firebase.auth.api.gms.permission.LAUNCH_FEDERATED_SIGN_IN"
+46-->[com.google.firebase:firebase-auth:16.0.5] C:\Users\user\.gradle\caches\transforms-2\files-2.1\7f8faf500e22534635afefff39ba5304\jetified-firebase-auth-16.0.5\AndroidManifest.xml:29:13-102
+47            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+47-->[com.google.firebase:firebase-auth:16.0.5] C:\Users\user\.gradle\caches\transforms-2\files-2.1\7f8faf500e22534635afefff39ba5304\jetified-firebase-auth-16.0.5\AndroidManifest.xml:30:13-72
+48
+49        <service
+49-->[com.google.firebase:firebase-auth:16.0.5] C:\Users\user\.gradle\caches\transforms-2\files-2.1\7f8faf500e22534635afefff39ba5304\jetified-firebase-auth-16.0.5\AndroidManifest.xml:33:9-39:19
+50            android:name="com.google.firebase.components.ComponentDiscoveryService"
+50-->[com.google.firebase:firebase-auth:16.0.5] C:\Users\user\.gradle\caches\transforms-2\files-2.1\7f8faf500e22534635afefff39ba5304\jetified-firebase-auth-16.0.5\AndroidManifest.xml:34:13-84
+51            android:exported="false" >
+51-->[com.google.firebase:firebase-auth:16.0.5] C:\Users\user\.gradle\caches\transforms-2\files-2.1\7f8faf500e22534635afefff39ba5304\jetified-firebase-auth-16.0.5\AndroidManifest.xml:35:13-37
+52            <meta-data
+52-->[com.google.firebase:firebase-auth:16.0.5] C:\Users\user\.gradle\caches\transforms-2\files-2.1\7f8faf500e22534635afefff39ba5304\jetified-firebase-auth-16.0.5\AndroidManifest.xml:36:13-38:85
+53                android:name="com.google.firebase.components:com.google.firebase.auth.FirebaseAuthRegistrar"
+53-->[com.google.firebase:firebase-auth:16.0.5] C:\Users\user\.gradle\caches\transforms-2\files-2.1\7f8faf500e22534635afefff39ba5304\jetified-firebase-auth-16.0.5\AndroidManifest.xml:37:17-109
+54                android:value="com.google.firebase.components.ComponentRegistrar" />
+54-->[com.google.firebase:firebase-auth:16.0.5] C:\Users\user\.gradle\caches\transforms-2\files-2.1\7f8faf500e22534635afefff39ba5304\jetified-firebase-auth-16.0.5\AndroidManifest.xml:38:17-82
+55        </service>
+56
+57        <activity
+57-->[com.google.android.gms:play-services-base:16.0.1] C:\Users\user\.gradle\caches\transforms-2\files-2.1\2fabcbad8548c024fa2e3276e15e17f8\jetified-play-services-base-16.0.1\AndroidManifest.xml:23:9-26:75
+58            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+58-->[com.google.android.gms:play-services-base:16.0.1] C:\Users\user\.gradle\caches\transforms-2\files-2.1\2fabcbad8548c024fa2e3276e15e17f8\jetified-play-services-base-16.0.1\AndroidManifest.xml:24:13-79
+59            android:exported="false"
+59-->[com.google.android.gms:play-services-base:16.0.1] C:\Users\user\.gradle\caches\transforms-2\files-2.1\2fabcbad8548c024fa2e3276e15e17f8\jetified-play-services-base-16.0.1\AndroidManifest.xml:25:13-37
+60            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+60-->[com.google.android.gms:play-services-base:16.0.1] C:\Users\user\.gradle\caches\transforms-2\files-2.1\2fabcbad8548c024fa2e3276e15e17f8\jetified-play-services-base-16.0.1\AndroidManifest.xml:26:13-72
+61
+62        <provider
+62-->[com.google.firebase:firebase-common:16.0.3] C:\Users\user\.gradle\caches\transforms-2\files-2.1\9ee70c9c39b205f1d98c84d4a52b6d7a\jetified-firebase-common-16.0.3\AndroidManifest.xml:10:9-14:39
+63            android:name="com.google.firebase.provider.FirebaseInitProvider"
+63-->[com.google.firebase:firebase-common:16.0.3] C:\Users\user\.gradle\caches\transforms-2\files-2.1\9ee70c9c39b205f1d98c84d4a52b6d7a\jetified-firebase-common-16.0.3\AndroidManifest.xml:11:13-77
+64            android:authorities="com.tap.taskassigningandplanning.firebaseinitprovider"
+64-->[com.google.firebase:firebase-common:16.0.3] C:\Users\user\.gradle\caches\transforms-2\files-2.1\9ee70c9c39b205f1d98c84d4a52b6d7a\jetified-firebase-common-16.0.3\AndroidManifest.xml:12:13-72
+65            android:exported="false"
+65-->[com.google.firebase:firebase-common:16.0.3] C:\Users\user\.gradle\caches\transforms-2\files-2.1\9ee70c9c39b205f1d98c84d4a52b6d7a\jetified-firebase-common-16.0.3\AndroidManifest.xml:13:13-37
+66            android:initOrder="100" />
+66-->[com.google.firebase:firebase-common:16.0.3] C:\Users\user\.gradle\caches\transforms-2\files-2.1\9ee70c9c39b205f1d98c84d4a52b6d7a\jetified-firebase-common-16.0.3\AndroidManifest.xml:14:13-36
+67
+68        <meta-data
+68-->[com.google.android.gms:play-services-basement:16.1.0] C:\Users\user\.gradle\caches\transforms-2\files-2.1\b577ca518a938d34aea368ef1fcc9e12\jetified-play-services-basement-16.1.0\AndroidManifest.xml:23:9-25:69
+69            android:name="com.google.android.gms.version"
+69-->[com.google.android.gms:play-services-basement:16.1.0] C:\Users\user\.gradle\caches\transforms-2\files-2.1\b577ca518a938d34aea368ef1fcc9e12\jetified-play-services-basement-16.1.0\AndroidManifest.xml:24:13-58
+70            android:value="@integer/google_play_services_version" />
+70-->[com.google.android.gms:play-services-basement:16.1.0] C:\Users\user\.gradle\caches\transforms-2\files-2.1\b577ca518a938d34aea368ef1fcc9e12\jetified-play-services-basement-16.1.0\AndroidManifest.xml:25:13-66
+71
+72        <provider
+72-->[androidx.lifecycle:lifecycle-process:2.1.0] C:\Users\user\.gradle\caches\transforms-2\files-2.1\b886a5609afeffb0537a64200fee01ee\lifecycle-process-2.1.0\AndroidManifest.xml:23:9-27:43
+73            android:name="androidx.lifecycle.ProcessLifecycleOwnerInitializer"
+73-->[androidx.lifecycle:lifecycle-process:2.1.0] C:\Users\user\.gradle\caches\transforms-2\files-2.1\b886a5609afeffb0537a64200fee01ee\lifecycle-process-2.1.0\AndroidManifest.xml:24:13-79
+74            android:authorities="com.tap.taskassigningandplanning.lifecycle-process"
+74-->[androidx.lifecycle:lifecycle-process:2.1.0] C:\Users\user\.gradle\caches\transforms-2\files-2.1\b886a5609afeffb0537a64200fee01ee\lifecycle-process-2.1.0\AndroidManifest.xml:25:13-69
+75            android:exported="false"
+75-->[androidx.lifecycle:lifecycle-process:2.1.0] C:\Users\user\.gradle\caches\transforms-2\files-2.1\b886a5609afeffb0537a64200fee01ee\lifecycle-process-2.1.0\AndroidManifest.xml:26:13-37
+76            android:multiprocess="true" />
+76-->[androidx.lifecycle:lifecycle-process:2.1.0] C:\Users\user\.gradle\caches\transforms-2\files-2.1\b886a5609afeffb0537a64200fee01ee\lifecycle-process-2.1.0\AndroidManifest.xml:27:13-40
+77    </application>
+78
+79</manifest>

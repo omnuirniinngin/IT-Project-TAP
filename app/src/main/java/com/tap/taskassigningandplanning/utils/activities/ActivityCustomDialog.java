@@ -38,6 +38,7 @@ public class ActivityCustomDialog extends DialogFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.dialog_add_activities, container, false);
+        getDialog().setTitle("Add activity");
 
         etActivityName = view.findViewById(R.id.etActivityName);
         etStartDate = view.findViewById(R.id.etStartDate);

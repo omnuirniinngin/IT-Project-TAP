@@ -1,69 +1,58 @@
 package com.tap.taskassigningandplanning;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.view.Menu;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.AppBarConfiguration;
+import androidx.navigation.ui.NavigationUI;
+
+import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
-    EditText etFullName, etEmail, etPassword;
-    String name, email, password;
-    Button btnContinue;
-    TextView tvHaveAccount;
-    int formsuccess = 0;
+    private AppBarConfiguration mAppBarConfiguration;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        etFullName = findViewById(R.id.etFullName);
-        etEmail = findViewById(R.id.etEmail);
-        etPassword = findViewById(R.id.etPassword);
-        btnContinue = findViewById(R.id.btnContinue);
-        btnContinue.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                name = etFullName.getText().toString();
-                email = etEmail.getText().toString();
-                password = etPassword.getText().toString();
-                formsuccess = 3;
-
-                if(name.equals("")){
-                    etFullName.setError("This field is required.",null);
-                    formsuccess--;
-                }
-                if(email.equals("")){
-                    etEmail.setError("This field is required.",null);
-                    formsuccess--;
-                }
-                if(password.equals("")){
-                    etPassword.setError("This field is required.", null);
-                    formsuccess--;
-                }
-                if(formsuccess == 3){
-                    Toast.makeText(getApplicationContext(), "Form Successfully Validated", Toast.LENGTH_SHORT).show();
-                }
+        setContentView(R.layout.activity_main_drawer);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
 
-            }
-        });
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        // Passing each menu ID as a set of Ids because each
+        // menu should be considered as top level destinations.
+        mAppBarConfiguration = new AppBarConfiguration.Builder(
+                R.id.nav_plan, R.id.nav_notification,
+                R.id.nav_profile, R.id.nav_setting)
+                .setDrawerLayout(drawer)
+                .build();
 
-
-        tvHaveAccount = findViewById(R.id.tvHaveAccount);
-        tvHaveAccount.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, Login.class);
-                startActivity(intent);
-            }
-        });
-
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment); //content_main
+        NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
+        NavigationUI.setupWithNavController(navigationView, navController);
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+        return NavigationUI.navigateUp(navController, mAppBarConfiguration)
+                || super.onSupportNavigateUp();
+    }
+
+
 }

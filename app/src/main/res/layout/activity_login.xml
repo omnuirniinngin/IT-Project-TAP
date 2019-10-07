@@ -10,159 +10,83 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:fillViewport="true"
+        android:orientation="vertical"
         android:padding="40dp"
         android:scrollbarThumbHorizontal="@null"
-        android:scrollbarThumbVertical="@null"
-        android:orientation="vertical">
+        android:scrollbarThumbVertical="@null">
 
         <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:id="@+id/ivLogo"
-            android:src="@drawable/logo"/>
-
-        <EditText
-            android:id="@+id/etEmail"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:ems="10"
-            android:inputType="textEmailAddress"
-            android:hint="Email"
-            android:background="@drawable/edit_text_border"
-            android:padding="15dp"
-            android:layout_marginTop="15dp"/>
-
-        <EditText
-            android:id="@+id/etPassword"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:ems="10"
-            android:inputType="textPassword"
-            android:hint="Password"
-            android:background="@drawable/edit_text_border"
-            android:padding="15dp"
-            android:layout_marginTop="15dp"/>
-
-        <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Login"
-            android:background="@drawable/button_border"
+            android:src="@drawable/logo" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/etEmailLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/etEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/edit_text_border"
+                android:drawableLeft="@drawable/ic_email"
+                android:ems="10"
+                android:hint="Email"
+                android:inputType="textEmailAddress"
+                android:padding="15dp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/etPasswordLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:passwordToggleEnabled="true">
+
+            <EditText
+                android:id="@+id/etPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/edit_text_border"
+                android:drawableStart="@drawable/ic_password"
+                android:drawableLeft="@drawable/ic_password"
+                android:ems="10"
+                android:hint="Password"
+                android:inputType="textPassword"
+                android:padding="15dp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <Button
             android:id="@+id/btnLogin"
-            android:textColor="#FFFFFF"
-            android:layout_marginBottom="15dp"
-            android:layout_marginTop="80dp"
-            />
-
-        <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Create an account"
+            android:layout_marginTop="80dp"
+            android:layout_marginBottom="15dp"
             android:background="@drawable/button_border"
-            android:textColor="#FFFFFF"
-            android:id="@+id/btnCreateAccount" />
+            android:text="Login"
+            android:textColor="#FFFFFF" />
+
+        <Button
+            android:id="@+id/btnCreateAccount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_border"
+            android:text="Create an account"
+            android:textColor="#FFFFFF" />
 
     </LinearLayout>
 
-
-
-    <!--<LinearLayout
+    <androidx.core.widget.ContentLoadingProgressBar
+        android:id="@+id/progressBar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:padding="40dp"
-        android:gravity="center">
+        android:layout_height="wrap_content"
+        android:visibility="invisible" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:gravity="top">
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/ivLogo"
-                android:src="@drawable/logo"/>
-
-        </LinearLayout>
-
-    </LinearLayout>-->
-
-    <!--<LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="40dp"
-        android:gravity="center">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:gravity="center">
-
-
-            <EditText
-                android:id="@+id/etUsername"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:hint="Username"
-                android:background="@drawable/edit_text_border"
-                android:padding="10dp"
-                android:layout_marginTop="15dp"/>
-
-            <EditText
-                android:id="@+id/editText6"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:ems="10"
-                android:inputType="textPassword"
-                android:hint="Password"
-                android:background="@drawable/edit_text_border"
-                android:padding="10dp"
-                android:layout_marginTop="15dp"/>
-
-        </LinearLayout>
-
-    </LinearLayout>-->
-
-    <!--<LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="40dp"
-        android:gravity="bottom">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center">
-
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Login"
-                android:background="@drawable/button_border"
-                android:id="@+id/btnLogin"
-                android:textColor="#FFFFFF"
-                android:layout_marginBottom="15dp"
-                />
-
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Create an account"
-                android:background="@drawable/button_border"
-                android:textColor="#FFFFFF"
-                android:id="@+id/btnRegister" />
-
-        </LinearLayout>
-
-
-    </LinearLayout>-->
 
 </ScrollView>
