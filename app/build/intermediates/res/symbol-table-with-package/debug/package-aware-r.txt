@@ -1190,6 +1190,7 @@ id btnContinue
 id btnCreate
 id btnCreateAccount
 id btnLogin
+id btnSignOut
 id buttonPanel
 id cancel_action
 id center

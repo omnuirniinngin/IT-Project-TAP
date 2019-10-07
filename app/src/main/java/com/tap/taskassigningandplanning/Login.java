@@ -3,6 +3,7 @@ package com.tap.taskassigningandplanning;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -24,7 +25,7 @@ public class Login extends AppCompatActivity {
     EditText etEmail, etPassword;
     String email, password;
     Button btnLogin, btnCreateAccount;
-    ProgressBar progressBar;
+    ProgressDialog progressDialog;
     int formsuccess = 0;
 
     private FirebaseAuth mAuth;
@@ -35,7 +36,6 @@ public class Login extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         mAuth = FirebaseAuth.getInstance();
-        progressBar = findViewById(R.id.progressBar);
         etEmail = findViewById(R.id.etEmail);
         etPassword = findViewById(R.id.etPassword);
         btnLogin = findViewById(R.id.btnLogin);
@@ -55,6 +55,9 @@ public class Login extends AppCompatActivity {
                     formsuccess--;
                 }
                 if(formsuccess == 2){
+
+                    progressDialog = ProgressDialog.show(Login.this, "", "Logging in...", true);
+
                     mAuth.signInWithEmailAndPassword(email, password)
                             .addOnCompleteListener(Login.this, new OnCompleteListener<AuthResult>() {
                                 @Override
@@ -63,12 +66,17 @@ public class Login extends AppCompatActivity {
                                         // Sign in success, update UI with the signed-in user's information
                                         Log.d(TAG, "signInWithEmail:success");
                                         FirebaseUser user = mAuth.getCurrentUser();
-                                        startActivity(new Intent (getApplicationContext(), MainActivity.class));
+                                        Intent intent = new Intent (Login.this, MainActivity.class);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                        startActivity(intent);
+
+                                        //set a your boolean to false
                                     } else {
                                         // If sign in fails, display a message to the user.
                                         Log.w(TAG, "signInWithEmail:failure", task.getException());
-                                        Toast.makeText(Login.this, "Authentication failed.",
+                                        Toast.makeText(Login.this, "Please check your email and password.",
                                                 Toast.LENGTH_SHORT).show();
+                                        progressDialog.dismiss();
                                     }
 
                                     // ...
@@ -87,6 +95,9 @@ public class Login extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Login.this, Registration.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK
+                        | Intent.FLAG_ACTIVITY_CLEAR_TOP
+                        | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }
         });

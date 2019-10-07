@@ -3,6 +3,7 @@ package com.tap.taskassigningandplanning;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -26,8 +27,30 @@ public class Registration extends AppCompatActivity {
     String name, email, password;
     Button btnContinue;
     TextView tvHaveAccount;
+    ProgressDialog progressDialog;
+    FirebaseUser user;
+
     int formsuccess = 0;
     private FirebaseAuth mAuth;
+    FirebaseAuth.AuthStateListener mAuthStateListener;
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mAuth.addAuthStateListener(mAuthStateListener);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mAuth.addAuthStateListener(mAuthStateListener);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mAuth.addAuthStateListener(mAuthStateListener);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +63,18 @@ public class Registration extends AppCompatActivity {
         etEmail = findViewById(R.id.etEmail);
         etPassword = findViewById(R.id.etPassword);
         btnContinue = findViewById(R.id.btnContinue);
+
+        mAuthStateListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                user = FirebaseAuth.getInstance().getCurrentUser();
+                if(user!=null){
+                    Intent intent = new Intent(Registration.this, MainActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+            }
+        };
 
         btnContinue.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,18 +97,22 @@ public class Registration extends AppCompatActivity {
                     formsuccess--;
                 }
                 if(formsuccess == 3){
+
+                    progressDialog = ProgressDialog.show(Registration.this, "", "Please wait a moment...", true);
+
                     mAuth.createUserWithEmailAndPassword(email, password)
                             .addOnCompleteListener(Registration.this, new OnCompleteListener<AuthResult>() {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if(task.isSuccessful()){
                                         Log.d(TAG, "onComplete: success!");
-                                        FirebaseUser user = mAuth.getCurrentUser();
+                                        user = mAuth.getCurrentUser();
                                         startActivity(new Intent (getApplicationContext(), Login.class));
                                     }else {
                                         Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                                        Toast.makeText(Registration.this, "Authentication failed.",
+                                        Toast.makeText(Registration.this, "User already exist.",
                                                 Toast.LENGTH_SHORT).show();
+                                        progressDialog.dismiss();
                                     }
                                 }
                             });
@@ -91,6 +130,7 @@ public class Registration extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(Registration.this, Login.class);
                 startActivity(intent);
+
             }
         });
 
