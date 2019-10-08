@@ -1,9 +1,11 @@
 package com.tap.taskassigningandplanning;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,6 +18,8 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.amulyakhare.textdrawable.TextDrawable;
+import com.amulyakhare.textdrawable.util.ColorGenerator;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -35,6 +39,9 @@ public class MainActivity extends AppCompatActivity {
     private DatabaseReference databaseReference;
     private String userID;
     private TextView tvName, tvEmail;
+    private ImageView imageView;
+    private TextDrawable textDrawable;
+    private ColorGenerator generator;
 
     @Override
     protected void onStart() {
@@ -65,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
         FirebaseUser firebaseUser = mAuth.getCurrentUser();
         userID = firebaseUser.getUid();
 
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        final DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
@@ -102,6 +109,13 @@ public class MainActivity extends AppCompatActivity {
         //Connect the views of navigation bar
         tvName = navigationView.getHeaderView(0).findViewById(R.id.tvName);
         tvEmail = navigationView.getHeaderView(0).findViewById(R.id.tvEmail);
+
+        generator = ColorGenerator.MATERIAL;
+
+        imageView = navigationView.getHeaderView(0).findViewById(R.id.imageView);
+
+
+
         //Use you DB reference object and add this method to access realtime data
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -109,6 +123,8 @@ public class MainActivity extends AppCompatActivity {
                 //Fetch values from you database child and set it to the specific view object.
                 tvName.setText(dataSnapshot.child("name").getValue().toString());
                 tvEmail.setText(dataSnapshot.child("email").getValue().toString());
+                textDrawable = TextDrawable.builder().buildRoundRect(String.valueOf(dataSnapshot.child("name").getValue().toString().charAt(0)), generator.getRandomColor(), 8);
+                imageView.setImageDrawable(textDrawable);
             }
 
             @Override
