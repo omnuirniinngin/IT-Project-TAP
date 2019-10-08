@@ -182,6 +182,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
                             Intent intent = new Intent (Login.this, MainActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(intent);
+                            finish();
 
                             //set a your boolean to false
                         } else {

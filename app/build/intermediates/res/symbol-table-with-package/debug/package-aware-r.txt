@@ -1372,7 +1372,6 @@ id text2
 id textSpacerNoButtons
 id textSpacerNoTitle
 id textStart
-id textView
 id text_chart
 id text_input_password_toggle
 id text_notification
@@ -1399,7 +1398,9 @@ id transition_position
 id transition_scene_layoutid_cache
 id transition_transform
 id tvCreateAccount
+id tvEmail
 id tvHaveAccount
+id tvName
 id uniform
 id unlabeled
 id up

@@ -237,7 +237,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()) {
-                                        startActivity(new Intent (getApplicationContext(), Login.class));
+                                        startActivity(new Intent (getApplicationContext(), MainActivity.class));
                                         //Toast.makeText(Registration.this, getString(R.string.registration_success), Toast.LENGTH_LONG).show();
                                     } else {
                                         //display a failure message
