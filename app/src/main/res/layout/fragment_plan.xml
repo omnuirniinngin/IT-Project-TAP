@@ -28,7 +28,7 @@
             android:textSize="40sp" />
 
         <EditText
-            android:id="@+id/etPlanDescription"
+            android:id="@+id/etPlanTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
@@ -73,7 +73,8 @@
                 android:text="Create"
                 android:textColor="#FFFFFF"
                 android:background="@drawable/button_border"
-                android:layout_margin="5dp"/>
+                android:layout_margin="5dp"
+                android:onClick="savePlan"/>
 
             <Button
                 android:id="@+id/btnCancel"

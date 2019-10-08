@@ -1235,7 +1235,7 @@ id etFullNameLayout
 id etNotes
 id etPassword
 id etPasswordLayout
-id etPlanDescription
+id etPlanTitle
 id etStartDate
 id exitUntilCollapsed
 id expand_activities_button
@@ -1312,6 +1312,7 @@ id pin
 id progress_circular
 id progress_horizontal
 id radio
+id recent
 id right
 id right_icon
 id right_side
@@ -1604,8 +1605,11 @@ string google_storage_bucket
 string hide_bottom_view_on_scroll_behavior
 string input_error_email
 string input_error_email_invalid
+string input_error_end_date
 string input_error_name
 string input_error_password
+string input_error_plan
+string input_error_start_date
 string menu_notification
 string menu_plan
 string menu_profile

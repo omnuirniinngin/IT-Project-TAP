@@ -1,5 +1,6 @@
 package com.tap.taskassigningandplanning;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -10,8 +11,12 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class NavigationBottomActivity extends AppCompatActivity {
+
+    private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthStateListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,4 +36,20 @@ public class NavigationBottomActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navView, navController);
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if(mAuth.getCurrentUser() == null){
+            finish();
+            startActivity(new Intent(this, Login.class));
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if(mAuthStateListener!=null){
+            mAuth.removeAuthStateListener(mAuthStateListener);
+        }
+    }
 }
