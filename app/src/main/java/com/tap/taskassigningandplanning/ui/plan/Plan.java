@@ -1,25 +1,34 @@
 package com.tap.taskassigningandplanning.ui.plan;
 
+import com.google.firebase.database.IgnoreExtraProperties;
+
+@IgnoreExtraProperties
 public class Plan {
-    public String name, dateStart, dateEnd, id;
+    private String title;
+    private String dateStart;
+    private String dateEnd;
+    private String plan_id;
+    private String user_id;
+
 
     public Plan(){
 
     }
 
-    public Plan(String name, String email, String password) {
-        this.name = name;
-        this.dateStart = email;
-        this.dateEnd = password;
+    public Plan(String title, String dateStart, String dateEnd, String plan_id, String user_id) {
+        this.title = title;
+        this.dateStart = dateStart;
+        this.dateEnd = dateEnd;
+        this.plan_id = plan_id;
+        this.user_id = user_id;
     }
 
-
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getDateStart() {
@@ -38,11 +47,19 @@ public class Plan {
         this.dateEnd = dateEnd;
     }
 
-    public String getId() {
-        return id;
+    public String getPlan_id() {
+        return plan_id;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setPlan_id(String plan_id) {
+        this.plan_id = plan_id;
+    }
+
+    public String getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(String user_id) {
+        this.user_id = user_id;
     }
 }

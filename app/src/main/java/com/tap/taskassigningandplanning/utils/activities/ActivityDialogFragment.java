@@ -11,7 +11,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.tap.taskassigningandplanning.R;
 
 public class ActivityDialogFragment extends Fragment implements ActivityCustomDialog.fabSelected{
@@ -20,6 +27,8 @@ public class ActivityDialogFragment extends Fragment implements ActivityCustomDi
     private EditText etActivityName;
 
     private FloatingActionButton fab;
+
+    View mParentLayout;
 
     @Nullable
     @Override
@@ -48,5 +57,9 @@ public class ActivityDialogFragment extends Fragment implements ActivityCustomDi
         Log.d(TAG, "sendInput: Found incoming input" + input);
 
         etActivityName.setText(input);
+    }
+
+    private void makeSnackBarMessage(String message){
+        Snackbar.make(mParentLayout, message, Snackbar.LENGTH_SHORT).show();
     }
 }

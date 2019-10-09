@@ -132,4 +132,6 @@ public class ActivityCustomDialog extends DialogFragment {
             Log.e(TAG, "onAttach: ClassCastException: " + e.getMessage());
         }
     }
+
+
 }

@@ -17,12 +17,19 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.tap.taskassigningandplanning.NavigationBottomActivity;
 import com.tap.taskassigningandplanning.R;
+import com.tap.taskassigningandplanning.utils.activities.Activities;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -37,6 +44,9 @@ public class PlanFragment extends Fragment implements View.OnClickListener{
     private FirebaseAuth mAuth;
     private ProgressDialog progressDialog;
 
+    View mParentLayout;
+
+    private FirebaseFirestore db;
 
     final Calendar myCalendar = Calendar.getInstance();
     DatePickerDialog.OnDateSetListener dateSetListener;
@@ -54,6 +64,7 @@ public class PlanFragment extends Fragment implements View.OnClickListener{
         btnCancel = view.findViewById(R.id.btnCancel);
 
         mAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
 
         btnCreate.setOnClickListener(this);
         btnCancel.setOnClickListener(this);
@@ -115,58 +126,88 @@ public class PlanFragment extends Fragment implements View.OnClickListener{
         return view;
     }
 
-    private void createPlan(){
-        final String name = etPlanTitle.getText().toString().trim();
-        final String dateStart = etStartDate.getText().toString().trim();
-        final String dateEnd = etEndDate.getText().toString().trim();
+    private boolean hasValidationErrors(String title, String dateStart, String dateEnd){
 
-        if (name.isEmpty()) {
+        if (title.isEmpty()) {
             etPlanTitle.setError(getString(R.string.input_error_plan), null);
             etPlanTitle.requestFocus();
-            return;
+            return true;
         }
 
         if (dateStart.isEmpty()) {
             etStartDate.setError(getString(R.string.input_error_start_date), null);
             etStartDate.requestFocus();
-            return;
+            return true;
         }
 
         if (dateEnd.isEmpty()) {
             etEndDate.setError(getString(R.string.input_error_end_date), null);
             etEndDate.requestFocus();
-            return;
+            return true;
         }
-
-        Plan plan = new Plan(
-                name,
-                dateStart,
-                dateEnd
-        );
-
-        progressDialog = ProgressDialog.show(getActivity(), "", "Please wait a moment...", true);
-
-
-        FirebaseDatabase.getInstance().getReference("Plan")
-                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                .setValue(plan).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if (task.isSuccessful()) {
-                    Intent intent = new Intent (getContext(), NavigationBottomActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    startActivity(intent);
-                } else {
-                    //display a failure message
-                    Toast.makeText(getContext(), "Plan already exist.",
-                            Toast.LENGTH_SHORT).show();
-                    progressDialog.dismiss();
-                }
-            }
-        });
+        return false;
     }
 
+    private void createPlan() {
+        String title = etPlanTitle.getText().toString().trim();
+        String dateStart = etStartDate.getText().toString().trim();
+        String dateEnd = etEndDate.getText().toString().trim();
 
+
+        if(!hasValidationErrors(title, dateStart, dateEnd)){
+
+            //CollectionReference dbPlan = db.collection("Plan");
+            DocumentReference newPlanRef = db.collection("Plan").document();
+
+            String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+            Plan plan = new Plan();
+            plan.setTitle(title);
+            plan.setDateStart(dateStart);
+            plan.setDateEnd(dateEnd);
+            plan.setPlan_id(newPlanRef.getId());
+            plan.setUser_id(userId);
+
+//            Plan plan = new Plan(
+//                    title,
+//                    dateStart,
+//                    dateEnd,
+//                    plan_id,
+//                    user_id
+//            );
+
+            newPlanRef.set(plan).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if(task.isSuccessful()){
+                        Intent intent = new Intent(getContext(), NavigationBottomActivity.class);
+                        startActivity(intent);
+                    }else{
+                        makeSnackBarMessage("Failed. Check log.");
+                    }
+                }
+            });
+//            dbPlan.add(plan)
+//                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+//                        @Override
+//                        public void onSuccess(DocumentReference documentReference) {
+//                            Intent intent = new Intent(getContext(), NavigationBottomActivity.class);
+//                            startActivity(intent);
+//                        }
+//                    })
+//                    .addOnFailureListener(new OnFailureListener() {
+//                        @Override
+//                        public void onFailure(@NonNull Exception e) {
+//                            Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+//                        }
+//                    });
+
+        }
+    }
+
+    private void makeSnackBarMessage(String message){
+        Snackbar.make(mParentLayout, message, Snackbar.LENGTH_SHORT).show();
+    }
 
     @Override
     public void onClick(View view) {
@@ -176,6 +217,7 @@ public class PlanFragment extends Fragment implements View.OnClickListener{
                 break;
             case R.id.btnCancel:
                 getActivity().finish();
+                break;
         }
     }
 }

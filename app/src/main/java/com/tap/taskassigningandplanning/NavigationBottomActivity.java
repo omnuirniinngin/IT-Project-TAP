@@ -15,8 +15,6 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class NavigationBottomActivity extends AppCompatActivity {
 
-    private FirebaseAuth mAuth;
-    private FirebaseAuth.AuthStateListener mAuthStateListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,22 +32,5 @@ public class NavigationBottomActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        if(mAuth.getCurrentUser() == null){
-            finish();
-            startActivity(new Intent(this, Login.class));
-        }
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        if(mAuthStateListener!=null){
-            mAuth.removeAuthStateListener(mAuthStateListener);
-        }
     }
 }
