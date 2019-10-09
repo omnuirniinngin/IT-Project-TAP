@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "550618950856",
+    "firebase_url": "https://task-assigning-and-planning.firebaseio.com",
+    "project_id": "task-assigning-and-planning",
+    "storage_bucket": "task-assigning-and-planning.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:550618950856:android:2f496139ab8abe298b49fd",
+        "android_client_info": {
+          "package_name": "com.tap.taskassigningandplanning"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "550618950856-4aa8s7bin1vn4lkdurr40qjm3f9077j7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tap.taskassigningandplanning",
+            "certificate_hash": "39ff0f2bd8f07c7a8d06efe2ea443f45b1280957"
+          }
+        },
+        {
+          "client_id": "550618950856-e0e0ah7die9e6a4gkm3em78a5mh29gec.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBl3tqo2_buDpA95Ryth01E2FSyv1kg5Yg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "550618950856-e0e0ah7die9e6a4gkm3em78a5mh29gec.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

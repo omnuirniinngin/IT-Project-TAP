@@ -10,43 +10,43 @@ public class Activities {
     private String dateEnd;
     private @ServerTimestamp
     Date timestamp;
-    private String plan_id;
+    private String activity_id;
     private String user_id;
 
     public Activities(){
 
     }
 
-    public Activities(String title, String dateStart, String dateEnd, Date timestamp, String plan_id, String user_id) {
+    public Activities(String title, String dateStart, String dateEnd, Date timestamp, String activity_id, String user_id) {
         this.title = title;
         this.dateStart = dateStart;
         this.dateEnd = dateEnd;
         this.timestamp = timestamp;
-        this.plan_id = plan_id;
+        this.activity_id = activity_id;
         this.user_id = user_id;
     }
 
-    public String getTitle() {
-        return title;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public String getDateStart() {
-        return dateStart;
+    public void setDateStart(String dateStart) {
+        this.dateStart = dateStart;
     }
 
-    public String getDateEnd() {
-        return dateEnd;
+    public void setDateEnd(String dateEnd) {
+        this.dateEnd = dateEnd;
     }
 
-    public Date getTimestamp() {
-        return timestamp;
+    public void setTimestamp(Date timestamp) {
+        this.timestamp = timestamp;
     }
 
-    public String getPlan_id() {
-        return plan_id;
+    public void setActivity_id(String plan_id) {
+        this.activity_id = plan_id;
     }
 
-    public String getUser_id() {
-        return user_id;
+    public void setUser_id(String user_id) {
+        this.user_id = user_id;
     }
 }

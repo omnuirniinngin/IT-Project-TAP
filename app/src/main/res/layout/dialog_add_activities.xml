@@ -37,7 +37,8 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/dialog_assign_activity"/>
+            android:hint="@string/dialog_assign_activity"
+            android:id="@+id/etAssignMember"/>
 
         <LinearLayout
             android:layout_width="match_parent"

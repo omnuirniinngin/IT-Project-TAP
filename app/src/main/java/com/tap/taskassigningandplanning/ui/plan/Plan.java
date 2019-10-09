@@ -1,6 +1,8 @@
 package com.tap.taskassigningandplanning.ui.plan;
 
 import com.google.firebase.database.IgnoreExtraProperties;
+import com.google.firebase.firestore.ServerTimestamp;
+import com.google.type.Date;
 
 @IgnoreExtraProperties
 public class Plan {
@@ -9,13 +11,15 @@ public class Plan {
     private String dateEnd;
     private String plan_id;
     private String user_id;
+    private @ServerTimestamp
+    Date timestamp;
 
 
     public Plan(){
 
     }
 
-    public Plan(String title, String dateStart, String dateEnd, String plan_id, String user_id) {
+    public Plan(String title, String dateStart, String dateEnd, String plan_id, String user_id, Date timestamp) {
         this.title = title;
         this.dateStart = dateStart;
         this.dateEnd = dateEnd;

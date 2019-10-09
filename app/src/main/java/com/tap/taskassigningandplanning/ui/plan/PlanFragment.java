@@ -38,14 +38,16 @@ import java.util.Locale;
 public class PlanFragment extends Fragment implements View.OnClickListener{
     private static final String TAG = "PlanFragment";
 
+    //initialization of functions
     private EditText etPlanTitle, etStartDate, etEndDate;
     private Button btnCreate, btnCancel;
     private DatabaseReference databaseReference;
     private FirebaseAuth mAuth;
     private ProgressDialog progressDialog;
 
+    //val
     View mParentLayout;
-
+    //firebase
     private FirebaseFirestore db;
 
     final Calendar myCalendar = Calendar.getInstance();
@@ -62,6 +64,7 @@ public class PlanFragment extends Fragment implements View.OnClickListener{
         etEndDate = view.findViewById(R.id.etEndDate);
         btnCreate = view.findViewById(R.id.btnCreate);
         btnCancel = view.findViewById(R.id.btnCancel);
+
 
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
@@ -213,6 +216,7 @@ public class PlanFragment extends Fragment implements View.OnClickListener{
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.btnCreate:
+                progressDialog = ProgressDialog.show(getContext(), "", "Please wait a moment...", true);
                 createPlan();
                 break;
             case R.id.btnCancel:
