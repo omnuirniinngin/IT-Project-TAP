@@ -30,6 +30,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.tap.taskassigningandplanning.NavigationBottomActivity;
 import com.tap.taskassigningandplanning.R;
 import com.tap.taskassigningandplanning.utils.activities.Activities;
+import com.tap.taskassigningandplanning.utils.activities.ActivityCustomDialog;
+import com.tap.taskassigningandplanning.utils.activities.ActivityFragment;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -41,14 +43,15 @@ public class PlanFragment extends Fragment implements View.OnClickListener{
     //initialization of functions
     private EditText etPlanTitle, etStartDate, etEndDate;
     private Button btnCreate, btnCancel;
-    private DatabaseReference databaseReference;
-    private FirebaseAuth mAuth;
+
     private ProgressDialog progressDialog;
 
     //val
     View mParentLayout;
     //firebase
     private FirebaseFirestore db;
+    private DatabaseReference databaseReference;
+    private FirebaseAuth mAuth;
 
     final Calendar myCalendar = Calendar.getInstance();
     DatePickerDialog.OnDateSetListener dateSetListener;
@@ -156,15 +159,14 @@ public class PlanFragment extends Fragment implements View.OnClickListener{
         String dateStart = etStartDate.getText().toString().trim();
         String dateEnd = etEndDate.getText().toString().trim();
 
-
         if(!hasValidationErrors(title, dateStart, dateEnd)){
 
             //CollectionReference dbPlan = db.collection("Plan");
-            DocumentReference newPlanRef = db.collection("Plan").document();
+            final DocumentReference newPlanRef = db.collection("Plan").document();
 
             String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-            Plan plan = new Plan();
+            final Plan plan = new Plan();
             plan.setTitle(title);
             plan.setDateStart(dateStart);
             plan.setDateEnd(dateEnd);
@@ -183,7 +185,18 @@ public class PlanFragment extends Fragment implements View.OnClickListener{
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if(task.isSuccessful()){
+                        String myId = newPlanRef.getId();
+
+                        //Sending plan id to another fragment
+//                        Bundle bundle = new Bundle();
+//                        bundle.putString("PLAN_ID", myId);
+//
+//                        ActivityCustomDialog activityCustomDialog = new ActivityCustomDialog();
+//                        activityCustomDialog.setArguments(bundle);
+//                        activityCustomDialog.show(getFragmentManager(), "TAG");
+
                         Intent intent = new Intent(getContext(), NavigationBottomActivity.class);
+                        intent.putExtra("plan_id", myId);
                         startActivity(intent);
                     }else{
                         makeSnackBarMessage("Failed. Check log.");

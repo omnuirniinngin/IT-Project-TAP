@@ -15,11 +15,16 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class NavigationBottomActivity extends AppCompatActivity {
 
+    private String plan_id;
+    private Bundle id_result;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_bottom_navigation);
+
+        Intent intent = getIntent();
+        plan_id = intent.getExtras().getString("plan_id");
 
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
@@ -33,4 +38,11 @@ public class NavigationBottomActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
     }
+
+    public Bundle getMyId(){
+        Bundle bundle = new Bundle();
+        bundle.putString("plan_id", plan_id);
+        return bundle;
+    }
+
 }

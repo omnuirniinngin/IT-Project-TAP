@@ -50,7 +50,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:layout_marginRight="15dp"
-        android:layout_marginBottom="70dp"
+        android:layout_marginBottom="60dp"
         app:backgroundTint="#2699FB"
         app:srcCompat="@drawable/ic_add_activity" />
 

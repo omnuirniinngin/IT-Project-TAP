@@ -50,6 +50,9 @@
     <string name="input_error_start_date">When is your plan start?</string>
     <string name="input_error_end_date">When will it end?</string>
 
+    <!-- Dialog/Fragment names -->
+    <string name="dialog_new_note">New Note Dialog</string>
+
 
     
 

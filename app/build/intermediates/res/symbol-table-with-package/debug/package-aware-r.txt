@@ -1219,6 +1219,7 @@ id end
 id enterAlways
 id enterAlwaysCollapsed
 id etActivityName
+id etAssignMember
 id etEmail
 id etEmailLayout
 id etEndDate
@@ -1573,6 +1574,7 @@ string dialog_assign_activity
 string dialog_button_add
 string dialog_button_cancel
 string dialog_end_date
+string dialog_new_note
 string dialog_pick_color
 string dialog_start_date
 string fab_transformation_scrim_behavior
