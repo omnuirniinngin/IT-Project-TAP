@@ -2,6 +2,7 @@ package com.tap.taskassigningandplanning;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -43,6 +44,14 @@ public class NavigationBottomActivity extends AppCompatActivity {
         Bundle bundle = new Bundle();
         bundle.putString("plan_id", plan_id);
         return bundle;
+    }
+
+    public boolean onKeyDown(int keyCode, KeyEvent event){
+        if(keyCode == KeyEvent.KEYCODE_BACK){
+            startActivity(new Intent(this, MainActivity.class));
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
 }

@@ -37,14 +37,10 @@ dependencies {
     // Add the SDKs for any other Firebase products you want to use in your app
     // For example, to use Firebase Authentication and Cloud Firestore
     implementation 'com.google.firebase:firebase-auth:19.1.0'
-    implementation 'com.google.firebase:firebase-firestore:21.1.1'
+    implementation 'com.firebaseui:firebase-ui-firestore:6.0.2'
     implementation 'com.google.firebase:firebase-database:19.1.0'
 
-//    implementation 'com.google.firebase:firebase-auth:16.0.5'
-//    implementation 'com.google.firebase:firebase-database:16.0.4'
-//    implementation 'com.google.firebase:firebase-core:16.0.4'
 
-//    implementation 'com.google.firebase:firebase-firestore:21.1.1'
     implementation 'com.android.support:multidex:1.0.3'
     testImplementation 'junit:junit:4.12'
 
@@ -53,6 +49,10 @@ dependencies {
 
     //Add Library
     implementation 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
+
+    //Dependencies for design
+    implementation 'androidx.recyclerview:recyclerview:1.0.0'
+    implementation 'androidx.cardview:cardview:1.0.0'
 
 
 }

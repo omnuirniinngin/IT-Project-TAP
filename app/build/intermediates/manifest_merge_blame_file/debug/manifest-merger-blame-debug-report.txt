@@ -15,10 +15,10 @@
 11-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:5:22-64
 12
 13    <!-- Although the *SdkVersion is captured in gradle build files, this is required for non gradle builds -->
-14    <!-- <uses-sdk android:minSdkVersion="14" /> -->
+14    <!-- <uses-sdk android:minSdkVersion="14"/> -->
 15    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-15-->[com.google.firebase:firebase-firestore:21.1.1] C:\Users\user\.gradle\caches\transforms-2\files-2.1\0508d2679f74ce0e0d2cf036f4fba707\jetified-firebase-firestore-21.1.1\AndroidManifest.xml:13:5-79
-15-->[com.google.firebase:firebase-firestore:21.1.1] C:\Users\user\.gradle\caches\transforms-2\files-2.1\0508d2679f74ce0e0d2cf036f4fba707\jetified-firebase-firestore-21.1.1\AndroidManifest.xml:13:22-76
+15-->[com.google.firebase:firebase-database:19.1.0] C:\Users\user\.gradle\caches\transforms-2\files-2.1\f837c81b23f7a73b7fb86770c03135ba\firebase-database-19.1.0\AndroidManifest.xml:25:5-79
+15-->[com.google.firebase:firebase-database:19.1.0] C:\Users\user\.gradle\caches\transforms-2\files-2.1\f837c81b23f7a73b7fb86770c03135ba\firebase-database-19.1.0\AndroidManifest.xml:25:22-76
 16    <uses-permission android:name="android.permission.WAKE_LOCK" />
 16-->[com.google.android.gms:play-services-measurement:17.2.0] C:\Users\user\.gradle\caches\transforms-2\files-2.1\4296c3544ebd20ca193b27d8d8fb4c75\play-services-measurement-17.2.0\AndroidManifest.xml:25:5-68
 16-->[com.google.android.gms:play-services-measurement:17.2.0] C:\Users\user\.gradle\caches\transforms-2\files-2.1\4296c3544ebd20ca193b27d8d8fb4c75\play-services-measurement-17.2.0\AndroidManifest.xml:25:22-65
@@ -113,29 +113,29 @@
 63                android:value="com.google.firebase.components.ComponentRegistrar" />
 63-->[com.google.firebase:firebase-auth:19.1.0] C:\Users\user\.gradle\caches\transforms-2\files-2.1\82da616aad7bc43a3b66aec0413007e5\firebase-auth-19.1.0\AndroidManifest.xml:38:17-82
 64            <meta-data
-64-->[com.google.firebase:firebase-firestore:21.1.1] C:\Users\user\.gradle\caches\transforms-2\files-2.1\0508d2679f74ce0e0d2cf036f4fba707\jetified-firebase-firestore-21.1.1\AndroidManifest.xml:20:13-22:85
-65                android:name="com.google.firebase.components:com.google.firebase.firestore.FirestoreRegistrar"
-65-->[com.google.firebase:firebase-firestore:21.1.1] C:\Users\user\.gradle\caches\transforms-2\files-2.1\0508d2679f74ce0e0d2cf036f4fba707\jetified-firebase-firestore-21.1.1\AndroidManifest.xml:21:17-111
+64-->[com.google.firebase:firebase-database:19.1.0] C:\Users\user\.gradle\caches\transforms-2\files-2.1\f837c81b23f7a73b7fb86770c03135ba\firebase-database-19.1.0\AndroidManifest.xml:32:13-34:85
+65                android:name="com.google.firebase.components:com.google.firebase.database.DatabaseRegistrar"
+65-->[com.google.firebase:firebase-database:19.1.0] C:\Users\user\.gradle\caches\transforms-2\files-2.1\f837c81b23f7a73b7fb86770c03135ba\firebase-database-19.1.0\AndroidManifest.xml:33:17-109
 66                android:value="com.google.firebase.components.ComponentRegistrar" />
-66-->[com.google.firebase:firebase-firestore:21.1.1] C:\Users\user\.gradle\caches\transforms-2\files-2.1\0508d2679f74ce0e0d2cf036f4fba707\jetified-firebase-firestore-21.1.1\AndroidManifest.xml:22:17-82
+66-->[com.google.firebase:firebase-database:19.1.0] C:\Users\user\.gradle\caches\transforms-2\files-2.1\f837c81b23f7a73b7fb86770c03135ba\firebase-database-19.1.0\AndroidManifest.xml:34:17-82
 67            <meta-data
-67-->[com.google.firebase:firebase-database:19.1.0] C:\Users\user\.gradle\caches\transforms-2\files-2.1\f837c81b23f7a73b7fb86770c03135ba\firebase-database-19.1.0\AndroidManifest.xml:32:13-34:85
-68                android:name="com.google.firebase.components:com.google.firebase.database.DatabaseRegistrar"
-68-->[com.google.firebase:firebase-database:19.1.0] C:\Users\user\.gradle\caches\transforms-2\files-2.1\f837c81b23f7a73b7fb86770c03135ba\firebase-database-19.1.0\AndroidManifest.xml:33:17-109
+67-->[com.google.android.gms:play-services-measurement-api:17.2.0] C:\Users\user\.gradle\caches\transforms-2\files-2.1\6f22c5dfc97b21940a06949add481167\play-services-measurement-api-17.2.0\AndroidManifest.xml:30:13-32:85
+68                android:name="com.google.firebase.components:com.google.firebase.analytics.connector.internal.AnalyticsConnectorRegistrar"
+68-->[com.google.android.gms:play-services-measurement-api:17.2.0] C:\Users\user\.gradle\caches\transforms-2\files-2.1\6f22c5dfc97b21940a06949add481167\play-services-measurement-api-17.2.0\AndroidManifest.xml:31:17-139
 69                android:value="com.google.firebase.components.ComponentRegistrar" />
-69-->[com.google.firebase:firebase-database:19.1.0] C:\Users\user\.gradle\caches\transforms-2\files-2.1\f837c81b23f7a73b7fb86770c03135ba\firebase-database-19.1.0\AndroidManifest.xml:34:17-82
+69-->[com.google.android.gms:play-services-measurement-api:17.2.0] C:\Users\user\.gradle\caches\transforms-2\files-2.1\6f22c5dfc97b21940a06949add481167\play-services-measurement-api-17.2.0\AndroidManifest.xml:32:17-82
 70            <meta-data
-70-->[com.google.android.gms:play-services-measurement-api:17.2.0] C:\Users\user\.gradle\caches\transforms-2\files-2.1\6f22c5dfc97b21940a06949add481167\play-services-measurement-api-17.2.0\AndroidManifest.xml:30:13-32:85
-71                android:name="com.google.firebase.components:com.google.firebase.analytics.connector.internal.AnalyticsConnectorRegistrar"
-71-->[com.google.android.gms:play-services-measurement-api:17.2.0] C:\Users\user\.gradle\caches\transforms-2\files-2.1\6f22c5dfc97b21940a06949add481167\play-services-measurement-api-17.2.0\AndroidManifest.xml:31:17-139
+70-->[com.google.firebase:firebase-iid:19.0.0] C:\Users\user\.gradle\caches\transforms-2\files-2.1\6938ec3ffe419504d32bcfc45d36a539\firebase-iid-19.0.0\AndroidManifest.xml:32:13-34:85
+71                android:name="com.google.firebase.components:com.google.firebase.iid.Registrar"
+71-->[com.google.firebase:firebase-iid:19.0.0] C:\Users\user\.gradle\caches\transforms-2\files-2.1\6938ec3ffe419504d32bcfc45d36a539\firebase-iid-19.0.0\AndroidManifest.xml:33:17-96
 72                android:value="com.google.firebase.components.ComponentRegistrar" />
-72-->[com.google.android.gms:play-services-measurement-api:17.2.0] C:\Users\user\.gradle\caches\transforms-2\files-2.1\6f22c5dfc97b21940a06949add481167\play-services-measurement-api-17.2.0\AndroidManifest.xml:32:17-82
+72-->[com.google.firebase:firebase-iid:19.0.0] C:\Users\user\.gradle\caches\transforms-2\files-2.1\6938ec3ffe419504d32bcfc45d36a539\firebase-iid-19.0.0\AndroidManifest.xml:34:17-82
 73            <meta-data
-73-->[com.google.firebase:firebase-iid:19.0.0] C:\Users\user\.gradle\caches\transforms-2\files-2.1\6938ec3ffe419504d32bcfc45d36a539\firebase-iid-19.0.0\AndroidManifest.xml:32:13-34:85
-74                android:name="com.google.firebase.components:com.google.firebase.iid.Registrar"
-74-->[com.google.firebase:firebase-iid:19.0.0] C:\Users\user\.gradle\caches\transforms-2\files-2.1\6938ec3ffe419504d32bcfc45d36a539\firebase-iid-19.0.0\AndroidManifest.xml:33:17-96
+73-->[com.google.firebase:firebase-firestore:21.1.1] C:\Users\user\.gradle\caches\transforms-2\files-2.1\0508d2679f74ce0e0d2cf036f4fba707\jetified-firebase-firestore-21.1.1\AndroidManifest.xml:20:13-22:85
+74                android:name="com.google.firebase.components:com.google.firebase.firestore.FirestoreRegistrar"
+74-->[com.google.firebase:firebase-firestore:21.1.1] C:\Users\user\.gradle\caches\transforms-2\files-2.1\0508d2679f74ce0e0d2cf036f4fba707\jetified-firebase-firestore-21.1.1\AndroidManifest.xml:21:17-111
 75                android:value="com.google.firebase.components.ComponentRegistrar" />
-75-->[com.google.firebase:firebase-iid:19.0.0] C:\Users\user\.gradle\caches\transforms-2\files-2.1\6938ec3ffe419504d32bcfc45d36a539\firebase-iid-19.0.0\AndroidManifest.xml:34:17-82
+75-->[com.google.firebase:firebase-firestore:21.1.1] C:\Users\user\.gradle\caches\transforms-2\files-2.1\0508d2679f74ce0e0d2cf036f4fba707\jetified-firebase-firestore-21.1.1\AndroidManifest.xml:22:17-82
 76        </service>
 77
 78        <receiver

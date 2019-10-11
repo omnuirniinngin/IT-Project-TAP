@@ -10,28 +10,20 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.tap.taskassigningandplanning.NavigationBottomActivity;
 import com.tap.taskassigningandplanning.R;
-import com.tap.taskassigningandplanning.utils.activities.Activities;
-import com.tap.taskassigningandplanning.utils.activities.ActivityCustomDialog;
-import com.tap.taskassigningandplanning.utils.activities.ActivityFragment;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -197,6 +189,7 @@ public class PlanFragment extends Fragment implements View.OnClickListener{
 
                         Intent intent = new Intent(getContext(), NavigationBottomActivity.class);
                         intent.putExtra("plan_id", myId);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
                     }else{
                         makeSnackBarMessage("Failed. Check log.");

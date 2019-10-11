@@ -53,6 +53,11 @@
     <!-- Dialog/Fragment names -->
     <string name="dialog_new_note">New Note Dialog</string>
 
+    <!--Error fields plan-->
+    <string name="input_error_activity">Please enter activity name</string>
+    <string name="input_error_start_date_activity">When is your activity start?</string>
+    <string name="input_error_end_date_activity">When will it end?</string>
+
 
     
 
