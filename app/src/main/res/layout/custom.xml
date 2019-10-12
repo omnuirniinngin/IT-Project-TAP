@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:padding="10dp">
+
+    <RelativeLayout
+        android:layout_width="40dp"
+        android:layout_height="78dp"
+        android:layout_marginTop="5dp"
+        android:layout_weight=".3"
+        android:background="#B9DDF8"
+        android:padding="5dp">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imageView1"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_marginLeft="25dp"
+            android:elevation="5dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/mulawan_pf"
+            app:civ_border_color="#00BCD4"
+            app:civ_border_width="3dp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="78dp"
+        android:layout_marginTop="5dp"
+        android:layout_weight=".8"
+        android:background="#B9DDF8"
+        android:padding="5dp">
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="120dp">
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Large Text"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#03A9F4" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Small Text"
+            android:textColor="#03A9F4"
+            android:layout_below="@+id/textView1"/>
+
+
+    </RelativeLayout>
+
+
+</LinearLayout>
