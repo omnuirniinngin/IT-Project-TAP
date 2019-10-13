@@ -55,7 +55,7 @@ dependencies {
     implementation 'androidx.cardview:cardview:1.0.0'
 
     //mulawan added
-    //implementation 'de.hdodenhof:circleimageview:3.0.1'
+    implementation 'de.hdodenhof:circleimageview:3.0.1'
 
 
 }
