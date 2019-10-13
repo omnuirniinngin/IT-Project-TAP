@@ -228,6 +228,7 @@ import androidx.fragment.app.DialogFragment;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.firestore.DocumentReference;
@@ -248,7 +249,10 @@ import java.util.Map;
 public class ActivityCustomDialog extends DialogFragment implements View.OnClickListener{
     private static final String TAG = "ActivityCustomDialog";
 
-    private EditText etActivityName, etStartDate, etEndDate;
+    private EditText etActivityName;
+    private EditText etStartDate;
+    private EditText etEndDate;
+    private EditText etAssignUser;
     private Button btnAdd, btnCancel;
     final Calendar myCalendar = Calendar.getInstance();
     DatePickerDialog.OnDateSetListener dateSetListener;
@@ -270,6 +274,7 @@ public class ActivityCustomDialog extends DialogFragment implements View.OnClick
         etActivityName = view.findViewById(R.id.etActivityName);
         etStartDate = view.findViewById(R.id.etStartDate);
         etEndDate = view.findViewById(R.id.etEndDate);
+        etAssignUser = view.findViewById(R.id.etAssignUser);
         btnAdd = view.findViewById(R.id.btnAdd);
         btnCancel = view.findViewById(R.id.btnCancel);
 
@@ -355,10 +360,12 @@ public class ActivityCustomDialog extends DialogFragment implements View.OnClick
         return false;
     }
 
+//    private void addActivity(){
     private void addActivity(){
         String title = etActivityName.getText().toString().trim();
         String dateStart = etStartDate.getText().toString().trim();
         String dateEnd = etEndDate.getText().toString().trim();
+        String assignUser = etAssignUser.getText().toString().trim();
 
         NavigationBottomActivity navigationBottomActivity = (NavigationBottomActivity)getActivity();
 
@@ -368,30 +375,48 @@ public class ActivityCustomDialog extends DialogFragment implements View.OnClick
         if(!hasValidationErrors(title, dateStart, dateEnd)){
             String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-            // Create a new collection
-            Map<String, Object> activity = new HashMap<>();
-            activity.put("title",title);
-            activity.put("dateStart",dateStart);
-            activity.put("dateEnd",dateEnd);
-            activity.put("user_id", userId);
-            activity.put("plan_id", myValue);
-            activity.put("timestamp", FieldValue.serverTimestamp());
+            Activities activities = new Activities(title, dateStart, dateEnd, assignUser, userId, myValue, new Timestamp(new java.util.Date()));
 
-            // Add a new document with a generated ID
-            db.collection("Activity")
-                    .add(activity)
+            FirebaseFirestore.getInstance()
+                    .collection("Activity")
+                    .add(activities)
                     .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                         @Override
                         public void onSuccess(DocumentReference documentReference) {
-                            Log.d(TAG, "onSuccess: DocumentSnapshot added with ID: " + documentReference.getId());
+                            Log.d(TAG, "onSuccess: added data on Firestore");
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Log.w(TAG, "Error adding document", e);
+                            Toast.makeText(getContext(), e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                         }
                     });
+
+//            // Create a new collection
+//            Map<String, Object> activity = new HashMap<>();
+//            activity.put("title",title);
+//            activity.put("dateStart",dateStart);
+//            activity.put("dateEnd",dateEnd);
+//            activity.put("user_id", userId);
+//            activity.put("plan_id", myValue);
+//            activity.put("timestamp", FieldValue.serverTimestamp());
+//
+//            // Add a new document with a generated ID
+//            db.collection("Activity")
+//                    .add(activity)
+//                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+//                        @Override
+//                        public void onSuccess(DocumentReference documentReference) {
+//                            Log.d(TAG, "onSuccess: DocumentSnapshot added with ID: " + documentReference.getId());
+//                        }
+//                    })
+//                    .addOnFailureListener(new OnFailureListener() {
+//                        @Override
+//                        public void onFailure(@NonNull Exception e) {
+//                            Log.w(TAG, "Error adding document", e);
+//                        }
+//                    });
 
             getDialog().dismiss();
         }
@@ -409,5 +434,10 @@ public class ActivityCustomDialog extends DialogFragment implements View.OnClick
                 break;
 
         }
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
     }
 }

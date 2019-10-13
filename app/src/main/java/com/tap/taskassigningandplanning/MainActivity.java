@@ -5,6 +5,8 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
+import android.view.SubMenu;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,6 +22,8 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.amulyakhare.textdrawable.util.ColorGenerator;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -28,20 +32,32 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
 
     private AppBarConfiguration mAppBarConfiguration;
+    private String userID;
+    private TextView tvName, tvEmail, tvSubmenu;
+    private ImageView imageView;
+    private TextDrawable textDrawable;
+    private ColorGenerator generator;
+
+    int count = 0;
+
+    //FIREBASE
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private FirebaseDatabase firebaseDatabase;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     private DatabaseReference databaseReference;
-    private String userID;
-    private TextView tvName, tvEmail;
-    private ImageView imageView;
-    private TextDrawable textDrawable;
-    private ColorGenerator generator;
 
     @Override
     protected void onStart() {
@@ -73,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
         userID = firebaseUser.getUid();
 
         final DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        NavigationView navigationView = findViewById(R.id.nav_view);
+        final NavigationView navigationView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
@@ -104,6 +120,34 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
+        // get plan_id to get all plans created
+        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        // get menu from navigationView
+        Menu menu = navigationView.getMenu();
+        final SubMenu subMenu = menu.addSubMenu("Recent");
+
+        db.collection("Plan")
+                .whereEqualTo("user_id", userId)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            QuerySnapshot querySnapshot = task.getResult();
+                            count = querySnapshot.size();
+                            System.out.println(count);
+                            for (DocumentSnapshot document: querySnapshot.getDocuments()) {
+                                Log.d(TAG, "onComplete: Found incoming id " + count);
+
+                                subMenu.add(0, count++, Menu.NONE, document.get("title").toString()); //HAHAHAHAHHAA I AM THE GREATEST CHAROT!
+                            }
+                        }
+                    }
+                });
+
+
+
         //Go to your specific database directory or Child
         databaseReference = FirebaseDatabase.getInstance().getReference().child("Users").child(firebaseUser.getUid());
         //Connect the views of navigation bar
@@ -113,8 +157,6 @@ public class MainActivity extends AppCompatActivity {
         generator = ColorGenerator.MATERIAL;
 
         imageView = navigationView.getHeaderView(0).findViewById(R.id.imageView);
-
-
 
         //Use you DB reference object and add this method to access realtime data
         databaseReference.addValueEventListener(new ValueEventListener() {
@@ -149,6 +191,5 @@ public class MainActivity extends AppCompatActivity {
     private void toastMessage(String message){
         Toast.makeText(this,message,Toast.LENGTH_SHORT).show();
     }
-
 
 }

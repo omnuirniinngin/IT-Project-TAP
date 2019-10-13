@@ -53,6 +53,7 @@ dependencies {
     //Dependencies for design
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
     implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'it.xabaras.android:recyclerview-swipedecorator:1.2.2'
 
 
 }

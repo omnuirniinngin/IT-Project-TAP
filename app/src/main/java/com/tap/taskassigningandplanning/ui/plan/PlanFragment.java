@@ -14,6 +14,8 @@ import android.widget.EditText;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -189,8 +191,15 @@ public class PlanFragment extends Fragment implements View.OnClickListener{
 
                         Intent intent = new Intent(getContext(), NavigationBottomActivity.class);
                         intent.putExtra("plan_id", myId);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP  );
+                        getActivity().finish();
                         startActivity(intent);
+//                        NavigationBottomActivity fragment = new NavigationBottomActivity();
+//                        FragmentManager manager = getFragmentManager();
+//                        FragmentTransaction transaction = manager.beginTransaction();
+//                        transaction.addToBackStack(null);
+//                        transaction.commit();
+
                     }else{
                         makeSnackBarMessage("Failed. Check log.");
                     }

@@ -1,118 +1,12 @@
 package com.tap.taskassigningandplanning.utils.activities;
-//
-//import android.os.Bundle;
-//import android.util.Log;
-//import android.view.LayoutInflater;
-//import android.view.View;
-//import android.view.ViewGroup;
-//import android.widget.Adapter;
-//import android.widget.EditText;
-//
-//import androidx.annotation.NonNull;
-//import androidx.annotation.Nullable;
-//import androidx.fragment.app.Fragment;
-//import androidx.recyclerview.widget.LinearLayoutManager;
-//import androidx.recyclerview.widget.RecyclerView;
-//
-//import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-//import com.google.android.gms.tasks.OnCompleteListener;
-//import com.google.android.gms.tasks.Task;
-//import com.google.android.material.floatingactionbutton.FloatingActionButton;
-//import com.google.android.material.snackbar.Snackbar;
-//import com.google.firebase.auth.FirebaseAuth;
-//import com.google.firebase.firestore.CollectionReference;
-//import com.google.firebase.firestore.DocumentReference;
-//import com.google.firebase.firestore.FirebaseFirestore;
-//import com.google.firebase.firestore.Query;
-//import com.tap.taskassigningandplanning.R;
-//
-//public class ActivityDialogFragment extends Fragment implements ActivityCustomDialog.fabSelected{
-//    private static final String TAG = "ActivityDialogFragment";
-//
-//    //firebase firestore
-//    private FirebaseFirestore db;
-//    private CollectionReference activityRef;
-//    private FirebaseAuth mAuth;
-//
-//    private ActivitiesAdapter adapter;
-//
-//    private EditText etActivityName;
-//
-//    private FloatingActionButton fab;
-//
-//    View mParentLayout;
-//
-//    @Nullable
-//    @Override
-//    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-//        View view = inflater.inflate(R.layout.fragment_activities, container, false);
-//
-//        etActivityName = view.findViewById(R.id.etActivityName);
-//
-////        //Firebase get instance
-////        activityRef = db.collection("Activity");
-////        mAuth = FirebaseAuth.getInstance();
-////        db = FirebaseFirestore.getInstance();
-//
-//        fab = view.findViewById(R.id.fab);
-//
-////        setupRecyclerView();
-//
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Log.d(TAG, "onClick: Opening dialog activity");
-//
-//                ActivityCustomDialog dialog = new ActivityCustomDialog();
-//                dialog.setTargetFragment(ActivityDialogFragment.this, 1);
-//                dialog.show(getFragmentManager(), "ActivityCustomDialog");
-//            }
-//        });
-//
-//        return view;
-//    }
-//
-////    private void setupRecyclerView(){
-////        Query query = activityRef.orderBy("priority", Query.Direction.DESCENDING);
-////
-////        FirestoreRecyclerOptions<Activities> options = new FirestoreRecyclerOptions.Builder<Activities>()
-////                .setQuery(query, Activities.class)
-////                .build();
-////
-////        adapter = new ActivitiesAdapter(options);
-////
-////        RecyclerView recyclerView = getView().findViewById(R.id.recycler_view_activities);
-////        recyclerView.setHasFixedSize(true);
-////        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-////        recyclerView.setAdapter(adapter);
-////    }
-//
-////    @Override
-////    public void onStart() {
-////        super.onStart();
-////        adapter.startListening();
-////    }
-////
-////    @Override
-////    public void onStop() {
-////        super.onStop();
-////        adapter.stopListening();
-////    }
-//
-//    @Override
-//    public void sendInput(String input) {
-//        Log.d(TAG, "sendInput: Found incoming input" + input);
-//
-//        etActivityName.setText(input);
-//    }
-//
-//    private void makeSnackBarMessage(String message){
-//        Snackbar.make(mParentLayout, message, Snackbar.LENGTH_SHORT).show();
-//    }
-//}
 
-
+import android.app.AlertDialog;
+import android.app.DatePickerDialog;
+import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Canvas;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -120,19 +14,27 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Adapter;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AlertDialogLayout;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
@@ -148,14 +50,24 @@ import com.tap.taskassigningandplanning.MainActivity;
 import com.tap.taskassigningandplanning.NavigationBottomActivity;
 import com.tap.taskassigningandplanning.R;
 
-public class ActivityDialogFragment extends Fragment implements View.OnClickListener{
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+
+import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
+
+public class ActivityDialogFragment extends Fragment implements View.OnClickListener, ActivitiesAdapter.ActivitiesListener {
     private static final String TAG = "ActivityDialogFragment";
+
+    final Calendar myCalendar = Calendar.getInstance();
+    DatePickerDialog.OnDateSetListener dateSetListener;
 
     //firebase firestore
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-//    private CollectionReference activityRef = db.collection(("Activity"));
-//    private FirebaseAuth mAuth;
 
+    private ArrayList<Activities> activities = new ArrayList<>();
     private ActivitiesAdapter activitiesAdapter;
     private RecyclerView recyclerView;
 
@@ -183,37 +95,141 @@ public class ActivityDialogFragment extends Fragment implements View.OnClickList
         Bundle id_result = activity.getMyId();
         final String myValue = id_result.getString("plan_id");
 
-        Query query = db.collection("Activity").whereEqualTo("plan_id", myValue).orderBy("dateStart", Query.Direction.ASCENDING);
+        Query query = FirebaseFirestore.getInstance()
+                .collection("Activity")
+                .whereEqualTo("plan_id", myValue)
+                .orderBy("dateStart", Query.Direction.ASCENDING);
 
         FirestoreRecyclerOptions<Activities> options = new FirestoreRecyclerOptions.Builder<Activities>()
                 .setQuery(query, Activities.class)
                 .build();
-
-        activitiesAdapter = new ActivitiesAdapter(options);
+        activitiesAdapter = new ActivitiesAdapter(options, this);
 
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(activitiesAdapter);
-
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
         activitiesAdapter.startListening();
+
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
+        itemTouchHelper.attachToRecyclerView(recyclerView);
+
     }
 
-    @Override
-    public void onStop() {
-        super.onStop();
-        activitiesAdapter.stopListening();
-    }
+    ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+        @Override
+        public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+            return false;
+        }
+
+        @Override
+        public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+            if(direction == ItemTouchHelper.LEFT){
+                Toast.makeText(getContext(), "Deleting", Toast.LENGTH_SHORT).show();
+
+                ActivitiesAdapter.ActivityHolder activityHolder = (ActivitiesAdapter.ActivityHolder) viewHolder;
+                activityHolder.deleteItem();
+            }
+        }
+
+        @Override
+        public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
+            new RecyclerViewSwipeDecorator.Builder(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
+                    .addBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorAccent))
+                    .addActionIcon(R.drawable.ic_delete_sweep_black_24dp)
+                    .create()
+                    .decorate();
+
+            super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
+        }
+    };
+
+    //Show Dialog method
+
+//    private void showAlerDialog(){
+//
+//        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+//        builder.setTitle("Add activity");
+//
+//        LayoutInflater inflater = this.getLayoutInflater();
+//        View dialogView = inflater.inflate(R.layout.dialog_add_activities, null);
+//
+//        builder.setView(dialogView)
+//                .setPositiveButton("Add", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialogInterface, int i) {
+//                        Dialog get = (Dialog) dialogInterface;
+//
+//                        EditText title = get.findViewById(R.id.etActivityName);
+//                        final EditText etStartDate = get.findViewById(R.id.etStartDate);
+//                        EditText etEndDate = get.findViewById(R.id.etEndDate);
+//
+//                        etStartDate.setOnClickListener(new View.OnClickListener() {
+//                            @Override
+//                            public void onClick(View view) {
+//                                dateSetListener = new DatePickerDialog.OnDateSetListener() {
+//                                    @Override
+//                                    public void onDateSet(DatePicker datePicker, int year, int monthOfYear, int dayOfMonth) {
+//                                        myCalendar.set(Calendar.YEAR, year);
+//                                        myCalendar.set(Calendar.MONTH, monthOfYear);
+//                                        myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+//                                        updateLabel();
+//                                    }
+//
+//                                };
+//                                new DatePickerDialog(getContext(), dateSetListener, myCalendar
+//                                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+//                                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+//                            }
+//                            private void updateLabel() {
+//                                String myFormat = "MM/dd/yy";
+//                                SimpleDateFormat simpleDateFormat = new SimpleDateFormat(myFormat, Locale.US);
+//                                etStartDate.setText(simpleDateFormat.format(myCalendar.getTime()));
+//                            }
+//
+//                        });
+//
+//                        Log.d(TAG, "onClick: " + title.getText());
+//
+//                    }
+//                })
+//                .setNegativeButton("Cancel", null)
+//                .show();
+//
+//    }
+
+//    private void addActivity(String title, String dateStart, String dateEnd, String assignUser){
+//
+//        NavigationBottomActivity navigationBottomActivity = (NavigationBottomActivity)getActivity();
+//        Bundle id_result = navigationBottomActivity.getMyId();
+//        String myValue = id_result.getString("plan_id");
+//        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+//
+//        Activities activities = new Activities(title, dateStart, dateEnd, assignUser, userId, myValue, new Timestamp(new java.util.Date()));
+//
+//        FirebaseFirestore.getInstance()
+//                .collection("Plan")
+//                .add(activities)
+//                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+//                    @Override
+//                    public void onSuccess(DocumentReference documentReference) {
+//                        Log.d(TAG, "onSuccess:");
+//                    }
+//                })
+//                .addOnFailureListener(new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull Exception e) {
+//                        Toast.makeText(getContext(), e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+//                    }
+//                });
+//    }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.fab:
                 Log.d(TAG, "onClick: Opening dialog activity");
+
+//                showAlerDialog();
 
                 ActivityCustomDialog dialog = new ActivityCustomDialog();
                 dialog.setTargetFragment(ActivityDialogFragment.this, 1);
@@ -223,4 +239,35 @@ public class ActivityDialogFragment extends Fragment implements View.OnClickList
         }
     }
 
+    @Override
+    public void handleDeleteItem(DocumentSnapshot snapshot) {
+
+        final DocumentReference documentReference = snapshot.getReference();
+        final Activities activities = snapshot.toObject(Activities.class);
+
+        documentReference.delete()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d(TAG, "onSuccess: Item deleted");
+                    }
+                });
+        Snackbar.make(recyclerView, "Item deleted", Snackbar.LENGTH_LONG)
+                .setAction("Undo", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        documentReference.set(activities);
+                    }
+                })
+                .show();
+
+    }
+
+    @Override
+    public void handleEditActivity(DocumentSnapshot snapshot) {
+
+        ActivityCustomDialog dialog = new ActivityCustomDialog();
+        dialog.setTargetFragment(ActivityDialogFragment.this, 1);
+        dialog.show(getFragmentManager(), "ActivityCustomDialog");
+    }
 }

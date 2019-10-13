@@ -46,12 +46,12 @@ public class NavigationBottomActivity extends AppCompatActivity {
         return bundle;
     }
 
-    public boolean onKeyDown(int keyCode, KeyEvent event){
-        if(keyCode == KeyEvent.KEYCODE_BACK){
-            startActivity(new Intent(this, MainActivity.class));
-            return true;
-        }
-        return super.onKeyDown(keyCode, event);
-    }
+//    public boolean onKeyDown(int keyCode, KeyEvent event){
+//        if(keyCode == KeyEvent.KEYCODE_BACK){
+//            startActivity(new Intent(this, MainActivity.class));
+//            return true;
+//        }
+//        return super.onKeyDown(keyCode, event);
+//    }
 
 }
