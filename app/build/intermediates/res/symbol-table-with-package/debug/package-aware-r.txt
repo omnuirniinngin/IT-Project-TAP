@@ -155,10 +155,6 @@ attr chipStrokeColor
 attr chipStrokeWidth
 attr chipStyle
 attr circleCrop
-attr civ_border_color
-attr civ_border_overlay
-attr civ_border_width
-attr civ_circle_background_color
 attr closeIcon
 attr closeIconEnabled
 attr closeIconEndPadding
@@ -1203,12 +1199,6 @@ id btnCreate
 id btnCreateAccount
 id btnLogin
 id btnSignOut
-id btn_s1
-id btn_s2
-id btn_s3
-id btn_s4
-id btn_s5
-id btn_s6
 id buttonPanel
 id cancel_action
 id center
@@ -1240,9 +1230,6 @@ id direct
 id disableHome
 id drawer_layout
 id edit_query
-id editprofile
-id editskills
-id editteam
 id end
 id end_padder
 id enterAlways
@@ -1272,7 +1259,6 @@ id ghost_view
 id gone
 id group_divider
 id groups
-id header_cover_image
 id home
 id homeAsUp
 id icon
@@ -1281,7 +1267,6 @@ id icon_only
 id ifRoom
 id image
 id imageView
-id imageView1
 id info
 id invisible
 id italic
@@ -1289,18 +1274,11 @@ id item_touch_helper_previous_elevation
 id ivLogo
 id labeled
 id largeLabel
-id layout
-id layout_info
-id layout_profile
-id layout_rf
-id layout_skills
-id layout_team
 id left
 id light
 id line1
 id line3
 id listMode
-id listView1
 id list_item
 id masked
 id media_actions
@@ -1312,11 +1290,6 @@ id mobile_navigation_bottom
 id mtrl_child_content_container
 id mtrl_internal_children_alpha_tag
 id multiply
-id my_email
-id my_name
-id my_progress
-id my_school
-id myratingbar
 id nav_controller_view_tag
 id nav_host_fragment
 id nav_notification
@@ -1345,7 +1318,6 @@ id parent_layout
 id parent_matrix
 id percent
 id pin
-id profile_image
 id progress_circular
 id progress_horizontal
 id radio
@@ -1411,12 +1383,11 @@ id text2
 id textSpacerNoButtons
 id textSpacerNoTitle
 id textStart
-id textView1
-id textView2
 id text_chart
 id text_input_password_toggle
 id text_notification
 id text_plan
+id text_profile
 id text_progress
 id text_setting
 id text_task
@@ -1424,7 +1395,6 @@ id text_team
 id textinput_counter
 id textinput_error
 id textinput_helper_text
-id textskill
 id time
 id title
 id titleDividerNoCustom
@@ -1444,7 +1414,6 @@ id tvHaveAccount
 id tvName
 id tvNotes
 id tvTitle
-id txtteams
 id uniform
 id unlabeled
 id up
@@ -1510,7 +1479,6 @@ layout activity_main_drawer
 layout activity_registration
 layout app_bar_main
 layout content_main
-layout custom
 layout custom_dialog
 layout design_bottom_navigation_item
 layout design_bottom_sheet_dialog
@@ -2220,7 +2188,6 @@ styleable ButtonBarLayout allowStacking
 styleable CardView android_minWidth android_minHeight cardBackgroundColor cardCornerRadius cardElevation cardMaxElevation cardPreventCornerOverlap cardUseCompatPadding contentPadding contentPaddingBottom contentPaddingLeft contentPaddingRight contentPaddingTop
 styleable Chip android_textAppearance android_ellipsize android_maxWidth android_text android_checkable checkedIcon checkedIconEnabled checkedIconVisible chipBackgroundColor chipCornerRadius chipEndPadding chipIcon chipIconEnabled chipIconSize chipIconTint chipIconVisible chipMinHeight chipStartPadding chipStrokeColor chipStrokeWidth closeIcon closeIconEnabled closeIconEndPadding closeIconSize closeIconStartPadding closeIconTint closeIconVisible hideMotionSpec iconEndPadding iconStartPadding rippleColor showMotionSpec textEndPadding textStartPadding
 styleable ChipGroup checkedChip chipSpacing chipSpacingHorizontal chipSpacingVertical singleLine singleSelection
-styleable CircleImageView civ_border_color civ_border_overlay civ_border_width civ_circle_background_color
 styleable CollapsingToolbarLayout collapsedTitleGravity collapsedTitleTextAppearance contentScrim expandedTitleGravity expandedTitleMargin expandedTitleMarginBottom expandedTitleMarginEnd expandedTitleMarginStart expandedTitleMarginTop expandedTitleTextAppearance scrimAnimationDuration scrimVisibleHeightTrigger statusBarScrim title titleEnabled toolbarId
 styleable CollapsingToolbarLayout_Layout layout_collapseMode layout_collapseParallaxMultiplier
 styleable ColorStateListItem android_color android_alpha alpha
