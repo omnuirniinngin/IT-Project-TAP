@@ -1,23 +1,310 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/text_profile"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="match_parent"
+        android:id="@+id/layout"
+        >
+
+        <ImageView
+            android:id="@+id/header_cover_image"
+            android:layout_width="match_parent"
+            android:layout_height="155dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:scaleType="centerCrop"
+
+            android:src="@drawable/bm_bg1"
+            app:srcCompat="@drawable/bm_bg1" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_marginTop="10dp"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/profile_image"
+            android:layout_width="170dp"
+            android:layout_height="170dp"
+            android:src="@drawable/mulawan_pf"
+            app:civ_border_color="#00BCD4"
+            app:civ_border_width="3dp"
+            android:elevation="5dp"
+            android:padding="10dp"
+            android:scaleType="centerCrop"
+            />
+        <RelativeLayout
+            android:id="@+id/layout_profile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/header_cover_image"
+            android:background="#B3DBFC">
+
+            <ImageView
+                android:id="@+id/editprofile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_edit"
+                android:layout_alignParentRight="true"
+                android:scaleX="1.5"
+                android:scaleY="1.5"
+                android:layout_margin="20dp" />
+
+            <TextView
+                android:id="@+id/my_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sarfel Mulawan"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:textColor="#2196F3"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="10dp"
+                android:layout_centerHorizontal="true"/>
+
+            <TextView
+                android:id="@+id/my_school"
+                android:layout_below="@+id/my_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="STI College of Davao"
+                android:textSize="12dp"
+                android:textStyle="bold"
+                android:textColor="#2196F3"
+                android:layout_marginLeft="10dp"
+                android:layout_centerHorizontal="true" />
+
+            <TextView
+                android:id="@+id/my_email"
+                android:layout_below="@+id/my_school"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="bakatotest@yahoo.com"
+                android:textSize="12dp"
+                android:textStyle="bold"
+                android:textColor="#2196F3"
+                android:layout_marginLeft="10dp"
+                android:layout_centerHorizontal="true"/>
+
+            <TextView
+                android:id="@+id/my_progress"
+                android:layout_below="@+id/my_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="95% Job Success"
+                android:textSize="12dp"
+                android:textStyle="bold"
+                android:textColor="#2196F3"
+                android:layout_marginLeft="10dp"
+                android:layout_centerHorizontal="true"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/layout_rf"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/layout_profile"
+            android:background="#B3DBFC">
+
+            <RatingBar
+                android:id="@+id/myratingbar"
+                android:numStars="5"
+                android:rating="3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="30dp"
+                android:theme="@style/CustomRatingBar"
+                android:paddingBottom="5dp"
+                />
+            <Button
+                android:layout_width="100dp"
+                android:layout_height="30dp"
+                android:layout_below="@id/myratingbar"
+                android:layout_centerHorizontal="true"
+                android:text="Follow"
+                android:textColor="#fff"
+                android:textStyle="bold"
+                android:background="@drawable/btn_design"
+                android:layout_margin="5dp"
+                />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/layout_info"
+            android:layout_below="@+id/layout_rf"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#B3DBFC">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="I am a student of STI College of Davao City, Taking the course of Bachelor of Science in Information Technology."
+                android:textSize="15dp"
+                android:textStyle="bold"
+                android:textColor="#2196F3"
+                android:padding="25dp"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/layout_skills"
+            android:layout_below="@+id/layout_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            >
+
+            <TextView
+                android:layout_centerHorizontal="true"
+                android:id="@+id/textskill"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SKILLS"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:textColor="#03A9F4"
+                android:padding="10dp"
+                android:layout_marginLeft="20dp"/>
+
+            <ImageView
+                android:id="@+id/editskills"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/textskill"
+                android:layout_alignLeft="@+id/textskill"
+                android:layout_alignParentRight="true"
+                android:layout_marginLeft="190dp"
+                android:layout_marginTop="10dp"
+                android:scaleX="1.5"
+                android:scaleY="1.5"
+                app:srcCompat="@drawable/ic_edit" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textskill"
+                android:text="Android Studio"
+                android:textStyle="bold"
+                android:textColor="#F3F7F8"
+                android:layout_margin="5dp"
+                android:id="@+id/btn_s1"
+                android:background="@drawable/sbtn_design"
+                android:padding="10dp"
+                />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textskill"
+                android:layout_centerInParent="true"
+                android:text="Web"
+                android:textStyle="bold"
+                android:textColor="#F5F6F7"
+                android:layout_margin="5dp"
+                android:id="@+id/btn_s2"
+                android:background="@drawable/sbtn_design"
+                android:padding="10dp"
+                />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textskill"
+                android:layout_alignParentRight="true"
+                android:text="Mobile app"
+                android:textStyle="bold"
+                android:textColor="#F7F8F8"
+                android:layout_margin="5dp"
+                android:id="@+id/btn_s3"
+                android:background="@drawable/sbtn_design"
+                android:padding="10dp"
+                />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/btn_s1"
+                android:text="Java"
+                android:textStyle="bold"
+                android:textColor="#F3F3F3"
+                android:layout_margin="5dp"
+                android:id="@+id/btn_s4"
+                android:background="@drawable/sbtn_design"
+                android:padding="10dp"
+                />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/btn_s2"
+                android:text="Synfig Studio"
+                android:textStyle="bold"
+                android:textColor="#F2F5F7"
+                android:layout_margin="5dp"
+                android:id="@+id/btn_s5"
+                android:layout_centerInParent="true"
+                android:background="@drawable/sbtn_design"
+                android:padding="10dp"
+                />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/btn_s3"
+                android:layout_alignParentRight="true"
+                android:text="graphics"
+                android:textStyle="bold"
+                android:textColor="#EFF3F5"
+                android:layout_margin="5dp"
+                android:id="@+id/btn_s6"
+                android:background="@drawable/sbtn_design"
+                android:padding="10dp"
+                />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/layout_team"
+            android:layout_below="@+id/layout_skills"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/editteam"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/txtteams"
+                android:layout_alignLeft="@+id/txtteams"
+                android:layout_alignParentRight="true"
+                android:layout_marginLeft="190dp"
+                android:layout_marginTop="10dp"
+                android:scaleX="1.5"
+                android:scaleY="1.5"
+                app:srcCompat="@drawable/ic_edit" />
+
+            <TextView
+                android:id="@+id/txtteams"
+                android:layout_centerHorizontal="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TEAMS"
+                android:textStyle="bold"
+                android:textSize="20dp"
+                android:textColor="#03A9F4"
+                android:padding="10dp"
+                android:layout_marginLeft="20dp"
+                />
 
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</ScrollView>

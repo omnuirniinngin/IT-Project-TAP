@@ -17,4 +17,10 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="CustomRatingBar">CustomRatingBar
+        <item name="colorControlNormal">#CDDC39</item>
+        <item name="colorControlActivated">#FFC107</item>
+    </style>
+
+
 </resources>
