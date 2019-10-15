@@ -18,6 +18,7 @@ MERGED from [com.google.firebase:firebase-database:19.1.0] C:\Users\Baka\.gradle
 MERGED from [com.amulyakhare:com.amulyakhare.textdrawable:1.0.1] C:\Users\Baka\.gradle\caches\transforms-2\files-2.1\3a442565f1760a958cda77f5a00e15cc\com.amulyakhare.textdrawable-1.0.1\AndroidManifest.xml:2:1-14:12
 MERGED from [androidx.recyclerview:recyclerview:1.0.0] C:\Users\Baka\.gradle\caches\transforms-2\files-2.1\88ecec90c0ef0cd7c6b58719f3d5afdf\recyclerview-1.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.cardview:cardview:1.0.0] C:\Users\Baka\.gradle\caches\transforms-2\files-2.1\d63fe0159d5b1dc4e6da10d688089235\cardview-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [de.hdodenhof:circleimageview:3.0.1] C:\Users\Baka\.gradle\caches\transforms-2\files-2.1\dab6abc9a460c38498b69f29ba2e6480\circleimageview-3.0.1\AndroidManifest.xml:2:1-11:12
 MERGED from [androidx.vectordrawable:vectordrawable-animated:1.0.0] C:\Users\Baka\.gradle\caches\transforms-2\files-2.1\f9f8b600ed8592ea4805b26afff88bd3\vectordrawable-animated-1.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.legacy:legacy-support-v4:1.0.0] C:\Users\Baka\.gradle\caches\transforms-2\files-2.1\7b2de69f5a4675d5c8a772d83ec807cf\legacy-support-v4-1.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.legacy:legacy-support-core-ui:1.0.0] C:\Users\Baka\.gradle\caches\transforms-2\files-2.1\f880b5d35c8d5ee47795870487232093\legacy-support-core-ui-1.0.0\AndroidManifest.xml:17:1-22:12
@@ -126,6 +127,8 @@ MERGED from [com.google.firebase:firebase-database:19.1.0] C:\Users\Baka\.gradle
 MERGED from [com.google.firebase:firebase-database:19.1.0] C:\Users\Baka\.gradle\caches\transforms-2\files-2.1\f837c81b23f7a73b7fb86770c03135ba\firebase-database-19.1.0\AndroidManifest.xml:28:5-36:19
 MERGED from [com.amulyakhare:com.amulyakhare.textdrawable:1.0.1] C:\Users\Baka\.gradle\caches\transforms-2\files-2.1\3a442565f1760a958cda77f5a00e15cc\com.amulyakhare.textdrawable-1.0.1\AndroidManifest.xml:12:5-20
 MERGED from [com.amulyakhare:com.amulyakhare.textdrawable:1.0.1] C:\Users\Baka\.gradle\caches\transforms-2\files-2.1\3a442565f1760a958cda77f5a00e15cc\com.amulyakhare.textdrawable-1.0.1\AndroidManifest.xml:12:5-20
+MERGED from [de.hdodenhof:circleimageview:3.0.1] C:\Users\Baka\.gradle\caches\transforms-2\files-2.1\dab6abc9a460c38498b69f29ba2e6480\circleimageview-3.0.1\AndroidManifest.xml:9:5-20
+MERGED from [de.hdodenhof:circleimageview:3.0.1] C:\Users\Baka\.gradle\caches\transforms-2\files-2.1\dab6abc9a460c38498b69f29ba2e6480\circleimageview-3.0.1\AndroidManifest.xml:9:5-20
 MERGED from [com.google.android.gms:play-services-measurement:17.2.0] C:\Users\Baka\.gradle\caches\transforms-2\files-2.1\4296c3544ebd20ca193b27d8d8fb4c75\play-services-measurement-17.2.0\AndroidManifest.xml:28:5-53:19
 MERGED from [com.google.android.gms:play-services-measurement:17.2.0] C:\Users\Baka\.gradle\caches\transforms-2\files-2.1\4296c3544ebd20ca193b27d8d8fb4c75\play-services-measurement-17.2.0\AndroidManifest.xml:28:5-53:19
 MERGED from [com.google.android.gms:play-services-measurement-api:17.2.0] C:\Users\Baka\.gradle\caches\transforms-2\files-2.1\6f22c5dfc97b21940a06949add481167\play-services-measurement-api-17.2.0\AndroidManifest.xml:26:5-34:19
@@ -244,6 +247,8 @@ MERGED from [androidx.recyclerview:recyclerview:1.0.0] C:\Users\Baka\.gradle\cac
 MERGED from [androidx.recyclerview:recyclerview:1.0.0] C:\Users\Baka\.gradle\caches\transforms-2\files-2.1\88ecec90c0ef0cd7c6b58719f3d5afdf\recyclerview-1.0.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.cardview:cardview:1.0.0] C:\Users\Baka\.gradle\caches\transforms-2\files-2.1\d63fe0159d5b1dc4e6da10d688089235\cardview-1.0.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.cardview:cardview:1.0.0] C:\Users\Baka\.gradle\caches\transforms-2\files-2.1\d63fe0159d5b1dc4e6da10d688089235\cardview-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [de.hdodenhof:circleimageview:3.0.1] C:\Users\Baka\.gradle\caches\transforms-2\files-2.1\dab6abc9a460c38498b69f29ba2e6480\circleimageview-3.0.1\AndroidManifest.xml:5:5-7:41
+MERGED from [de.hdodenhof:circleimageview:3.0.1] C:\Users\Baka\.gradle\caches\transforms-2\files-2.1\dab6abc9a460c38498b69f29ba2e6480\circleimageview-3.0.1\AndroidManifest.xml:5:5-7:41
 MERGED from [androidx.vectordrawable:vectordrawable-animated:1.0.0] C:\Users\Baka\.gradle\caches\transforms-2\files-2.1\f9f8b600ed8592ea4805b26afff88bd3\vectordrawable-animated-1.0.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.vectordrawable:vectordrawable-animated:1.0.0] C:\Users\Baka\.gradle\caches\transforms-2\files-2.1\f9f8b600ed8592ea4805b26afff88bd3\vectordrawable-animated-1.0.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.legacy:legacy-support-v4:1.0.0] C:\Users\Baka\.gradle\caches\transforms-2\files-2.1\7b2de69f5a4675d5c8a772d83ec807cf\legacy-support-v4-1.0.0\AndroidManifest.xml:20:5-44
