@@ -92,6 +92,10 @@
         "source": "C:\\Users\\Baka\\.gradle\\caches\\transforms-2\\files-2.1\\0438ed5cca5e36085d37ed57af08caff\\media-1.0.0\\res\\layout\\notification_media_cancel_action.xml"
     },
     {
+        "merged": "D:\\06-GitHubFiles\\IT-Project-TAP\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi_ic_camera.png.flat",
+        "source": "D:\\06-GitHubFiles\\IT-Project-TAP\\app\\src\\main\\res\\drawable-xhdpi\\ic_camera.png"
+    },
+    {
         "merged": "D:\\06-GitHubFiles\\IT-Project-TAP\\app\\build\\intermediates\\res\\merged\\debug\\drawable-v24_ic_launcher_foreground.xml.flat",
         "source": "D:\\06-GitHubFiles\\IT-Project-TAP\\app\\src\\main\\res\\drawable-v24\\ic_launcher_foreground.xml"
     },
@@ -226,6 +230,10 @@
     {
         "merged": "D:\\06-GitHubFiles\\IT-Project-TAP\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4_abc_ic_star_black_16dp.png.flat",
         "source": "C:\\Users\\Baka\\.gradle\\caches\\transforms-2\\files-2.1\\999bbd4ebf0ea223da010e421b68465b\\appcompat-1.0.0\\res\\drawable-hdpi-v4\\abc_ic_star_black_16dp.png"
+    },
+    {
+        "merged": "D:\\06-GitHubFiles\\IT-Project-TAP\\app\\build\\intermediates\\res\\merged\\debug\\drawable_samplepic1.jpg.flat",
+        "source": "D:\\06-GitHubFiles\\IT-Project-TAP\\app\\src\\main\\res\\drawable\\samplepic1.jpg"
     },
     {
         "merged": "D:\\06-GitHubFiles\\IT-Project-TAP\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4_abc_list_longpressed_holo.9.png.flat",
@@ -440,6 +448,10 @@
         "source": "C:\\Users\\Baka\\.gradle\\caches\\transforms-2\\files-2.1\\4141e45cf081a85b30e69d6cd880b858\\material-1.0.0\\res\\interpolator\\mtrl_fast_out_linear_in.xml"
     },
     {
+        "merged": "D:\\06-GitHubFiles\\IT-Project-TAP\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi_ic_camera.png.flat",
+        "source": "D:\\06-GitHubFiles\\IT-Project-TAP\\app\\src\\main\\res\\drawable-mdpi\\ic_camera.png"
+    },
+    {
         "merged": "D:\\06-GitHubFiles\\IT-Project-TAP\\app\\build\\intermediates\\res\\merged\\debug\\layout_abc_alert_dialog_title_material.xml.flat",
         "source": "C:\\Users\\Baka\\.gradle\\caches\\transforms-2\\files-2.1\\999bbd4ebf0ea223da010e421b68465b\\appcompat-1.0.0\\res\\layout\\abc_alert_dialog_title_material.xml"
     },
@@ -502,6 +514,10 @@
     {
         "merged": "D:\\06-GitHubFiles\\IT-Project-TAP\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldrtl-xxxhdpi-v17_abc_spinner_mtrl_am_alpha.9.png.flat",
         "source": "C:\\Users\\Baka\\.gradle\\caches\\transforms-2\\files-2.1\\999bbd4ebf0ea223da010e421b68465b\\appcompat-1.0.0\\res\\drawable-ldrtl-xxxhdpi-v17\\abc_spinner_mtrl_am_alpha.9.png"
+    },
+    {
+        "merged": "D:\\06-GitHubFiles\\IT-Project-TAP\\app\\build\\intermediates\\res\\merged\\debug\\layout_customteamfragment.xml.flat",
+        "source": "D:\\06-GitHubFiles\\IT-Project-TAP\\app\\src\\main\\res\\layout\\customteamfragment.xml"
     },
     {
         "merged": "D:\\06-GitHubFiles\\IT-Project-TAP\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi-v4_design_ic_visibility_off.png.flat",
@@ -1344,6 +1360,10 @@
         "source": "C:\\Users\\Baka\\.gradle\\caches\\transforms-2\\files-2.1\\999bbd4ebf0ea223da010e421b68465b\\appcompat-1.0.0\\res\\drawable-xhdpi-v4\\abc_list_pressed_holo_dark.9.png"
     },
     {
+        "merged": "D:\\06-GitHubFiles\\IT-Project-TAP\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi_ic_camera.png.flat",
+        "source": "D:\\06-GitHubFiles\\IT-Project-TAP\\app\\src\\main\\res\\drawable-hdpi\\ic_camera.png"
+    },
+    {
         "merged": "D:\\06-GitHubFiles\\IT-Project-TAP\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4_abc_list_focused_holo.9.png.flat",
         "source": "C:\\Users\\Baka\\.gradle\\caches\\transforms-2\\files-2.1\\999bbd4ebf0ea223da010e421b68465b\\appcompat-1.0.0\\res\\drawable-xxhdpi-v4\\abc_list_focused_holo.9.png"
     },
@@ -1608,6 +1628,10 @@
         "source": "C:\\Users\\Baka\\.gradle\\caches\\transforms-2\\files-2.1\\999bbd4ebf0ea223da010e421b68465b\\appcompat-1.0.0\\res\\drawable\\abc_list_selector_background_transition_holo_light.xml"
     },
     {
+        "merged": "D:\\06-GitHubFiles\\IT-Project-TAP\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi_ic_camera.png.flat",
+        "source": "D:\\06-GitHubFiles\\IT-Project-TAP\\app\\src\\main\\res\\drawable-xxhdpi\\ic_camera.png"
+    },
+    {
         "merged": "D:\\06-GitHubFiles\\IT-Project-TAP\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4_abc_textfield_search_default_mtrl_alpha.9.png.flat",
         "source": "C:\\Users\\Baka\\.gradle\\caches\\transforms-2\\files-2.1\\999bbd4ebf0ea223da010e421b68465b\\appcompat-1.0.0\\res\\drawable-xxhdpi-v4\\abc_textfield_search_default_mtrl_alpha.9.png"
     },
@@ -1650,6 +1674,10 @@
     {
         "merged": "D:\\06-GitHubFiles\\IT-Project-TAP\\app\\build\\intermediates\\res\\merged\\debug\\anim_nav_default_exit_anim.xml.flat",
         "source": "C:\\Users\\Baka\\.gradle\\caches\\transforms-2\\files-2.1\\97ff0e2dee64920336d8a905688a0099\\jetified-navigation-ui-2.1.0\\res\\anim\\nav_default_exit_anim.xml"
+    },
+    {
+        "merged": "D:\\06-GitHubFiles\\IT-Project-TAP\\app\\build\\intermediates\\res\\merged\\debug\\drawable-anydpi_ic_camera.xml.flat",
+        "source": "D:\\06-GitHubFiles\\IT-Project-TAP\\app\\src\\main\\res\\drawable-anydpi\\ic_camera.xml"
     },
     {
         "merged": "D:\\06-GitHubFiles\\IT-Project-TAP\\app\\build\\intermediates\\res\\merged\\debug\\color_mtrl_tabs_icon_color_selector_colored.xml.flat",

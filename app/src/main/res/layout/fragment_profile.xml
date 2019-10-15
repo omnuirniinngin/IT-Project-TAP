@@ -192,11 +192,8 @@
                 android:id="@+id/editskills"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignStart="@+id/textskill"
-                android:layout_alignLeft="@+id/textskill"
-                android:layout_alignParentRight="true"
-                android:layout_marginLeft="190dp"
-                android:layout_marginTop="10dp"
+                android:layout_toRightOf="@+id/textskill"
+                android:layout_margin="10dp"
                 android:scaleX="1.5"
                 android:scaleY="1.5"
                 app:srcCompat="@drawable/ic_edit" />
@@ -292,19 +289,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <ImageView
-                android:id="@+id/editteam"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignStart="@+id/txtteams"
-                android:layout_alignLeft="@+id/txtteams"
-                android:layout_alignParentRight="true"
-                android:layout_marginLeft="190dp"
-                android:layout_marginTop="10dp"
-                android:scaleX="1.5"
-                android:scaleY="1.5"
-                app:srcCompat="@drawable/ic_edit" />
-
             <TextView
                 android:id="@+id/txtteams"
                 android:layout_centerHorizontal="true"
@@ -317,6 +301,25 @@
                 android:padding="10dp"
                 android:layout_marginLeft="20dp"
                 />
+
+            <ImageView
+                android:id="@+id/editteam"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/txtteams"
+                android:layout_margin="10dp"
+                android:scaleX="1.5"
+                android:scaleY="1.5"
+                app:srcCompat="@drawable/ic_edit" />
+
+
+
+            <ListView
+                android:id="@+id/listView1"
+                android:layout_width="match_parent"
+                android:layout_height="500dp"
+                android:layout_below="@+id/txtteams">
+            </ListView>
 
 
 
