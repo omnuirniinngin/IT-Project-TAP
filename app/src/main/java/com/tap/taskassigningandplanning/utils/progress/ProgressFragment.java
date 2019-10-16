@@ -123,7 +123,7 @@ public class ProgressFragment extends Fragment implements ActivitiesAdapter.Acti
 
     @Override
     public void handleDeleteItem(DocumentSnapshot snapshot) {
-
+        
     }
 
     @Override

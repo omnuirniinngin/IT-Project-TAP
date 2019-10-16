@@ -1252,7 +1252,6 @@ id end_padder
 id enterAlways
 id enterAlwaysCollapsed
 id etActivityTitle
-id etAddUser
 id etAssignUser
 id etEmail
 id etEmailLayout
@@ -1263,6 +1262,7 @@ id etNotes
 id etPassword
 id etPasswordLayout
 id etPlanTitle
+id etRequest
 id etStartDate
 id exitUntilCollapsed
 id expand_activities_button

@@ -1,93 +1,104 @@
 package com.tap.taskassigningandplanning.utils.team;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.SignInMethodQueryResult;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.tap.taskassigningandplanning.NavigationBottomActivity;
 import com.tap.taskassigningandplanning.R;
-import com.tap.taskassigningandplanning.utils.task.TaskViewModel;
+import com.tap.taskassigningandplanning.utils.activities.ActivitiesAdapter;
 
-import android.app.Activity;
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.RatingBar;
-import android.widget.TextView;
-import android.widget.Toast;
+public class TeamFragment extends Fragment implements View.OnClickListener, TeamAdapter.TeamListener{
+    //, TeamAdapter.TeamListener
 
-import java.util.List;
+    private static final String TAG = "TeamFragment";
 
-public class TeamFragment extends Fragment {
-    private ListView ListView;
+    //Firebase
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private FirebaseAuth mAuth;
+    //Recycler && Adapter
+    private TeamAdapter teamAdapter;
+    private RecyclerView recyclerView;
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
+    private FloatingActionButton fab;
 
-        View  v = inflater.inflate(R.layout.fragment_team, container, false);
+    private String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+    private TextView tvName;
 
-        ListView list = v.findViewById(R.id.listView1);
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_team, container, false);
 
-        customadapter ca = new customadapter();
-        list.setAdapter(ca);
+        mAuth = FirebaseAuth.getInstance();
 
-        return v;
-        }
+        recyclerView = view.findViewById(R.id.recycler_view);
+        tvName = view.findViewById(R.id.tvName);
 
+        fab = view.findViewById(R.id.fab);
+        fab.setOnClickListener(this);
 
-
-    class customadapter extends BaseAdapter {
-
-        @Override
-        public int getCount() {
-            // TODO Auto-generated method stub
-            return images.length;
-        }
-
-        @Override
-        public Object getItem(int arg0) {
-            // TODO Auto-generated method stub
-
-            return null;
-        }
-
-        @Override
-        public long getItemId(int arg0) {
-            // TODO Auto-generated method stub
-            return 0;
-        }
-
-        @Override
-        public View getView(final int position, View convertview, ViewGroup arg2) {
-            // TODO Auto-generated method stub
-            LayoutInflater inflater = getLayoutInflater();
-            convertview = inflater.inflate(R.layout.customteamfragment, null);
-            TextView tv = convertview.findViewById(R.id.textView1);
-            TextView tv1 = convertview.findViewById(R.id.textView2);
-            ImageView image = convertview
-                    .findViewById(R.id.imageView1);
-            tv.setText(names[position]);
-            tv1.setText(positions[position]);
-            image.setImageResource(images[position]);
-
-            return convertview;
-        }
-
+        setupRecyclerView();
+        return view;
     }
 
-    String[] names = { "Niño Muring", "Rexsa Salvador", "Sarfel Mulawan", "Christian Donzal"};
-    String[] positions = { "Leader", "Member", "Member", "Member"};
-    int[] images = { R.drawable.muring_pf, R.drawable.salvador_pf, R.drawable.mulawan_pf,
-            R.drawable.donzal_pf };
+    private void setupRecyclerView(){
+        NavigationBottomActivity activity = (NavigationBottomActivity)getActivity();
+        Bundle id_result = activity.getPlanId();
+        final String plan_id = id_result.getString("plan_id");
+
+        CollectionReference id = db.collection("Team");
+
+
+
+        Query query = id.whereEqualTo("plan_id", plan_id).orderBy("email", Query.Direction.ASCENDING);
+
+        FirestoreRecyclerOptions<Team> options = new FirestoreRecyclerOptions.Builder<Team>()
+                .setQuery(query, Team.class)
+                .build();
+        teamAdapter = new TeamAdapter(options, this);
+
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setAdapter(teamAdapter);
+        teamAdapter.startListening();
+    }
+
+//    @Override
+//    public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
+//
+//    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.fab:
+                Log.d(TAG, "onClick: Opening dialog activity");
+                TeamCustomDialog dialog = new TeamCustomDialog();
+                dialog.setTargetFragment(TeamFragment.this, 1);
+                dialog.show(getFragmentManager(), "TeamCustomDialog");
+                break;
+        }
+    }
+
+    @Override
+    public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
+
+    }
 }

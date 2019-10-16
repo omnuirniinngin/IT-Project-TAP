@@ -22,34 +22,19 @@
             android:src="@drawable/bm_bg1"
             app:srcCompat="@drawable/bm_bg1" />
 
-        <ImageView
-            android:id="@+id/editprofilepic"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_camera"
-            android:scaleX="1.5"
-            android:scaleY="1.5"
-            android:layout_toRightOf="@id/profile_image"
-            android:layout_marginTop="145dp"
-            android:layout_marginLeft="-26dp"
-            android:elevation="5dp"/>
-
         <de.hdodenhof.circleimageview.CircleImageView
             android:layout_marginTop="10dp"
             android:layout_centerHorizontal="true"
             android:id="@+id/profile_image"
             android:layout_width="170dp"
             android:layout_height="170dp"
-            android:src="@drawable/samplepic1"
+            android:src="@drawable/mulawan_pf"
             app:civ_border_color="#00BCD4"
             app:civ_border_width="3dp"
             android:elevation="5dp"
             android:padding="10dp"
             android:scaleType="centerCrop"
             />
-
-
-
         <RelativeLayout
             android:id="@+id/layout_profile"
             android:layout_width="match_parent"
@@ -71,7 +56,7 @@
                 android:id="@+id/my_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Your NAME here"
+                android:text="Sarfel Mulawan"
                 android:textSize="20dp"
                 android:textStyle="bold"
                 android:textColor="#2196F3"
@@ -84,7 +69,7 @@
                 android:layout_below="@+id/my_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Your SCHOOL here"
+                android:text="STI College of Davao"
                 android:textSize="12dp"
                 android:textStyle="bold"
                 android:textColor="#2196F3"
@@ -96,7 +81,7 @@
                 android:layout_below="@+id/my_school"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Your EMAIL here"
+                android:text="bakatotest@yahoo.com"
                 android:textSize="12dp"
                 android:textStyle="bold"
                 android:textColor="#2196F3"
@@ -108,7 +93,7 @@
                 android:layout_below="@+id/my_email"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Your PROGRESS here"
+                android:text="95% Job Success"
                 android:textSize="12dp"
                 android:textStyle="bold"
                 android:textColor="#2196F3"
@@ -159,12 +144,11 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="Your INTRODUCTION Here"
+                android:text="I am a student of STI College of Davao City, Taking the course of Bachelor of Science in Information Technology."
                 android:textSize="15dp"
                 android:textStyle="bold"
                 android:textColor="#2196F3"
-                android:padding="25dp"
-                android:layout_centerInParent="true"/>
+                android:padding="25dp"/>
 
         </RelativeLayout>
 
@@ -192,14 +176,16 @@
                 android:id="@+id/editskills"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/textskill"
-                android:layout_margin="10dp"
+                android:layout_alignStart="@+id/textskill"
+                android:layout_alignLeft="@+id/textskill"
+                android:layout_alignParentRight="true"
+                android:layout_marginLeft="190dp"
+                android:layout_marginTop="10dp"
                 android:scaleX="1.5"
                 android:scaleY="1.5"
                 app:srcCompat="@drawable/ic_edit" />
 
             <Button
-                android:id="@+id/btn_s1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/textskill"
@@ -207,40 +193,40 @@
                 android:textStyle="bold"
                 android:textColor="#F3F7F8"
                 android:layout_margin="5dp"
+                android:id="@+id/btn_s1"
                 android:background="@drawable/sbtn_design"
                 android:padding="10dp"
-                android:layout_alignParentLeft="true"
                 />
 
             <Button
-                android:id="@+id/btn_s2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/textskill"
+                android:layout_centerInParent="true"
                 android:text="Web"
                 android:textStyle="bold"
                 android:textColor="#F5F6F7"
                 android:layout_margin="5dp"
+                android:id="@+id/btn_s2"
                 android:background="@drawable/sbtn_design"
                 android:padding="10dp"
-                android:layout_toRightOf="@+id/btn_s1" />
+                />
 
             <Button
-                android:id="@+id/btn_s3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/textskill"
+                android:layout_alignParentRight="true"
                 android:text="Mobile app"
                 android:textStyle="bold"
                 android:textColor="#F7F8F8"
                 android:layout_margin="5dp"
+                android:id="@+id/btn_s3"
                 android:background="@drawable/sbtn_design"
                 android:padding="10dp"
-                android:layout_toRightOf="@+id/btn_s2"
                 />
 
             <Button
-                android:id="@+id/btn_s4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/btn_s1"
@@ -248,37 +234,37 @@
                 android:textStyle="bold"
                 android:textColor="#F3F3F3"
                 android:layout_margin="5dp"
+                android:id="@+id/btn_s4"
                 android:background="@drawable/sbtn_design"
                 android:padding="10dp"
-                android:layout_alignParentLeft="true"
                 />
 
             <Button
-                android:id="@+id/btn_s5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/btn_s1"
+                android:layout_below="@+id/btn_s2"
                 android:text="Synfig Studio"
                 android:textStyle="bold"
                 android:textColor="#F2F5F7"
                 android:layout_margin="5dp"
+                android:id="@+id/btn_s5"
+                android:layout_centerInParent="true"
                 android:background="@drawable/sbtn_design"
                 android:padding="10dp"
-                android:layout_toRightOf="@+id/btn_s4"
                 />
 
             <Button
-                android:id="@+id/btn_s6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/btn_s1"
+                android:layout_below="@+id/btn_s3"
+                android:layout_alignParentRight="true"
                 android:text="graphics"
                 android:textStyle="bold"
                 android:textColor="#EFF3F5"
                 android:layout_margin="5dp"
+                android:id="@+id/btn_s6"
                 android:background="@drawable/sbtn_design"
                 android:padding="10dp"
-                android:layout_toRightOf="@+id/btn_s5"
                 />
 
         </RelativeLayout>
@@ -288,6 +274,19 @@
             android:layout_below="@+id/layout_skills"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/editteam"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/txtteams"
+                android:layout_alignLeft="@+id/txtteams"
+                android:layout_alignParentRight="true"
+                android:layout_marginLeft="190dp"
+                android:layout_marginTop="10dp"
+                android:scaleX="1.5"
+                android:scaleY="1.5"
+                app:srcCompat="@drawable/ic_edit" />
 
             <TextView
                 android:id="@+id/txtteams"
@@ -301,25 +300,6 @@
                 android:padding="10dp"
                 android:layout_marginLeft="20dp"
                 />
-
-            <ImageView
-                android:id="@+id/editteam"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/txtteams"
-                android:layout_margin="10dp"
-                android:scaleX="1.5"
-                android:scaleY="1.5"
-                app:srcCompat="@drawable/ic_edit" />
-
-
-
-            <ListView
-                android:id="@+id/listView1"
-                android:layout_width="match_parent"
-                android:layout_height="500dp"
-                android:layout_below="@+id/txtteams">
-            </ListView>
 
 
 
