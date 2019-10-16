@@ -12,10 +12,10 @@
         android:padding="10dp">
 
         <EditText
-            android:id="@+id/etActivityName"
+            android:id="@+id/etActivityTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/dialog_activity_name" />
+            android:hint="@string/dialog_activity_title" />
 
         <EditText
             android:id="@+id/etStartDate"

@@ -22,6 +22,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AlertDialogLayout;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -67,20 +68,19 @@ public class ActivityDialogFragment extends Fragment implements View.OnClickList
     //firebase firestore
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-    private ArrayList<Activities> activities = new ArrayList<>();
     private ActivitiesAdapter activitiesAdapter;
     private RecyclerView recyclerView;
 
     private FloatingActionButton fab;
 
-    View mParentLayout;
+    String activity_id;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_activities, container, false);
 
-        recyclerView = view.findViewById(R.id.recycler_view_activities);
+        recyclerView = view.findViewById(R.id.recycler_view);
 
         fab = view.findViewById(R.id.fab);
         fab.setOnClickListener(this);
@@ -91,13 +91,12 @@ public class ActivityDialogFragment extends Fragment implements View.OnClickList
 
     private void setupRecyclerView(){
         NavigationBottomActivity activity = (NavigationBottomActivity)getActivity();
-
-        Bundle id_result = activity.getMyId();
-        final String myValue = id_result.getString("plan_id");
+        Bundle id_result = activity.getPlanId();
+        final String plan_id = id_result.getString("plan_id");
 
         Query query = FirebaseFirestore.getInstance()
                 .collection("Activity")
-                .whereEqualTo("plan_id", myValue)
+                .whereEqualTo("plan_id", plan_id)
                 .orderBy("dateStart", Query.Direction.ASCENDING);
 
         FirestoreRecyclerOptions<Activities> options = new FirestoreRecyclerOptions.Builder<Activities>()
@@ -112,7 +111,6 @@ public class ActivityDialogFragment extends Fragment implements View.OnClickList
 
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
         itemTouchHelper.attachToRecyclerView(recyclerView);
-
     }
 
     ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
@@ -143,94 +141,12 @@ public class ActivityDialogFragment extends Fragment implements View.OnClickList
         }
     };
 
-    //Show Dialog method
-
-//    private void showAlerDialog(){
-//
-//        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-//        builder.setTitle("Add activity");
-//
-//        LayoutInflater inflater = this.getLayoutInflater();
-//        View dialogView = inflater.inflate(R.layout.dialog_add_activities, null);
-//
-//        builder.setView(dialogView)
-//                .setPositiveButton("Add", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialogInterface, int i) {
-//                        Dialog get = (Dialog) dialogInterface;
-//
-//                        EditText title = get.findViewById(R.id.etActivityName);
-//                        final EditText etStartDate = get.findViewById(R.id.etStartDate);
-//                        EditText etEndDate = get.findViewById(R.id.etEndDate);
-//
-//                        etStartDate.setOnClickListener(new View.OnClickListener() {
-//                            @Override
-//                            public void onClick(View view) {
-//                                dateSetListener = new DatePickerDialog.OnDateSetListener() {
-//                                    @Override
-//                                    public void onDateSet(DatePicker datePicker, int year, int monthOfYear, int dayOfMonth) {
-//                                        myCalendar.set(Calendar.YEAR, year);
-//                                        myCalendar.set(Calendar.MONTH, monthOfYear);
-//                                        myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-//                                        updateLabel();
-//                                    }
-//
-//                                };
-//                                new DatePickerDialog(getContext(), dateSetListener, myCalendar
-//                                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
-//                                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
-//                            }
-//                            private void updateLabel() {
-//                                String myFormat = "MM/dd/yy";
-//                                SimpleDateFormat simpleDateFormat = new SimpleDateFormat(myFormat, Locale.US);
-//                                etStartDate.setText(simpleDateFormat.format(myCalendar.getTime()));
-//                            }
-//
-//                        });
-//
-//                        Log.d(TAG, "onClick: " + title.getText());
-//
-//                    }
-//                })
-//                .setNegativeButton("Cancel", null)
-//                .show();
-//
-//    }
-
-//    private void addActivity(String title, String dateStart, String dateEnd, String assignUser){
-//
-//        NavigationBottomActivity navigationBottomActivity = (NavigationBottomActivity)getActivity();
-//        Bundle id_result = navigationBottomActivity.getMyId();
-//        String myValue = id_result.getString("plan_id");
-//        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-//
-//        Activities activities = new Activities(title, dateStart, dateEnd, assignUser, userId, myValue, new Timestamp(new java.util.Date()));
-//
-//        FirebaseFirestore.getInstance()
-//                .collection("Plan")
-//                .add(activities)
-//                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-//                    @Override
-//                    public void onSuccess(DocumentReference documentReference) {
-//                        Log.d(TAG, "onSuccess:");
-//                    }
-//                })
-//                .addOnFailureListener(new OnFailureListener() {
-//                    @Override
-//                    public void onFailure(@NonNull Exception e) {
-//                        Toast.makeText(getContext(), e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-//                    }
-//                });
-//    }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.fab:
                 Log.d(TAG, "onClick: Opening dialog activity");
-
-//                showAlerDialog();
-
                 ActivityCustomDialog dialog = new ActivityCustomDialog();
                 dialog.setTargetFragment(ActivityDialogFragment.this, 1);
                 dialog.show(getFragmentManager(), "ActivityCustomDialog");
@@ -264,10 +180,18 @@ public class ActivityDialogFragment extends Fragment implements View.OnClickList
     }
 
     @Override
-    public void handleEditActivity(DocumentSnapshot snapshot) {
+    public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
+        Intent intent;
 
-        ActivityCustomDialog dialog = new ActivityCustomDialog();
-        dialog.setTargetFragment(ActivityDialogFragment.this, 1);
-        dialog.show(getFragmentManager(), "ActivityCustomDialog");
+        intent = getActivity().getIntent();
+        String plan_id = intent.getExtras().getString("plan_id");
+
+//        Activities activities = documentSnapshot.toObject(Activities.class);
+        String id = documentSnapshot.getId();
+//        String path = documentSnapshot.getReference().getPath();
+        intent = new Intent(getContext(), ActivityClicked.class);
+        intent.putExtra("plan_id", plan_id);
+        intent.putExtra("activity_id", id);
+        startActivity(intent);
     }
 }

@@ -4,15 +4,16 @@ import com.google.firebase.Timestamp;
 
 public class Activities {
 
-    private String title, dateStart, dateEnd, assignUser, user_id, plan_id;
+    private String title, notes, dateStart, dateEnd, assignUser, user_id, plan_id;
     private Timestamp created;
 
     public Activities(){
         //empty constructor needed
     }
 
-    public Activities(String title, String dateStart, String dateEnd, String assignUser, String user_id, String plan_id, Timestamp created) {
+    public Activities(String title, String notes, String dateStart, String dateEnd, String assignUser, String user_id, String plan_id, Timestamp created) {
         this.title = title;
+        this.notes = notes;
         this.dateStart = dateStart;
         this.dateEnd = dateEnd;
         this.assignUser = assignUser;
@@ -27,6 +28,14 @@ public class Activities {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
     }
 
     public String getDateStart() {
@@ -81,6 +90,7 @@ public class Activities {
     public String toString() {
         return "Activities{" +
                 "title='" + title + '\'' +
+                ", notes='" + notes + '\'' +
                 ", dateStart='" + dateStart + '\'' +
                 ", dateEnd='" + dateEnd + '\'' +
                 ", assignUser='" + assignUser + '\'' +

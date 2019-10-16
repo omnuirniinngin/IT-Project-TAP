@@ -58,5 +58,9 @@ dependencies {
     //mulawan added
     implementation 'de.hdodenhof:circleimageview:3.0.1'
 
+    //Glide
+    implementation 'com.github.bumptech.glide:glide:4.10.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.10.0'
+
 
 }

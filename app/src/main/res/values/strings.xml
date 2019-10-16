@@ -29,7 +29,7 @@
     <string name="text_note">Notes</string>
 
     <!--Adding Activities through dialog-->
-    <string name="dialog_activity_name">Activity name</string>
+    <string name="dialog_activity_title">Activity title</string>
     <string name="dialog_start_date">Date Start</string>
     <string name="dialog_end_date">Date End</string>
     <string name="dialog_button_add"> Add</string>

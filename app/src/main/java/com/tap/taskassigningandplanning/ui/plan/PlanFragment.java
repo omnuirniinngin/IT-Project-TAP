@@ -24,6 +24,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreSettings;
 import com.tap.taskassigningandplanning.NavigationBottomActivity;
 import com.tap.taskassigningandplanning.R;
 
@@ -61,6 +62,11 @@ public class PlanFragment extends Fragment implements View.OnClickListener{
         etEndDate = view.findViewById(R.id.etEndDate);
         btnCreate = view.findViewById(R.id.btnCreate);
         btnCancel = view.findViewById(R.id.btnCancel);
+
+//        FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
+//                .setPersistenceEnabled(true)
+//                .build();
+//        db.setFirestoreSettings(settings);
 
 
         mAuth = FirebaseAuth.getInstance();
@@ -153,10 +159,12 @@ public class PlanFragment extends Fragment implements View.OnClickListener{
         String dateStart = etStartDate.getText().toString().trim();
         String dateEnd = etEndDate.getText().toString().trim();
 
+        progressDialog = ProgressDialog.show(getContext(), "", "Creating your plan...", true);
+
         if(!hasValidationErrors(title, dateStart, dateEnd)){
 
             //CollectionReference dbPlan = db.collection("Plan");
-            final DocumentReference newPlanRef = db.collection("Plan").document();
+            final DocumentReference plan_id = db.collection("Plan").document();
 
             String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
@@ -164,62 +172,26 @@ public class PlanFragment extends Fragment implements View.OnClickListener{
             plan.setTitle(title);
             plan.setDateStart(dateStart);
             plan.setDateEnd(dateEnd);
-            plan.setPlan_id(newPlanRef.getId());
+            plan.setPlan_id(plan_id.getId());
             plan.setUser_id(userId);
 
-//            Plan plan = new Plan(
-//                    title,
-//                    dateStart,
-//                    dateEnd,
-//                    plan_id,
-//                    user_id
-//            );
-
-            newPlanRef.set(plan).addOnCompleteListener(new OnCompleteListener<Void>() {
+            plan_id.set(plan).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if(task.isSuccessful()){
-                        String myId = newPlanRef.getId();
-
-                        //Sending plan id to another fragment
-//                        Bundle bundle = new Bundle();
-//                        bundle.putString("PLAN_ID", myId);
-//
-//                        ActivityCustomDialog activityCustomDialog = new ActivityCustomDialog();
-//                        activityCustomDialog.setArguments(bundle);
-//                        activityCustomDialog.show(getFragmentManager(), "TAG");
+                        String myId = plan_id.getId();
 
                         Intent intent = new Intent(getContext(), NavigationBottomActivity.class);
                         intent.putExtra("plan_id", myId);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP  );
                         getActivity().finish();
+                        progressDialog.dismiss();
                         startActivity(intent);
-//                        NavigationBottomActivity fragment = new NavigationBottomActivity();
-//                        FragmentManager manager = getFragmentManager();
-//                        FragmentTransaction transaction = manager.beginTransaction();
-//                        transaction.addToBackStack(null);
-//                        transaction.commit();
-
                     }else{
                         makeSnackBarMessage("Failed. Check log.");
                     }
                 }
             });
-//            dbPlan.add(plan)
-//                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-//                        @Override
-//                        public void onSuccess(DocumentReference documentReference) {
-//                            Intent intent = new Intent(getContext(), NavigationBottomActivity.class);
-//                            startActivity(intent);
-//                        }
-//                    })
-//                    .addOnFailureListener(new OnFailureListener() {
-//                        @Override
-//                        public void onFailure(@NonNull Exception e) {
-//                            Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_LONG).show();
-//                        }
-//                    });
-
         }
     }
 
@@ -231,7 +203,6 @@ public class PlanFragment extends Fragment implements View.OnClickListener{
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.btnCreate:
-                progressDialog = ProgressDialog.show(getContext(), "", "Please wait a moment...", true);
                 createPlan();
                 break;
             case R.id.btnCancel:
