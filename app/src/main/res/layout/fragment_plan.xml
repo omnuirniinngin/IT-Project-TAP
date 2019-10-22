@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity"
-    android:id="@+id/container">
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".ui.plan.PlanFragment">
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -70,21 +70,21 @@
                 android:id="@+id/btnCreate"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_margin="5dp"
                 android:layout_weight="1"
-                android:text="Create"
-                android:textColor="#FFFFFF"
                 android:background="@drawable/button_border"
-                android:layout_margin="5dp"/>
+                android:text="Create"
+                android:textColor="#FFFFFF" />
 
             <Button
                 android:id="@+id/btnCancel"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Cancel"
-                android:textColor="#FFFFFF"
                 android:layout_margin="5dp"
-                android:background="@drawable/button_border"/>
+                android:layout_weight="1"
+                android:background="@drawable/button_border"
+                android:text="Cancel"
+                android:textColor="#FFFFFF" />
 
         </LinearLayout>
 

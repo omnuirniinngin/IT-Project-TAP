@@ -24,6 +24,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.tap.taskassigningandplanning.NavigationBottomActivity;
 import com.tap.taskassigningandplanning.R;
+import com.tap.taskassigningandplanning.User;
 import com.tap.taskassigningandplanning.utils.activities.ActivitiesAdapter;
 
 public class TeamFragment extends Fragment implements View.OnClickListener, TeamAdapter.TeamListener{

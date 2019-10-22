@@ -1,8 +1,10 @@
 package com.tap.taskassigningandplanning;
 
+import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.MenuItem;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
@@ -14,14 +16,13 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class NavigationBottomActivity extends AppCompatActivity {
 
     private String plan_id;
+    ActionBar actionBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_bottom_navigation);
 
-        assert getSupportActionBar() != null;   //null check
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);   //show back button
 
         Intent intent = getIntent();
         plan_id = intent.getExtras().getString("plan_id");
@@ -37,6 +38,7 @@ public class NavigationBottomActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
+
     }
 
     public Bundle getPlanId(){

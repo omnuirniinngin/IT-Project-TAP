@@ -14,7 +14,7 @@
             android:id="@+id/etRequest"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter email"
+            android:hint="Search email"
             android:inputType="textEmailAddress"/>
 
         <LinearLayout
@@ -27,14 +27,16 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:text="Send request"
-                android:id="@+id/btnAdd"/>
+                android:id="@+id/btnAdd"
+                android:background="?android:attr/selectableItemBackground"/>
 
             <Button
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:id="@+id/btnCancel"
-                android:text="@string/dialog_button_cancel"/>
+                android:text="@string/dialog_button_cancel"
+                android:background="?android:attr/selectableItemBackground"/>
 
         </LinearLayout>
 

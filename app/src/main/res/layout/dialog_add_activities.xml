@@ -1,66 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".NavigationBottomActivity">
+    tools:context=".NavigationBottomActivity"
+    android:padding="8dp"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/etActivityTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/dialog_activity_title" />
+
+    <EditText
+        android:id="@+id/etStartDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="false"
+        android:hint="@string/dialog_start_date" />
+
+    <EditText
+        android:id="@+id/etEndDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="false"
+        android:hint="@string/dialog_end_date" />
+
+    <EditText
+        android:id="@+id/etAssignUser"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/dialog_assign_activity" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="10dp">
+        android:orientation="horizontal">
 
-        <EditText
-            android:id="@+id/etActivityTitle"
-            android:layout_width="match_parent"
+        <Button
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:hint="@string/dialog_activity_title" />
+            android:text="@string/dialog_button_add"
+            android:id="@+id/btnAdd"
+            android:background="?android:attr/selectableItemBackground"/>
 
-        <EditText
-            android:id="@+id/etStartDate"
-            android:layout_width="match_parent"
+        <Button
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:clickable="true"
-            android:focusable="false"
-            android:hint="@string/dialog_start_date" />
-
-        <EditText
-            android:id="@+id/etEndDate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            android:focusable="false"
-            android:hint="@string/dialog_end_date" />
-
-        <EditText
-            android:id="@+id/etAssignUser"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/dialog_assign_activity" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <Button
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="wrap_content"
-                        android:text="@string/dialog_button_add"
-                        android:id="@+id/btnAdd"/>
-
-                    <Button
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/btnCancel"
-                        android:text="@string/dialog_button_cancel"/>
-
-                </LinearLayout>
-
+            android:id="@+id/btnCancel"
+            android:text="@string/dialog_button_cancel"
+            android:background="?android:attr/selectableItemBackground"/>
 
     </LinearLayout>
 
-</RelativeLayout>
+</LinearLayout>

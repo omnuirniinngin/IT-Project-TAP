@@ -1,30 +1,24 @@
 package com.tap.taskassigningandplanning.ui.plan;
 
-import com.google.firebase.database.IgnoreExtraProperties;
-import com.google.firebase.firestore.ServerTimestamp;
-import com.google.type.Date;
+import com.google.firebase.Timestamp;
 
-@IgnoreExtraProperties
 public class Plan {
-    private String title;
-    private String dateStart;
-    private String dateEnd;
-    private String plan_id;
-    private String user_id;
-    private @ServerTimestamp
-    Date timestamp;
+
+    private String title, dateStart, dateEnd, plan_id, user_id;
+    private Timestamp created;
 
 
     public Plan(){
-
+        // Must be empty
     }
 
-    public Plan(String title, String dateStart, String dateEnd, String plan_id, String user_id, Date timestamp) {
+    public Plan(String title, String dateStart, String dateEnd, String plan_id, String user_id, Timestamp created) {
         this.title = title;
         this.dateStart = dateStart;
         this.dateEnd = dateEnd;
         this.plan_id = plan_id;
         this.user_id = user_id;
+        this.created = created;
     }
 
     public String getTitle() {
@@ -65,5 +59,25 @@ public class Plan {
 
     public void setUser_id(String user_id) {
         this.user_id = user_id;
+    }
+
+    public Timestamp getCreated() {
+        return created;
+    }
+
+    public void setCreated(Timestamp created) {
+        this.created = created;
+    }
+
+    @Override
+    public String toString() {
+        return "Plan{" +
+                "title='" + title + '\'' +
+                ", dateStart='" + dateStart + '\'' +
+                ", dateEnd='" + dateEnd + '\'' +
+                ", plan_id='" + plan_id + '\'' +
+                ", user_id='" + user_id + '\'' +
+                ", created=" + created +
+                '}';
     }
 }

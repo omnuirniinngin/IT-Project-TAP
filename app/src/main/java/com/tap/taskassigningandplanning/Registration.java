@@ -173,6 +173,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
 //                    }
 //                });
 
+        progressDialog.dismiss();
     }
 
     @Override
@@ -183,7 +184,6 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.tvHaveAccount:
                 Intent intent = new Intent(Registration.this, Login.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
 
 

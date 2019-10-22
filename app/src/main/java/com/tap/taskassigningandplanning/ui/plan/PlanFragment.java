@@ -4,27 +4,27 @@ import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.android.material.snackbar.Snackbar;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreSettings;
+import com.google.firebase.firestore.ServerTimestamp;
+import com.google.type.Date;
 import com.tap.taskassigningandplanning.NavigationBottomActivity;
 import com.tap.taskassigningandplanning.R;
 
@@ -38,11 +38,8 @@ public class PlanFragment extends Fragment implements View.OnClickListener{
     //initialization of functions
     private EditText etPlanTitle, etStartDate, etEndDate;
     private Button btnCreate, btnCancel;
-
     private ProgressDialog progressDialog;
 
-    //val
-    View mParentLayout;
     //firebase
     private FirebaseFirestore db;
     private DatabaseReference databaseReference;
@@ -50,6 +47,8 @@ public class PlanFragment extends Fragment implements View.OnClickListener{
 
     final Calendar myCalendar = Calendar.getInstance();
     DatePickerDialog.OnDateSetListener dateSetListener;
+    @ServerTimestamp
+    Date time;
 
 
     @Nullable
@@ -62,11 +61,6 @@ public class PlanFragment extends Fragment implements View.OnClickListener{
         etEndDate = view.findViewById(R.id.etEndDate);
         btnCreate = view.findViewById(R.id.btnCreate);
         btnCancel = view.findViewById(R.id.btnCancel);
-
-//        FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
-//                .setPersistenceEnabled(true)
-//                .build();
-//        db.setFirestoreSettings(settings);
 
 
         mAuth = FirebaseAuth.getInstance();
@@ -159,44 +153,40 @@ public class PlanFragment extends Fragment implements View.OnClickListener{
         String dateStart = etStartDate.getText().toString().trim();
         String dateEnd = etEndDate.getText().toString().trim();
 
-        progressDialog = ProgressDialog.show(getContext(), "", "Creating your plan...", true);
-
         if(!hasValidationErrors(title, dateStart, dateEnd)){
 
             //CollectionReference dbPlan = db.collection("Plan");
             final DocumentReference plan_id = db.collection("Plan").document();
 
-            String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+            String user_id = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-            final Plan plan = new Plan();
-            plan.setTitle(title);
-            plan.setDateStart(dateStart);
-            plan.setDateEnd(dateEnd);
-            plan.setPlan_id(plan_id.getId());
-            plan.setUser_id(userId);
+            Plan plan = new Plan(title, dateStart, dateEnd, plan_id.getId(), user_id, new Timestamp(new java.util.Date()));
 
-            plan_id.set(plan).addOnCompleteListener(new OnCompleteListener<Void>() {
-                @Override
-                public void onComplete(@NonNull Task<Void> task) {
-                    if(task.isSuccessful()){
-                        String myId = plan_id.getId();
+            progressDialog = ProgressDialog.show(getContext(), "", "Creating your plan...", true);
 
-                        Intent intent = new Intent(getContext(), NavigationBottomActivity.class);
-                        intent.putExtra("plan_id", myId);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP  );
-                        getActivity().finish();
-                        progressDialog.dismiss();
-                        startActivity(intent);
-                    }else{
-                        makeSnackBarMessage("Failed. Check log.");
-                    }
-                }
-            });
+            FirebaseFirestore.getInstance()
+                    .collection("Plan")
+                    .add(plan)
+                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                        @Override
+                        public void onSuccess(DocumentReference documentReference) {
+                            Log.d(TAG, "onSuccess: added data Plan on Firestore");
+                            String myId = plan_id.getId();
+                            Intent intent = new Intent(getContext(), NavigationBottomActivity.class);
+                            intent.putExtra("plan_id", myId);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP  );
+                            getActivity().finish();
+                            progressDialog.dismiss();
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            progressDialog.dismiss();
+                            Toast.makeText(getContext(), e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
         }
-    }
-
-    private void makeSnackBarMessage(String message){
-        Snackbar.make(mParentLayout, message, Snackbar.LENGTH_SHORT).show();
     }
 
     @Override

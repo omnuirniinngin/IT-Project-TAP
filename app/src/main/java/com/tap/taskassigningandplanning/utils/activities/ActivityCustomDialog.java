@@ -163,19 +163,15 @@ public class ActivityCustomDialog extends DialogFragment implements View.OnClick
         String notes = null;
 
         // Get current user id
-        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        String user_id = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         // Get plan_id created from user
         NavigationBottomActivity navigationBottomActivity = (NavigationBottomActivity)getActivity();
         Bundle id_result = navigationBottomActivity.getPlanId();
         String plan_id = id_result.getString("plan_id");
 
-
         if(!hasValidationErrors(title, dateStart, dateEnd)){
-//            DocumentReference activity_id = db.collection("Activity").document();
-
-//            Activities activities = new Activities(title, dateStart, dateEnd, assignUser, userId, plan_id, activity_id.getId(), new Timestamp(new java.util.Date()));
-            Activities activities = new Activities(title, notes, dateStart, dateEnd, assignUser, userId, plan_id, new Timestamp(new java.util.Date()));
+            Activities activities = new Activities(title, notes, dateStart, dateEnd, assignUser, user_id, plan_id, new Timestamp(new java.util.Date()));
 
             FirebaseFirestore.getInstance()
                     .collection("Activity")

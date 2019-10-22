@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
@@ -9,6 +8,11 @@
             android:id="@+id/nav_plan"
             android:icon="@drawable/ic_plan"
             android:title="@string/menu_plan" />
+
+        <item
+            android:id="@+id/nav_team"
+            android:icon="@drawable/ic_plans"
+            android:title="@string/menu_team" />
 
         <item
             android:id="@+id/nav_notification"

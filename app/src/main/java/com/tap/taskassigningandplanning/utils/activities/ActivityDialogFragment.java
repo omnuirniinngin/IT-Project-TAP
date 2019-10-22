@@ -73,8 +73,6 @@ public class ActivityDialogFragment extends Fragment implements View.OnClickList
 
     private FloatingActionButton fab;
 
-    String activity_id;
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -86,13 +84,37 @@ public class ActivityDialogFragment extends Fragment implements View.OnClickList
         fab.setOnClickListener(this);
 
         setupRecyclerView();
+//        recentPlan();
         return view;
+    }
+
+    private void recentPlan(){
+        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        db.collection("Plan")
+                .whereEqualTo("user_id", userId)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            QuerySnapshot querySnapshot = task.getResult();
+                            for (DocumentSnapshot document: querySnapshot.getDocuments()) {
+                                Log.d(TAG, "onComplete: Found Plan " + document.getData());
+                            }
+                        }
+                    }
+                });
     }
 
     private void setupRecyclerView(){
         NavigationBottomActivity activity = (NavigationBottomActivity)getActivity();
         Bundle id_result = activity.getPlanId();
         final String plan_id = id_result.getString("plan_id");
+
+//        Intent intent = getActivity().getIntent();
+//        final String plan_id = intent.getExtras().getString("plan_id");
+
 
         Query query = FirebaseFirestore.getInstance()
                 .collection("Activity")

@@ -1,29 +1,30 @@
 <resources>
     <string name="app_name">Task Assigning and Planning</string>
-    
-    <string name="nav_header_title">Niño Muring</string>
-    <string name="nav_header_subtitle">STI College of Davao</string>
+
+    <string name="nav_header_title">Full Name</string>
+    <string name="nav_header_subtitle">Email</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
     <!--Navigation Drawer-->
-    <string name="menu_plan">Plan</string>
+    <string name="menu_plan">Start Plan</string>
     <string name="menu_notification">Notifications</string>
     <string name="menu_profile">Account</string>
     <string name="menu_setting">Settings</string>
+    <string name="menu_team">Plans</string>
 
     <!--Plan Fragment - Starting a plan-->
     <string name="plan_description">New Plan Description</string>
     <string name="plan_start_date">Starting Date</string>
     <string name="plan_end_date">Ending Date</string>
-    
+
     <!--Bottom Navigation-->
     <string name="title_activities">Activities</string>
     <string name="title_progress">Progress</string>
     <string name="title_task">Tasks</string>
     <string name="title_chart">Pie Chart</string>
     <string name="title_team">Teams</string>
-    
+
     <!--ListView Activities Fragment-->
     <string name="text_task_name">New Task</string>
     <string name="text_note">Notes</string>
@@ -58,7 +59,20 @@
     <string name="input_error_start_date_activity">When is your activity start?</string>
     <string name="input_error_end_date_activity">When will it end?</string>
 
+    <!--Use this later for generating token-->
+    <string name="msg_token_fmt" translatable="false">InstanceID Token: %s</string>
 
-    
+    <!--layout_row_plan_notification-->
+    <string name="plan_row_title">Title</string>
+    <string name="plan_row_activities">List of activities</string>
+
+    <!--layout_row_request-->
+    <string name="notification_row_title">Title</string>
+    <string name="notification_row_from">From</string>
+    <string name="notification_row_btn_accept">Accept</string>
+    <string name="notification_row_btn_ignore">Ignore</string>
+
+
+
 
 </resources>

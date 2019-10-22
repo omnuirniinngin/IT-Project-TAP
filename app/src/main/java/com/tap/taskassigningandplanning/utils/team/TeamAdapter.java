@@ -25,8 +25,8 @@ public class TeamAdapter extends FirestoreRecyclerAdapter <Team, TeamAdapter.Tea
 
     @Override
     protected void onBindViewHolder(@NonNull TeamHolder holder, int position, @NonNull Team team) {
-        //Temporary holder
-        holder.tvName.setText(team.getEmail());
+        holder.tvName.setText(team.getName());
+        holder.tvStatus.setText("Request pending");
     }
 
     @NonNull
@@ -39,11 +39,12 @@ public class TeamAdapter extends FirestoreRecyclerAdapter <Team, TeamAdapter.Tea
 
     class TeamHolder extends RecyclerView.ViewHolder{
 
-        TextView tvName;
+        TextView tvName, tvStatus;
 
         public TeamHolder(@NonNull View itemView) {
             super(itemView);
             tvName = itemView.findViewById(R.id.tvName);
+            tvStatus = itemView.findViewById(R.id.tvStatus);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
