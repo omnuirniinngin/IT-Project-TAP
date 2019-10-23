@@ -1,19 +1,25 @@
 package com.tap.taskassigningandplanning.utils.team;
 
+import com.google.firebase.Timestamp;
+
 public class Team {
-    public String email, plan_id, name, user_id;
+    public String email, plan_id, name, user_id, plan_name, creator;
     private boolean status;
+    private Timestamp created;
 
     public Team(){
         //Must be empty
     }
 
-    public Team(String email, String plan_id, String name, String user_id, boolean status) {
+    public Team(String email, String plan_id, String name, String user_id, String plan_name, String creator, boolean status, Timestamp created) {
         this.email = email;
         this.plan_id = plan_id;
         this.name = name;
         this.user_id = user_id;
+        this.plan_name = plan_name;
+        this.creator = creator;
         this.status = status;
+        this.created = created;
     }
 
     public String getEmail() {
@@ -48,12 +54,36 @@ public class Team {
         this.user_id = user_id;
     }
 
+    public String getPlan_name() {
+        return plan_name;
+    }
+
+    public void setPlan_name(String plan_name) {
+        this.plan_name = plan_name;
+    }
+
+    public String getCreator() {
+        return creator;
+    }
+
+    public void setCreator(String creator) {
+        this.creator = creator;
+    }
+
     public boolean isStatus() {
         return status;
     }
 
     public void setStatus(boolean status) {
         this.status = status;
+    }
+
+    public Timestamp getCreated() {
+        return created;
+    }
+
+    public void setCreated(Timestamp created) {
+        this.created = created;
     }
 
     @Override
@@ -63,7 +93,10 @@ public class Team {
                 ", plan_id='" + plan_id + '\'' +
                 ", name='" + name + '\'' +
                 ", user_id='" + user_id + '\'' +
+                ", plan_name='" + plan_name + '\'' +
+                ", creator='" + creator + '\'' +
                 ", status=" + status +
+                ", created=" + created +
                 '}';
     }
 }

@@ -65,7 +65,7 @@ public class PlanJoinedFragment extends Fragment implements PlanJoinedAdapter.Pl
     private void setupRecyclerView(){
         final String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        // User must accept first the invitation before he can view these plans on plan fragment screen
+        // User must accept first the invitation before he can view these plans on plan fragment screen but how?
 
         CollectionReference planRef = db.collection("Plan");
 
@@ -97,8 +97,6 @@ public class PlanJoinedFragment extends Fragment implements PlanJoinedAdapter.Pl
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(planJoinedAdapter);
         planJoinedAdapter.startListening();
-
-
 
         /*db.collection("Team").whereEqualTo("user_id", userId)
                 .get()

@@ -120,27 +120,27 @@ public class MainActivity extends AppCompatActivity {
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         // get menu from navigationView
-        Menu menu = navigationView.getMenu();
-        final SubMenu subMenu = menu.addSubMenu("Recent");
-
-        db.collection("Plan")
-                .whereEqualTo("user_id", userId)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            QuerySnapshot querySnapshot = task.getResult();
-                            count = querySnapshot.size();
-                            System.out.println(count);
-                            for (DocumentSnapshot document: querySnapshot.getDocuments()) {
-                                Log.d(TAG, "onComplete: Found incoming id " + count);
-
-                                subMenu.add(0, count++, Menu.NONE, document.get("title").toString());
-                            }
-                        }
-                    }
-                });
+//        Menu menu = navigationView.getMenu();
+//        final SubMenu subMenu = menu.addSubMenu("Recent");
+//
+//        db.collection("Plan")
+//                .whereEqualTo("user_id", userId)
+//                .get()
+//                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                        if (task.isSuccessful()) {
+//                            QuerySnapshot querySnapshot = task.getResult();
+//                            count = querySnapshot.size();
+//                            System.out.println(count);
+//                            for (DocumentSnapshot document: querySnapshot.getDocuments()) {
+//                                Log.d(TAG, "onComplete: Found incoming id " + count);
+//
+//                                subMenu.add(0, count++, Menu.NONE, document.get("title").toString());
+//                            }
+//                        }
+//                    }
+//                });
 
         generator = ColorGenerator.MATERIAL;
         imageView = navigationView.getHeaderView(0).findViewById(R.id.imageView);

@@ -1,10 +1,8 @@
 package com.tap.taskassigningandplanning;
 
-import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
-import android.view.MenuItem;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
@@ -15,8 +13,7 @@ import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class NavigationBottomActivity extends AppCompatActivity {
 
-    private String plan_id;
-    ActionBar actionBar;
+    private String plan_id, plan_name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +23,7 @@ public class NavigationBottomActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         plan_id = intent.getExtras().getString("plan_id");
+        plan_name = intent.getExtras().getString("plan_name");
 
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
@@ -44,6 +42,7 @@ public class NavigationBottomActivity extends AppCompatActivity {
     public Bundle getPlanId(){
         Bundle bundle = new Bundle();
         bundle.putString("plan_id", plan_id);
+        bundle.putString("plan_name", plan_name);
         return bundle;
     }
 

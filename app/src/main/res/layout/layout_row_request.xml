@@ -25,14 +25,24 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
         <TextView
-            android:id="@+id/tvFrom"
-            android:layout_width="match_parent"
+            android:id="@+id/tvSender"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tvTitle"
+            android:text="@string/notification_row_sender"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
+        <TextView
+            android:id="@+id/tvFrom"
+            android:layout_marginLeft="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvTitle"
+            android:layout_toRightOf="@+id/tvSender"
             android:text="@string/notification_row_from"
             android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
-        <LinearLayout
+<!--        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tvFrom"
@@ -48,12 +58,13 @@
                 android:text="@string/notification_row_btn_accept" />
 
             <Button
+                android:id="@+id/btnIgnore"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@android:color/transparent"
                 android:text="@string/notification_row_btn_ignore" />
-        </LinearLayout>
+        </LinearLayout>-->
 
 
     </RelativeLayout>

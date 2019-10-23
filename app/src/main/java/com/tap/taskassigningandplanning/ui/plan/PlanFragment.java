@@ -149,7 +149,7 @@ public class PlanFragment extends Fragment implements View.OnClickListener{
     }
 
     private void createPlan() {
-        String title = etPlanTitle.getText().toString().trim();
+        final String title = etPlanTitle.getText().toString().trim();
         String dateStart = etStartDate.getText().toString().trim();
         String dateEnd = etEndDate.getText().toString().trim();
 
@@ -174,16 +174,19 @@ public class PlanFragment extends Fragment implements View.OnClickListener{
                             String myId = plan_id.getId();
                             Intent intent = new Intent(getContext(), NavigationBottomActivity.class);
                             intent.putExtra("plan_id", myId);
+                            intent.putExtra("plan_name", title);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP  );
                             getActivity().finish();
+                            startActivity(intent);
+
                             progressDialog.dismiss();
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            progressDialog.dismiss();
                             Toast.makeText(getContext(), e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                            progressDialog.dismiss();
                         }
                     });
         }

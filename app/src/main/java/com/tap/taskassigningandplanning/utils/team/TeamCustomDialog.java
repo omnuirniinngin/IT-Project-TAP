@@ -20,11 +20,15 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.SignInMethodQueryResult;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SetOptions;
@@ -72,8 +76,8 @@ public class TeamCustomDialog extends DialogFragment implements View.OnClickList
 
     private void addUser(){
         final String email = etRequest.getText().toString().trim();
-        final boolean status = false;
 
+        final boolean status = false;
 
         if(!email.isEmpty()){
 
@@ -81,6 +85,10 @@ public class TeamCustomDialog extends DialogFragment implements View.OnClickList
             NavigationBottomActivity activity = (NavigationBottomActivity)getActivity();
             Bundle id_result = activity.getPlanId();
             final String plan_id = id_result.getString("plan_id");
+            final String plan_name = id_result.getString("plan_name");
+            final String current_user = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+            final DocumentReference creatorRef = db.collection("Users").document(current_user);
 
             // Query user through email
             db.collection("Users")
@@ -92,32 +100,66 @@ public class TeamCustomDialog extends DialogFragment implements View.OnClickList
                             if (task.isSuccessful()) {
                                 for (final QueryDocumentSnapshot document : task.getResult()) {
                                     final String name = (String) document.get("name");
-                                    String user_id = document.getId();
+                                    final String user_id = document.getId();
 
                                     Log.d(TAG, "user_name: " + name);
                                     Log.d(TAG, "user_id: " + user_id);
 
-                                    Team team = new Team(email, plan_id, name, user_id, status);
+//                                    Team team = new Team(email, plan_id, name, user_id, plan_name, status);
+//
+//                                    FirebaseFirestore.getInstance()
+//                                            .collection("Team")
+//                                            .add(team)
+//                                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+//                                                @Override
+//                                                public void onSuccess(DocumentReference documentReference) {
+//                                                    Log.d(TAG, "onSuccess: User added to team");
+//                                                }
+//                                            })
+//                                            .addOnFailureListener(new OnFailureListener() {
+//                                                @Override
+//                                                public void onFailure(@NonNull Exception e) {
+//                                                    Toast.makeText(getContext(), e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+//                                                }
+//                                            });
 
-                                    // Making sub collections instead of making a new collection
-                                    // Research for alternative use. Code is not yet working
-//                                    db.collection("Plan").document(plan_id).collection("team").document(plan_id);
+                                    // Get creators name to be display
+                                    creatorRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                            if (task.isSuccessful()) {
+                                                DocumentSnapshot document = task.getResult();
+                                                if (document.exists()) {
+                                                    Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+                                                    String creator = (String) document.get("name");
+                                                    Log.d(TAG, "creator: " + creator);
 
-                                    FirebaseFirestore.getInstance()
-                                            .collection("Team")
-                                            .add(team)
-                                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                                @Override
-                                                public void onSuccess(DocumentReference documentReference) {
-                                                    Log.d(TAG, "onSuccess: User added to team");
+                                                    Team team = new Team(email, plan_id, name, user_id, plan_name, creator, status, new Timestamp(new java.util.Date()));
+
+                                                    FirebaseFirestore.getInstance()
+                                                            .collection("Team")
+                                                            .add(team)
+                                                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                                                @Override
+                                                                public void onSuccess(DocumentReference documentReference) {
+                                                                    Log.d(TAG, "onSuccess: User added to team");
+                                                                }
+                                                            })
+                                                            .addOnFailureListener(new OnFailureListener() {
+                                                                @Override
+                                                                public void onFailure(@NonNull Exception e) {
+                                                                    Toast.makeText(getContext(), e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                                                                }
+                                                            });
+
+                                                } else {
+                                                    Log.d(TAG, "No such document");
                                                 }
-                                            })
-                                            .addOnFailureListener(new OnFailureListener() {
-                                                @Override
-                                                public void onFailure(@NonNull Exception e) {
-                                                    Toast.makeText(getContext(), e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-                                                }
-                                            });
+                                            } else {
+                                                Log.d(TAG, "get failed with ", task.getException());
+                                            }
+                                        }
+                                    });
 
                                 }
                             } else {
@@ -131,7 +173,6 @@ public class TeamCustomDialog extends DialogFragment implements View.OnClickList
             etRequest.requestFocus();
             return;
         }
-
 
     }
 
@@ -176,48 +217,11 @@ public class TeamCustomDialog extends DialogFragment implements View.OnClickList
                                 Log.d(TAG, "User id is " + document.getId());
                                 // UPDATE ARRAY IN USERS
                                 String user_id = document.getId();
-                                String user_name = (String) document.get("name");
 
                                 //Use this when adding data within an array that has no value
+                                //Should use this later if the user accepted the plan
                                 DocumentReference userRef = db.collection("Plan").document(plan_id);
                                 userRef.update("team", FieldValue.arrayUnion(user_id));
-
-//                                DocumentReference docRef = db.collection("Plan").document(plan_id);
-//
-//
-//
-//                                Map<String, Boolean> plan = new HashMap<>();
-//                                plan.put(user_id, false);
-//
-//                                docRef.update("team", FieldValue.arrayUnion(plan)).addOnSuccessListener(new OnSuccessListener<Void>() {
-//                                    @Override
-//                                    public void onSuccess(Void aVoid) {
-//                                        Log.d(TAG, "onSuccess: Added to sub collections");
-//                                    }
-//                                }).addOnFailureListener(new OnFailureListener() {
-//                                    @Override
-//                                    public void onFailure(@NonNull Exception e) {
-//                                        Log.w(TAG, "Error writing in sub collection", e);
-//                                    }
-//                                });
-
-/*                                db.collection("Plan").document(plan_id).update("team", FieldValue.arrayUnion(plan));*/
-
-//                                db.collection("Plan")
-//                                        .add(plan)
-//                                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-//                                            @Override
-//                                            public void onSuccess(DocumentReference documentReference) {
-//                                                Log.d(TAG, "DocumentSnapshot written with ID: " + documentReference.getId());
-//                                            }
-//                                        })
-//                                        .addOnFailureListener(new OnFailureListener() {
-//                                            @Override
-//                                            public void onFailure(@NonNull Exception e) {
-//                                                Log.w(TAG, "Error adding document", e);
-//                                            }
-//                                        });
-
                             }
                         } else {
                             Log.d(TAG, "Error getting documents: ", task.getException());

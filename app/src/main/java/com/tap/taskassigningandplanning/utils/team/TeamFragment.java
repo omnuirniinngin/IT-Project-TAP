@@ -66,8 +66,6 @@ public class TeamFragment extends Fragment implements View.OnClickListener, Team
 
         CollectionReference id = db.collection("Team");
 
-
-
         Query query = id.whereEqualTo("plan_id", plan_id).orderBy("email", Query.Direction.ASCENDING);
 
         FirestoreRecyclerOptions<Team> options = new FirestoreRecyclerOptions.Builder<Team>()

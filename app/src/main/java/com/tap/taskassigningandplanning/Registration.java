@@ -134,9 +134,12 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
                                             Log.d(TAG, "onFailure: Error creating user");
                                         }
                                     });
+                            progressDialog.dismiss();
                         }else {
+                            progressDialog.dismiss();
                             Toast.makeText(Registration.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
                         }
+
                     }
                 });
 
@@ -172,8 +175,6 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
 //                        }
 //                    }
 //                });
-
-        progressDialog.dismiss();
     }
 
     @Override
