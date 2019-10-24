@@ -105,24 +105,6 @@ public class TeamCustomDialog extends DialogFragment implements View.OnClickList
                                     Log.d(TAG, "user_name: " + name);
                                     Log.d(TAG, "user_id: " + user_id);
 
-//                                    Team team = new Team(email, plan_id, name, user_id, plan_name, status);
-//
-//                                    FirebaseFirestore.getInstance()
-//                                            .collection("Team")
-//                                            .add(team)
-//                                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-//                                                @Override
-//                                                public void onSuccess(DocumentReference documentReference) {
-//                                                    Log.d(TAG, "onSuccess: User added to team");
-//                                                }
-//                                            })
-//                                            .addOnFailureListener(new OnFailureListener() {
-//                                                @Override
-//                                                public void onFailure(@NonNull Exception e) {
-//                                                    Toast.makeText(getContext(), e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-//                                                }
-//                                            });
-
                                     // Get creators name to be display
                                     creatorRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                         @Override
@@ -132,9 +114,9 @@ public class TeamCustomDialog extends DialogFragment implements View.OnClickList
                                                 if (document.exists()) {
                                                     Log.d(TAG, "DocumentSnapshot data: " + document.getData());
                                                     String creator = (String) document.get("name");
-                                                    Log.d(TAG, "creator: " + creator);
+                                                    String request = "Request Pending";
 
-                                                    Team team = new Team(email, plan_id, name, user_id, plan_name, creator, status, new Timestamp(new java.util.Date()));
+                                                    Team team = new Team(email, plan_id, name, user_id, plan_name, creator,request, status, new Timestamp(new java.util.Date()));
 
                                                     FirebaseFirestore.getInstance()
                                                             .collection("Team")

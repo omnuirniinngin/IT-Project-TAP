@@ -3,7 +3,7 @@ package com.tap.taskassigningandplanning.utils.team;
 import com.google.firebase.Timestamp;
 
 public class Team {
-    public String email, plan_id, name, user_id, plan_name, creator;
+    public String email, plan_id, name, user_id, plan_name, creator, request;
     private boolean status;
     private Timestamp created;
 
@@ -11,13 +11,14 @@ public class Team {
         //Must be empty
     }
 
-    public Team(String email, String plan_id, String name, String user_id, String plan_name, String creator, boolean status, Timestamp created) {
+    public Team(String email, String plan_id, String name, String user_id, String plan_name, String creator, String request, boolean status, Timestamp created) {
         this.email = email;
         this.plan_id = plan_id;
         this.name = name;
         this.user_id = user_id;
         this.plan_name = plan_name;
         this.creator = creator;
+        this.request = request;
         this.status = status;
         this.created = created;
     }
@@ -70,6 +71,14 @@ public class Team {
         this.creator = creator;
     }
 
+    public String getRequest() {
+        return request;
+    }
+
+    public void setRequest(String request) {
+        this.request = request;
+    }
+
     public boolean isStatus() {
         return status;
     }
@@ -95,6 +104,7 @@ public class Team {
                 ", user_id='" + user_id + '\'' +
                 ", plan_name='" + plan_name + '\'' +
                 ", creator='" + creator + '\'' +
+                ", request='" + request + '\'' +
                 ", status=" + status +
                 ", created=" + created +
                 '}';

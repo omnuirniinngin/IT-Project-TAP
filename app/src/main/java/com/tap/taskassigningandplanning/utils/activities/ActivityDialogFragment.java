@@ -88,17 +88,15 @@ public class ActivityDialogFragment extends Fragment implements View.OnClickList
     }
 
     private void setupRecyclerView(){
+        String user_id = FirebaseAuth.getInstance().getCurrentUser().getUid();
         NavigationBottomActivity activity = (NavigationBottomActivity)getActivity();
         Bundle id_result = activity.getPlanId();
         final String plan_id = id_result.getString("plan_id");
 
-//        Intent intent = getActivity().getIntent();
-//        final String plan_id = intent.getExtras().getString("plan_id");
-
-
         Query query = FirebaseFirestore.getInstance()
                 .collection("Activity")
                 .whereEqualTo("plan_id", plan_id)
+                .whereArrayContains("user_id", user_id)
                 .orderBy("dateStart", Query.Direction.ASCENDING);
 
         FirestoreRecyclerOptions<Activities> options = new FirestoreRecyclerOptions.Builder<Activities>()
@@ -153,7 +151,6 @@ public class ActivityDialogFragment extends Fragment implements View.OnClickList
                 dialog.setTargetFragment(ActivityDialogFragment.this, 1);
                 dialog.show(getFragmentManager(), "ActivityCustomDialog");
                 break;
-
         }
     }
 
@@ -184,13 +181,11 @@ public class ActivityDialogFragment extends Fragment implements View.OnClickList
     @Override
     public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
         Intent intent;
-
         intent = getActivity().getIntent();
-        String plan_id = intent.getExtras().getString("plan_id");
 
-//        Activities activities = documentSnapshot.toObject(Activities.class);
+        String plan_id = intent.getExtras().getString("plan_id");
         String id = documentSnapshot.getId();
-//        String path = documentSnapshot.getReference().getPath();
+
         intent = new Intent(getContext(), ActivityClicked.class);
         intent.putExtra("plan_id", plan_id);
         intent.putExtra("activity_id", id);

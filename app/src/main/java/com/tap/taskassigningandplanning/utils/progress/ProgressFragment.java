@@ -19,10 +19,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.tap.taskassigningandplanning.NavigationBottomActivity;
 import com.tap.taskassigningandplanning.R;
 import com.tap.taskassigningandplanning.ui.plan.Plan;
@@ -37,16 +40,12 @@ public class ProgressFragment extends Fragment implements ActivitiesAdapter.Acti
     private FirebaseFirestore db;
 
     private ActivitiesAdapter activitiesAdapter;
-//    private ProgressAdapter progressAdapter;
     private RecyclerView recyclerView;
 
     TextView tvTitle, tvDaysLeftPlan;
 
-    private ProgressViewModel progressViewModel;
-
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_progress, container, false);
-        progressViewModel = ViewModelProviders.of(this).get(ProgressViewModel.class);
 
         tvTitle = view.findViewById(R.id.tvTitle);
         tvDaysLeftPlan = view.findViewById(R.id.tvDaysLeftPlan);
@@ -66,29 +65,28 @@ public class ProgressFragment extends Fragment implements ActivitiesAdapter.Acti
         Bundle id_result = activity.getPlanId();
         final String plan_id = id_result.getString("plan_id");
 
-        final DocumentReference documentReference = db.collection("Plan").document(plan_id);
+        db.collection("Plan")
+                .whereEqualTo("plan_id", plan_id)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d(TAG, document.getId() + " => " + document.getData());
+                                String title = (String) document.get("title");
+                                tvTitle.setText(title);
 
-        documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if(task.isSuccessful()){
-                    DocumentSnapshot documentSnapshot = task.getResult();
-                    if(documentSnapshot.exists()){
-                        Log.d(TAG, "onComplete: Success getting plan" + documentSnapshot.getData());
-                        Plan plan = documentSnapshot.toObject(Plan.class);
-                        tvTitle.setText(plan.getTitle());
-
-                    }else {
-                        Log.d(TAG, "No such document");
+                            }
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
                     }
-                }else {
-                    Log.d(TAG, "get failed with ", task.getException());
-                }
-            }
-        });
+                });
     }
 
     private void setupRecyclerView(){
+        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         NavigationBottomActivity activity = (NavigationBottomActivity)getActivity();
 
         Bundle id_result = activity.getPlanId();
@@ -96,7 +94,7 @@ public class ProgressFragment extends Fragment implements ActivitiesAdapter.Acti
 
         Query query = FirebaseFirestore.getInstance()
                 .collection("Activity")
-                .whereEqualTo("plan_id", plan_id)
+                .whereEqualTo("plan_id", plan_id).whereArrayContains("user_id", userId)
                 .orderBy("dateStart", Query.Direction.ASCENDING);
 
         FirestoreRecyclerOptions<Activities> options = new FirestoreRecyclerOptions.Builder<Activities>()
@@ -108,16 +106,6 @@ public class ProgressFragment extends Fragment implements ActivitiesAdapter.Acti
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(activitiesAdapter);
         activitiesAdapter.startListening();
-
-//        FirestoreRecyclerOptions<Activities> options = new FirestoreRecyclerOptions.Builder<Activities>()
-//                .setQuery(query, Activities.class)
-//                .build();
-//        progressAdapter = new ProgressAdapter(options,this);
-//
-//        recyclerView.setHasFixedSize(true);
-//        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-//        recyclerView.setAdapter(progressAdapter);
-//        progressAdapter.startListening();
 
     }
 

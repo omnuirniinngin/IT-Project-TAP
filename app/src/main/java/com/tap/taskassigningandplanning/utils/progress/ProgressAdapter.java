@@ -43,7 +43,7 @@ public class ProgressAdapter extends FirestoreRecyclerAdapter <Activities, Progr
         public ProgressHolder(@NonNull View itemView) {
             super(itemView);
 
-            tvTitle = itemView.findViewById(R.id.tvName);
+            tvTitle = itemView.findViewById(R.id.tvActivityTitle);
             tvDaysLeftPlan = itemView.findViewById(R.id.tvDaysLeftPlan);
             tvPercent = itemView.findViewById(R.id.tvPercent);
 

@@ -1,31 +1,17 @@
 package com.tap.taskassigningandplanning.utils.activities;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.tap.taskassigningandplanning.R;
-
-import org.w3c.dom.Document;
-
-import java.util.ArrayList;
 
 public class ActivitiesAdapter extends FirestoreRecyclerAdapter <Activities, ActivitiesAdapter.ActivityHolder> {
 
@@ -52,7 +38,6 @@ public class ActivitiesAdapter extends FirestoreRecyclerAdapter <Activities, Act
     }
 
     class ActivityHolder extends RecyclerView.ViewHolder {
-
         TextView tvTitle, tvNotes;
 
         public ActivityHolder(final View itemView) {

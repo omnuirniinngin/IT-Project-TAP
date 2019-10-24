@@ -1,8 +1,10 @@
-package com.tap.taskassigningandplanning.utils.team;
+package com.tap.taskassigningandplanning.utils.activities;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -12,13 +14,14 @@ import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.tap.taskassigningandplanning.R;
+import com.tap.taskassigningandplanning.utils.team.Team;
 
-public class TeamAdapter extends FirestoreRecyclerAdapter <Team, TeamAdapter.TeamHolder> {
-    private static final String TAG = "TeamAdapter";
+public class ActivityClickedAdapter extends FirestoreRecyclerAdapter<Team, ActivityClickedAdapter.TeamHolder> implements Filterable {
 
-    private TeamListener listener;
+    private static final String TAG = "ActivityClickedAdapter";
+    TeamListener listener;
 
-    public TeamAdapter(@NonNull FirestoreRecyclerOptions<Team> options, TeamListener listener) {
+    public ActivityClickedAdapter(@NonNull FirestoreRecyclerOptions<Team> options, TeamListener listener) {
         super(options);
         this.listener = listener;
     }
@@ -26,25 +29,28 @@ public class TeamAdapter extends FirestoreRecyclerAdapter <Team, TeamAdapter.Tea
     @Override
     protected void onBindViewHolder(@NonNull TeamHolder holder, int position, @NonNull Team team) {
         holder.tvName.setText(team.getName());
-        holder.tvStatus.setText(team.getRequest());
     }
 
     @NonNull
     @Override
     public TeamHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View view = layoutInflater.inflate(R.layout.layout_list_team, parent, false);
+        View view = layoutInflater.inflate(R.layout.layout_row_designate, parent, false);
         return new TeamHolder(view);
     }
 
+    @Override
+    public Filter getFilter() {
+        // To be continued
+        return null;
+    }
+
     class TeamHolder extends RecyclerView.ViewHolder{
-
-        TextView tvName, tvStatus;
-
+        TextView tvName;
         public TeamHolder(@NonNull View itemView) {
             super(itemView);
+
             tvName = itemView.findViewById(R.id.tvName);
-            tvStatus = itemView.findViewById(R.id.tvStatus);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -57,9 +63,13 @@ public class TeamAdapter extends FirestoreRecyclerAdapter <Team, TeamAdapter.Tea
                 }
             });
         }
+        public void deleteItem(){
+            listener.handleDeleteItem(getSnapshots().getSnapshot(getAdapterPosition()));
+        }
     }
 
     public interface TeamListener{
         void onItemClick(DocumentSnapshot documentSnapshot, int position);
+        void handleDeleteItem(DocumentSnapshot snapshot);
     }
 }

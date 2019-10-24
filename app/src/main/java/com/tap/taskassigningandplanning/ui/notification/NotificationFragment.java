@@ -127,6 +127,7 @@ public class NotificationFragment extends Fragment implements NotificationAdapte
         final Team team = snapshot.toObject(Team.class);
 
         documentReference.update("status", true);
+        documentReference.update("request", "");
     }
 
     @Override

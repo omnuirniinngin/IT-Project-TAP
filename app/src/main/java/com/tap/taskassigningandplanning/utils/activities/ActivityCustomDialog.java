@@ -35,8 +35,11 @@ import com.tap.taskassigningandplanning.ui.plan.Plan;
 import com.tap.taskassigningandplanning.ui.plan.PlanFragment;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -170,8 +173,10 @@ public class ActivityCustomDialog extends DialogFragment implements View.OnClick
         Bundle id_result = navigationBottomActivity.getPlanId();
         String plan_id = id_result.getString("plan_id");
 
+        List<String> userId = Arrays.asList(user_id);
+
         if(!hasValidationErrors(title, dateStart, dateEnd)){
-            Activities activities = new Activities(title, notes, dateStart, dateEnd, assignUser, user_id, plan_id, new Timestamp(new java.util.Date()));
+            Activities activities = new Activities(title, notes, dateStart, dateEnd, plan_id, userId, new Timestamp(new java.util.Date()));
 
             FirebaseFirestore.getInstance()
                     .collection("Activity")

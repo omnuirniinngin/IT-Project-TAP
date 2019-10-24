@@ -13,17 +13,21 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.tap.taskassigningandplanning.R;
 import com.tap.taskassigningandplanning.ui.plan.Plan;
+import com.tap.taskassigningandplanning.utils.team.Team;
 
-public class PlanJoinedAdapter extends FirestoreRecyclerAdapter <Plan, PlanJoinedAdapter.PlanHolder> {
+public class PlanJoinedAdapter extends FirestoreRecyclerAdapter <Team, PlanJoinedAdapter.PlanHolder> {
     private static final String TAG = "PlanJoinedAdapter";
 
-    public PlanJoinedAdapter(@NonNull FirestoreRecyclerOptions<Plan> options) {
+    PlanListener listener;
+
+    public PlanJoinedAdapter(@NonNull FirestoreRecyclerOptions<Team> options, PlanListener listener) {
         super(options);
+        this.listener = listener;
     }
 
     @Override
-    protected void onBindViewHolder(@NonNull PlanHolder holder, int position, @NonNull Plan plan) {
-        holder.tvTitle.setText(plan.getTitle());
+    protected void onBindViewHolder(@NonNull PlanHolder holder, int position, @NonNull Team team) {
+        holder.tvTitle.setText(team.getPlan_name());
     }
 
     @NonNull
@@ -39,7 +43,6 @@ public class PlanJoinedAdapter extends FirestoreRecyclerAdapter <Plan, PlanJoine
 
         public PlanHolder(@NonNull View itemView) {
             super(itemView);
-
             tvTitle = itemView.findViewById(R.id.tvTitle);
 
             itemView.setOnClickListener(new View.OnClickListener() {
@@ -47,9 +50,9 @@ public class PlanJoinedAdapter extends FirestoreRecyclerAdapter <Plan, PlanJoine
                 public void onClick(View view) {
                     int position = getAdapterPosition();
 
-//                    if(position != RecyclerView.NO_POSITION && listener != null){
-//                        listener.onItemClick(getSnapshots().getSnapshot(position), position);
-//                    }
+                    if(position != RecyclerView.NO_POSITION && listener != null){
+                        listener.onItemClick(getSnapshots().getSnapshot(position), position);
+                    }
                 }
             });
         }

@@ -1,11 +1,12 @@
 package com.tap.taskassigningandplanning.ui.plan_joined;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,23 +16,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.iid.FirebaseInstanceId;
+import com.tap.taskassigningandplanning.NavigationBottomActivity;
 import com.tap.taskassigningandplanning.R;
-import com.tap.taskassigningandplanning.User;
-import com.tap.taskassigningandplanning.ui.plan.Plan;
-
-import java.util.HashMap;
-import java.util.List;
+import com.tap.taskassigningandplanning.utils.team.Team;
 
 public class PlanJoinedFragment extends Fragment implements PlanJoinedAdapter.PlanListener{
     private static final String TAG = "PlanJoinedFragment";
@@ -43,9 +39,6 @@ public class PlanJoinedFragment extends Fragment implements PlanJoinedAdapter.Pl
     private PlanJoinedAdapter planJoinedAdapter;
     private RecyclerView recyclerView;
 
-    private TextView tvName, tvActivities;
-    private List list;
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -54,7 +47,6 @@ public class PlanJoinedFragment extends Fragment implements PlanJoinedAdapter.Pl
         mAuth = FirebaseAuth.getInstance();
 
         recyclerView = view.findViewById(R.id.recycler_view);
-        tvName = view.findViewById(R.id.tvName);
 
 
         setupRecyclerView();
@@ -65,40 +57,33 @@ public class PlanJoinedFragment extends Fragment implements PlanJoinedAdapter.Pl
     private void setupRecyclerView(){
         final String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        // User must accept first the invitation before he can view these plans on plan fragment screen but how?
-
-        CollectionReference planRef = db.collection("Plan");
-
-        planRef.whereArrayContains("team", userId);
-        db.collection("Plan").whereArrayContains("team", userId)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        for (QueryDocumentSnapshot document : task.getResult()) {
-                            Log.d(TAG, document.getId() + " => " + document.getData());
-                        }
-                    }
-                });
-
-
-
         Query query = FirebaseFirestore.getInstance()
-                .collection("Plan")
-                .whereArrayContains("team", userId)
-                .orderBy("plan_id", Query.Direction.ASCENDING);
+                .collection("Team")
+                .whereEqualTo("status", true).whereEqualTo("user_id", userId)
+                .orderBy("created", Query.Direction.ASCENDING);
 
-        FirestoreRecyclerOptions<Plan> options = new FirestoreRecyclerOptions.Builder<Plan>()
-                .setQuery(query, Plan.class)
+        FirestoreRecyclerOptions<Team> options = new FirestoreRecyclerOptions.Builder<Team>()
+                .setQuery(query, Team.class)
                 .build();
-        planJoinedAdapter = new PlanJoinedAdapter(options);
+        planJoinedAdapter = new PlanJoinedAdapter(options, this);
 
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(planJoinedAdapter);
         planJoinedAdapter.startListening();
 
-        /*db.collection("Team").whereEqualTo("user_id", userId)
+    }
+
+    @Override
+    public void onItemClick(final DocumentSnapshot documentSnapshot, int position) {
+        final
+        String user_id = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        String id = documentSnapshot.getId();
+//        intent = new Intent(getContext(), NavigationBottomActivity.class);
+//        startActivity(intent);
+
+        db.collection("Team")
+                .whereEqualTo("user_id", user_id)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -106,108 +91,26 @@ public class PlanJoinedFragment extends Fragment implements PlanJoinedAdapter.Pl
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.d(TAG, document.getId() + " => " + document.getData());
+                                Log.d(TAG, "Plan id is: " + document.get("plan_id"));
                                 String plan_id = (String) document.get("plan_id");
-                                Log.d(TAG, "Your plan id is: " + plan_id);
+                                String plan_name = (String) document.get("plan_name");
+
+                                Intent intent = new Intent(getContext(), NavigationBottomActivity.class);
+                                intent.putExtra("plan_id", plan_id);
+                                intent.putExtra("plan_name", plan_name);
+                                startActivity(intent);
                             }
                         } else {
                             Log.d(TAG, "Error getting documents: ", task.getException());
                         }
                     }
-                });*/
-
-        /*docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-                        final List<Object> plan_id = (List<Object>) document.get("plan_id");
-                        for (Object o : plan_id) {
-                            Log.d(TAG, "List element " + o.toString());
-                            DocumentReference docRef = db.collection("Plan").document(o.toString());
-
-                            Query query = FirebaseFirestore.getInstance()
-                                    .collection("Plan")
-                                    .whereEqualTo("plan_id", o.toString())
-                                    .orderBy("title", Query.Direction.ASCENDING);
-
-                            FirestoreRecyclerOptions<PlanJoined> options = new FirestoreRecyclerOptions.Builder<PlanJoined>()
-                                    .setQuery(query, PlanJoined.class)
-                                    .build();
-                            planJoinedAdapter = new PlanJoinedAdapter(options);
-
-                            recyclerView.setHasFixedSize(true);
-                            recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-                            recyclerView.setAdapter(planJoinedAdapter);
-                            planJoinedAdapter.startListening();
-
-//                            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-//                                @Override
-//                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-//                                    if (task.isSuccessful()) {
-//                                        DocumentSnapshot document = task.getResult();
-//                                        if (document.exists()) {
-//                                            Log.d(TAG, "DocumentSnapshot data: " + document.getData());
-//
-//                                            Query query = FirebaseFirestore.getInstance()
-//                                                    .collection("Plan")
-//                                                    .whereEqualTo("plan_id", o.toString())
-//                                                    .orderBy("title", Query.Direction.ASCENDING);
-//
-//                                            FirestoreRecyclerOptions<PlanJoined> options = new FirestoreRecyclerOptions.Builder<PlanJoined>()
-//                                                    .setQuery(query, PlanJoined.class)
-//                                                    .build();
-//                                            planJoinedAdapter = new PlanJoinedAdapter(options);
-//
-//                                            recyclerView.setHasFixedSize(true);
-//                                            recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-//                                            recyclerView.setAdapter(planJoinedAdapter);
-//                                            planJoinedAdapter.startListening();
-//
-//
-//                                        } else {
-//                                            Log.d(TAG, "No such document");
-//                                        }
-//                                    } else {
-//                                        Log.d(TAG, "get failed with ", task.getException());
-//                                    }
-//                                }
-//                            });
-
-
-//                            Query query = FirebaseFirestore.getInstance()
-//                                    .collection("Users")
-//                                    .whereEqualTo("plan_id", o.toString())
-//                                    .orderBy("name", Query.Direction.ASCENDING);
-//
-//                            Log.d(TAG, "Query: " + query);
-//
-//
-//                            FirestoreRecyclerOptions<PlanJoined> options = new FirestoreRecyclerOptions.Builder<PlanJoined>()
-//                                    .setQuery(query, PlanJoined.class)
-//                                    .build();
-//                            planJoinedAdapter = new PlanJoinedAdapter(options);
-//
-//                            recyclerView.setHasFixedSize(true);
-//                            recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-//                            recyclerView.setAdapter(planJoinedAdapter);
-//                            planJoinedAdapter.startListening();
-                        }
-//                        String plan_id =  document.get("plan_id").toString();
-//                        Log.d(TAG, "***Found field: " + plan_id);
-                    } else {
-                        Log.d(TAG, "***No such document");
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(getContext(), e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                     }
-                } else {
-                    Log.d(TAG, "***Get failed with ", task.getException());
-                }
-            }
-        });*/
-
-    }
-
-    @Override
-    public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
+                });
 
     }
 }

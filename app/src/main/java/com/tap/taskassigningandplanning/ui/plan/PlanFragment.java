@@ -16,17 +16,22 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.ServerTimestamp;
 import com.google.type.Date;
 import com.tap.taskassigningandplanning.NavigationBottomActivity;
 import com.tap.taskassigningandplanning.R;
+import com.tap.taskassigningandplanning.utils.team.Team;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -158,7 +163,7 @@ public class PlanFragment extends Fragment implements View.OnClickListener{
             //CollectionReference dbPlan = db.collection("Plan");
             final DocumentReference plan_id = db.collection("Plan").document();
 
-            String user_id = FirebaseAuth.getInstance().getCurrentUser().getUid();
+            final String user_id = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
             Plan plan = new Plan(title, dateStart, dateEnd, plan_id.getId(), user_id, new Timestamp(new java.util.Date()));
 
@@ -169,14 +174,58 @@ public class PlanFragment extends Fragment implements View.OnClickListener{
                     .add(plan)
                     .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                         @Override
-                        public void onSuccess(DocumentReference documentReference) {
-                            Log.d(TAG, "onSuccess: added data Plan on Firestore");
-                            String myId = plan_id.getId();
+                        public void onSuccess(final DocumentReference documentReference) {
+                            final String myId = plan_id.getId();
+                            Log.d(TAG, "onSuccess: added data Plan on Firestore with id: " + myId);
                             Intent intent = new Intent(getContext(), NavigationBottomActivity.class);
                             intent.putExtra("plan_id", myId);
                             intent.putExtra("plan_name", title);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP  );
                             getActivity().finish();
+
+                            // Add owner to team
+                            DocumentReference userRef = db.collection("Users").document(user_id);
+                            userRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                    if (task.isSuccessful()) {
+                                        DocumentSnapshot document = task.getResult();
+                                        if (document.exists()) {
+                                            Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+                                            String email = (String) document.get("email");
+                                            String creator = (String) document.get("name");
+                                            String name = (String) document.get("name");
+                                            String plan_name = title;
+                                            Boolean status = true;
+                                            String request = "";
+
+                                            Team team = new Team(email, myId, name, user_id, plan_name, creator, request, status, new Timestamp(new java.util.Date()));
+
+                                            FirebaseFirestore.getInstance()
+                                                    .collection("Team")
+                                                    .add(team)
+                                                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                                        @Override
+                                                        public void onSuccess(DocumentReference documentReference) {
+                                                            Log.d(TAG, "onSuccess: Owner added to team");
+                                                        }
+                                                    })
+                                                    .addOnFailureListener(new OnFailureListener() {
+                                                        @Override
+                                                        public void onFailure(@NonNull Exception e) {
+                                                            Toast.makeText(getContext(), e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                                                        }
+                                                    });
+
+                                        } else {
+                                            Log.d(TAG, "No such document");
+                                        }
+                                    } else {
+                                        Log.d(TAG, "get failed with ", task.getException());
+                                    }
+                                }
+                            });
+
                             startActivity(intent);
 
                             progressDialog.dismiss();
