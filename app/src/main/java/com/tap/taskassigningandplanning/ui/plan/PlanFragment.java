@@ -33,6 +33,8 @@ import com.tap.taskassigningandplanning.NavigationBottomActivity;
 import com.tap.taskassigningandplanning.R;
 import com.tap.taskassigningandplanning.utils.team.Team;
 
+import org.joda.time.DateTime;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
@@ -85,7 +87,10 @@ public class PlanFragment extends Fragment implements View.OnClickListener{
                         myCalendar.set(Calendar.YEAR, year);
                         myCalendar.set(Calendar.MONTH, monthOfYear);
                         myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+
                         updateLabel();
+
+
                     }
 
                 };
@@ -93,9 +98,10 @@ public class PlanFragment extends Fragment implements View.OnClickListener{
                 new DatePickerDialog(getContext(), dateSetListener, myCalendar
                         .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+
             }
             private void updateLabel() {
-                String myFormat = "MM/dd/yy";
+                String myFormat = "yyyy-MM-dd";
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat(myFormat, Locale.US);
                 etStartDate.setText(simpleDateFormat.format(myCalendar.getTime()));
             }
@@ -111,6 +117,7 @@ public class PlanFragment extends Fragment implements View.OnClickListener{
                         myCalendar.set(Calendar.YEAR, year);
                         myCalendar.set(Calendar.MONTH, monthOfYear);
                         myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+
                         updateLabel();
                     }
 
@@ -121,7 +128,7 @@ public class PlanFragment extends Fragment implements View.OnClickListener{
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
             private void updateLabel() {
-                String myFormat = "MM/dd/yy";
+                String myFormat = "yyyy-MM-dd";
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat(myFormat, Locale.US);
                 etEndDate.setText(simpleDateFormat.format(myCalendar.getTime()));
             }

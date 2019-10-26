@@ -1,7 +1,5 @@
 package com.tap.taskassigningandplanning.utils.progress;
 
-import com.google.type.Date;
-
 public class Progress {
 
     String title;

@@ -232,12 +232,16 @@
         "source": "C:\\Users\\user\\.gradle\\caches\\transforms-2\\files-2.1\\ee83f9aa7d1b41abe15a1fa29f98862f\\appcompat-1.1.0\\res\\drawable-hdpi-v4\\abc_list_divider_mtrl_alpha.9.png"
     },
     {
+        "merged": "C:\\Users\\user\\AndroidStudioProjects\\IT-Project-TAP\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldrtl-xhdpi-v17_abc_spinner_mtrl_am_alpha.9.png.flat",
+        "source": "C:\\Users\\user\\.gradle\\caches\\transforms-2\\files-2.1\\ee83f9aa7d1b41abe15a1fa29f98862f\\appcompat-1.1.0\\res\\drawable-ldrtl-xhdpi-v17\\abc_spinner_mtrl_am_alpha.9.png"
+    },
+    {
         "merged": "C:\\Users\\user\\AndroidStudioProjects\\IT-Project-TAP\\app\\build\\intermediates\\res\\merged\\debug\\drawable_common_google_signin_btn_icon_light_normal.xml.flat",
         "source": "C:\\Users\\user\\.gradle\\caches\\transforms-2\\files-2.1\\03db8d5150ec1d4130f7a0401a856d2e\\play-services-base-17.1.0\\res\\drawable\\common_google_signin_btn_icon_light_normal.xml"
     },
     {
-        "merged": "C:\\Users\\user\\AndroidStudioProjects\\IT-Project-TAP\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldrtl-xhdpi-v17_abc_spinner_mtrl_am_alpha.9.png.flat",
-        "source": "C:\\Users\\user\\.gradle\\caches\\transforms-2\\files-2.1\\ee83f9aa7d1b41abe15a1fa29f98862f\\appcompat-1.1.0\\res\\drawable-ldrtl-xhdpi-v17\\abc_spinner_mtrl_am_alpha.9.png"
+        "merged": "C:\\Users\\user\\AndroidStudioProjects\\IT-Project-TAP\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ic_accept.xml.flat",
+        "source": "C:\\Users\\user\\AndroidStudioProjects\\IT-Project-TAP\\app\\src\\main\\res\\drawable\\ic_accept.xml"
     },
     {
         "merged": "C:\\Users\\user\\AndroidStudioProjects\\IT-Project-TAP\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4_abc_textfield_default_mtrl_alpha.9.png.flat",
@@ -668,6 +672,10 @@
         "source": "C:\\Users\\user\\.gradle\\caches\\transforms-2\\files-2.1\\ee83f9aa7d1b41abe15a1fa29f98862f\\appcompat-1.1.0\\res\\drawable-hdpi-v4\\abc_ic_menu_paste_mtrl_am_alpha.png"
     },
     {
+        "merged": "C:\\Users\\user\\AndroidStudioProjects\\IT-Project-TAP\\app\\build\\intermediates\\res\\merged\\debug\\layout_layout_edit_activities.xml.flat",
+        "source": "C:\\Users\\user\\AndroidStudioProjects\\IT-Project-TAP\\app\\src\\main\\res\\layout\\layout_edit_activities.xml"
+    },
+    {
         "merged": "C:\\Users\\user\\AndroidStudioProjects\\IT-Project-TAP\\app\\build\\intermediates\\res\\merged\\debug\\layout_abc_action_menu_layout.xml.flat",
         "source": "C:\\Users\\user\\.gradle\\caches\\transforms-2\\files-2.1\\ee83f9aa7d1b41abe15a1fa29f98862f\\appcompat-1.1.0\\res\\layout\\abc_action_menu_layout.xml"
     },
@@ -1072,6 +1080,10 @@
         "source": "C:\\Users\\user\\.gradle\\caches\\transforms-2\\files-2.1\\03db8d5150ec1d4130f7a0401a856d2e\\play-services-base-17.1.0\\res\\drawable\\common_google_signin_btn_text_disabled.xml"
     },
     {
+        "merged": "C:\\Users\\user\\AndroidStudioProjects\\IT-Project-TAP\\app\\build\\intermediates\\res\\merged\\debug\\layout_activity_user_search.xml.flat",
+        "source": "C:\\Users\\user\\AndroidStudioProjects\\IT-Project-TAP\\app\\src\\main\\res\\layout\\activity_user_search.xml"
+    },
+    {
         "merged": "C:\\Users\\user\\AndroidStudioProjects\\IT-Project-TAP\\app\\build\\intermediates\\res\\merged\\debug\\anim_btn_radio_to_off_mtrl_ring_outer_path_animation.xml.flat",
         "source": "C:\\Users\\user\\.gradle\\caches\\transforms-2\\files-2.1\\ee83f9aa7d1b41abe15a1fa29f98862f\\appcompat-1.1.0\\res\\anim\\btn_radio_to_off_mtrl_ring_outer_path_animation.xml"
     },
@@ -1082,6 +1094,10 @@
     {
         "merged": "C:\\Users\\user\\AndroidStudioProjects\\IT-Project-TAP\\app\\build\\intermediates\\res\\merged\\debug\\layout_abc_list_menu_item_radio.xml.flat",
         "source": "C:\\Users\\user\\.gradle\\caches\\transforms-2\\files-2.1\\ee83f9aa7d1b41abe15a1fa29f98862f\\appcompat-1.1.0\\res\\layout\\abc_list_menu_item_radio.xml"
+    },
+    {
+        "merged": "C:\\Users\\user\\AndroidStudioProjects\\IT-Project-TAP\\app\\build\\intermediates\\res\\merged\\debug\\layout_view_anychart.xml.flat",
+        "source": "C:\\Users\\user\\.gradle\\caches\\transforms-2\\files-2.1\\987818a22e4c2c93f25f16d1c340a304\\jetified-AnyChart-Android-1.1.2\\res\\layout\\view_anychart.xml"
     },
     {
         "merged": "C:\\Users\\user\\AndroidStudioProjects\\IT-Project-TAP\\app\\build\\intermediates\\res\\merged\\debug\\layout_notification_template_media_custom.xml.flat",
@@ -1292,6 +1308,10 @@
         "source": "C:\\Users\\user\\.gradle\\caches\\transforms-2\\files-2.1\\ee83f9aa7d1b41abe15a1fa29f98862f\\appcompat-1.1.0\\res\\drawable-xxhdpi-v4\\abc_ab_share_pack_mtrl_alpha.9.png"
     },
     {
+        "merged": "C:\\Users\\user\\AndroidStudioProjects\\IT-Project-TAP\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ic_reject.xml.flat",
+        "source": "C:\\Users\\user\\AndroidStudioProjects\\IT-Project-TAP\\app\\src\\main\\res\\drawable\\ic_reject.xml"
+    },
+    {
         "merged": "C:\\Users\\user\\AndroidStudioProjects\\IT-Project-TAP\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldrtl-xxhdpi-v17_abc_ic_menu_cut_mtrl_alpha.png.flat",
         "source": "C:\\Users\\user\\.gradle\\caches\\transforms-2\\files-2.1\\ee83f9aa7d1b41abe15a1fa29f98862f\\appcompat-1.1.0\\res\\drawable-ldrtl-xxhdpi-v17\\abc_ic_menu_cut_mtrl_alpha.png"
     },
@@ -1428,12 +1448,12 @@
         "source": "C:\\Users\\user\\.gradle\\caches\\transforms-2\\files-2.1\\ee83f9aa7d1b41abe15a1fa29f98862f\\appcompat-1.1.0\\res\\anim\\abc_shrink_fade_out_from_bottom.xml"
     },
     {
-        "merged": "C:\\Users\\user\\AndroidStudioProjects\\IT-Project-TAP\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ic_identity.xml.flat",
-        "source": "C:\\Users\\user\\AndroidStudioProjects\\IT-Project-TAP\\app\\src\\main\\res\\drawable\\ic_identity.xml"
-    },
-    {
         "merged": "C:\\Users\\user\\AndroidStudioProjects\\IT-Project-TAP\\app\\build\\intermediates\\res\\merged\\debug\\layout_layout_row_request.xml.flat",
         "source": "C:\\Users\\user\\AndroidStudioProjects\\IT-Project-TAP\\app\\src\\main\\res\\layout\\layout_row_request.xml"
+    },
+    {
+        "merged": "C:\\Users\\user\\AndroidStudioProjects\\IT-Project-TAP\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ic_identity.xml.flat",
+        "source": "C:\\Users\\user\\AndroidStudioProjects\\IT-Project-TAP\\app\\src\\main\\res\\drawable\\ic_identity.xml"
     },
     {
         "merged": "C:\\Users\\user\\AndroidStudioProjects\\IT-Project-TAP\\app\\build\\intermediates\\res\\merged\\debug\\anim_abc_tooltip_enter.xml.flat",
@@ -1784,6 +1804,10 @@
         "source": "C:\\Users\\user\\.gradle\\caches\\transforms-2\\files-2.1\\ee83f9aa7d1b41abe15a1fa29f98862f\\appcompat-1.1.0\\res\\drawable-xhdpi-v4\\abc_btn_switch_to_on_mtrl_00012.9.png"
     },
     {
+        "merged": "C:\\Users\\user\\AndroidStudioProjects\\IT-Project-TAP\\app\\build\\intermediates\\res\\merged\\debug\\layout_layout_row_designate.xml.flat",
+        "source": "C:\\Users\\user\\AndroidStudioProjects\\IT-Project-TAP\\app\\src\\main\\res\\layout\\layout_row_designate.xml"
+    },
+    {
         "merged": "C:\\Users\\user\\AndroidStudioProjects\\IT-Project-TAP\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi-v4_abc_ic_menu_paste_mtrl_am_alpha.png.flat",
         "source": "C:\\Users\\user\\.gradle\\caches\\transforms-2\\files-2.1\\ee83f9aa7d1b41abe15a1fa29f98862f\\appcompat-1.1.0\\res\\drawable-xxxhdpi-v4\\abc_ic_menu_paste_mtrl_am_alpha.png"
     },
@@ -1884,6 +1908,10 @@
         "source": "C:\\Users\\user\\.gradle\\caches\\transforms-2\\files-2.1\\ee83f9aa7d1b41abe15a1fa29f98862f\\appcompat-1.1.0\\res\\drawable-xhdpi-v4\\abc_textfield_search_default_mtrl_alpha.9.png"
     },
     {
+        "merged": "C:\\Users\\user\\AndroidStudioProjects\\IT-Project-TAP\\app\\build\\intermediates\\res\\merged\\debug\\layout_layout_list_tasks.xml.flat",
+        "source": "C:\\Users\\user\\AndroidStudioProjects\\IT-Project-TAP\\app\\src\\main\\res\\layout\\layout_list_tasks.xml"
+    },
+    {
         "merged": "C:\\Users\\user\\AndroidStudioProjects\\IT-Project-TAP\\app\\build\\intermediates\\res\\merged\\debug\\color-v23_abc_tint_switch_track.xml.flat",
         "source": "C:\\Users\\user\\.gradle\\caches\\transforms-2\\files-2.1\\ee83f9aa7d1b41abe15a1fa29f98862f\\appcompat-1.1.0\\res\\color-v23\\abc_tint_switch_track.xml"
     },
@@ -1902,6 +1930,10 @@
     {
         "merged": "C:\\Users\\user\\AndroidStudioProjects\\IT-Project-TAP\\app\\build\\intermediates\\res\\merged\\debug\\layout-sw600dp-v13_mtrl_layout_snackbar.xml.flat",
         "source": "C:\\Users\\user\\.gradle\\caches\\transforms-2\\files-2.1\\bca7565011648857035eb97aee8b3037\\material-1.0.0\\res\\layout-sw600dp-v13\\mtrl_layout_snackbar.xml"
+    },
+    {
+        "merged": "C:\\Users\\user\\AndroidStudioProjects\\IT-Project-TAP\\app\\build\\intermediates\\res\\merged\\debug\\drawable_edit_text_border_no_radius.xml.flat",
+        "source": "C:\\Users\\user\\AndroidStudioProjects\\IT-Project-TAP\\app\\src\\main\\res\\drawable\\edit_text_border_no_radius.xml"
     },
     {
         "merged": "C:\\Users\\user\\AndroidStudioProjects\\IT-Project-TAP\\app\\build\\intermediates\\res\\merged\\debug\\anim_nav_default_pop_enter_anim.xml.flat",
@@ -2014,10 +2046,6 @@
     {
         "merged": "C:\\Users\\user\\AndroidStudioProjects\\IT-Project-TAP\\app\\build\\intermediates\\res\\merged\\debug\\color_design_error.xml.flat",
         "source": "C:\\Users\\user\\.gradle\\caches\\transforms-2\\files-2.1\\bca7565011648857035eb97aee8b3037\\material-1.0.0\\res\\color\\design_error.xml"
-    },
-    {
-        "merged": "C:\\Users\\user\\AndroidStudioProjects\\IT-Project-TAP\\app\\build\\intermediates\\res\\merged\\debug\\layout_layout_activities.xml.flat",
-        "source": "C:\\Users\\user\\AndroidStudioProjects\\IT-Project-TAP\\app\\src\\main\\res\\layout\\layout_activities.xml"
     },
     {
         "merged": "C:\\Users\\user\\AndroidStudioProjects\\IT-Project-TAP\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4_notification_bg_low_pressed.9.png.flat",
@@ -2262,6 +2290,10 @@
     {
         "merged": "C:\\Users\\user\\AndroidStudioProjects\\IT-Project-TAP\\app\\build\\intermediates\\res\\merged\\debug\\layout_fragment_notification.xml.flat",
         "source": "C:\\Users\\user\\AndroidStudioProjects\\IT-Project-TAP\\app\\src\\main\\res\\layout\\fragment_notification.xml"
+    },
+    {
+        "merged": "C:\\Users\\user\\AndroidStudioProjects\\IT-Project-TAP\\app\\build\\intermediates\\res\\merged\\debug\\layout_dialog_confirm_progress.xml.flat",
+        "source": "C:\\Users\\user\\AndroidStudioProjects\\IT-Project-TAP\\app\\src\\main\\res\\layout\\dialog_confirm_progress.xml"
     },
     {
         "merged": "C:\\Users\\user\\AndroidStudioProjects\\IT-Project-TAP\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4_abc_list_longpressed_holo.9.png.flat",

@@ -1,5 +1,6 @@
 package com.tap.taskassigningandplanning.utils.progress;
 
+import android.text.method.DateTimeKeyListener;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,19 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.tap.taskassigningandplanning.R;
 import com.tap.taskassigningandplanning.utils.activities.Activities;
+
+import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
+import org.joda.time.LocalTime;
+import org.joda.time.Period;
+import org.joda.time.PeriodType;
+import org.joda.time.format.PeriodFormatter;
+import org.joda.time.format.PeriodFormatterBuilder;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 public class ProgressAdapter extends FirestoreRecyclerAdapter <Activities, ProgressAdapter.ProgressHolder> {
     private static final String TAG = "ProgressAdapter";
@@ -31,8 +45,43 @@ public class ProgressAdapter extends FirestoreRecyclerAdapter <Activities, Progr
     }
 
     @Override
-    protected void onBindViewHolder(@NonNull ProgressHolder holder, int position, @NonNull Activities progress) {
-        holder.tvTitle.setText(progress.getTitle());
+    protected void onBindViewHolder(@NonNull ProgressHolder holder, int position, @NonNull Activities activities) {
+        holder.tvTitle.setText(activities.getTitle());
+        holder.tvPercent.setText(String.valueOf(activities.getProgress())+"%");
+
+        String dateStart = activities.getDateStart();
+        String dateEnd = activities.getDateEnd();
+
+
+        Date date = Calendar.getInstance().getTime();
+        String myFormat = "yyyy-MM-dd";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(myFormat);
+        String currentDate = simpleDateFormat.format(date);
+
+        DateTime newCurrentDate = new DateTime(currentDate);
+        DateTime newStartDate = new DateTime(dateStart);
+        DateTime newEndDate = new DateTime(dateEnd);
+        Period period = new Period(newStartDate, newEndDate, PeriodType.days());
+
+        if(newCurrentDate.isAfter(newStartDate)){
+            PeriodFormatter formatter = new PeriodFormatterBuilder()
+                    .appendDays().appendSuffix("day", " Day/s Left").toFormatter();
+
+            holder.tvDaysLeftPlan.setText(formatter.print(period));
+        }
+        if(newCurrentDate.isEqual(newStartDate)){
+            PeriodFormatter formatter = new PeriodFormatterBuilder()
+                    .appendDays().appendSuffix("day", " Day/s Left").toFormatter();
+
+            holder.tvDaysLeftPlan.setText(formatter.print(period));
+        }
+        if(newCurrentDate.isBefore(newStartDate)){
+            PeriodFormatter formatter = new PeriodFormatterBuilder()
+                    .appendDays().appendSuffix("day", " Day/s to start").toFormatter();
+
+            holder.tvDaysLeftPlan.setText(formatter.print(period));
+        }
+
     }
 
 

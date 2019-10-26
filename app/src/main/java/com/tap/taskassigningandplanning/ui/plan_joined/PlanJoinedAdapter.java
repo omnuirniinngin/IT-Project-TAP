@@ -28,6 +28,7 @@ public class PlanJoinedAdapter extends FirestoreRecyclerAdapter <Team, PlanJoine
     @Override
     protected void onBindViewHolder(@NonNull PlanHolder holder, int position, @NonNull Team team) {
         holder.tvTitle.setText(team.getPlan_name());
+        holder.tvFrom.setText(team.getCreator());
     }
 
     @NonNull
@@ -39,11 +40,12 @@ public class PlanJoinedAdapter extends FirestoreRecyclerAdapter <Team, PlanJoine
     }
 
     class PlanHolder extends RecyclerView.ViewHolder{
-        TextView tvTitle;
+        TextView tvTitle, tvFrom;
 
         public PlanHolder(@NonNull View itemView) {
             super(itemView);
             tvTitle = itemView.findViewById(R.id.tvTitle);
+            tvFrom = itemView.findViewById(R.id.tvFrom);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

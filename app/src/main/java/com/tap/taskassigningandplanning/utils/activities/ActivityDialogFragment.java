@@ -97,7 +97,7 @@ public class ActivityDialogFragment extends Fragment implements View.OnClickList
                 .collection("Activity")
                 .whereEqualTo("plan_id", plan_id)
                 .whereArrayContains("user_id", user_id)
-                .orderBy("dateStart", Query.Direction.ASCENDING);
+                .orderBy("dateEnd", Query.Direction.ASCENDING);
 
         FirestoreRecyclerOptions<Activities> options = new FirestoreRecyclerOptions.Builder<Activities>()
                 .setQuery(query, Activities.class)

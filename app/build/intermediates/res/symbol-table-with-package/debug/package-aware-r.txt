@@ -1120,8 +1120,10 @@ drawable design_password_eye
 drawable design_snackbar_background
 drawable donzal_pf
 drawable edit_text_border
+drawable edit_text_border_no_radius
 drawable googleg_disabled_color_18
 drawable googleg_standard_color_18
+drawable ic_accept
 drawable ic_activities
 drawable ic_add_activity
 drawable ic_delete_sweep_black_24dp
@@ -1139,6 +1141,7 @@ drawable ic_pie_chart
 drawable ic_plan
 drawable ic_plans
 drawable ic_progress
+drawable ic_reject
 drawable ic_save_black_24dp
 drawable ic_search
 drawable ic_settings
@@ -1235,18 +1238,19 @@ id adjust_width
 id alertTitle
 id all
 id always
+id anyChart
 id async
 id auto
 id barrier
 id beginning
 id blocking
 id bottom
-id btnAccept
 id btnAdd
 id btnCancel
 id btnContinue
 id btnCreate
 id btnCreateAccount
+id btnFinish
 id btnLogin
 id btnSignOut
 id btn_s1
@@ -1274,7 +1278,6 @@ id coordinator
 id custom
 id customPanel
 id dark
-id daysLeftPlan
 id decor_content_parent
 id default_activity_button
 id design_bottom_sheet
@@ -1465,7 +1468,6 @@ id text2
 id textSpacerNoButtons
 id textSpacerNoTitle
 id textStart
-id text_chart
 id text_input_password_toggle
 id text_plan
 id textinput_counter
@@ -1495,8 +1497,8 @@ id tvHaveAccount
 id tvName
 id tvNotes
 id tvPercent
+id tvSender
 id tvStatus
-id tvTaskTitle
 id tvTitle
 id txtteams
 id unchecked
@@ -1506,6 +1508,7 @@ id up
 id useLogo
 id view_offset_helper
 id visible
+id web_view
 id wide
 id withText
 id wrap
@@ -1570,6 +1573,7 @@ layout activity_login
 layout activity_main_bottom_navigation
 layout activity_main_drawer
 layout activity_registration
+layout activity_user_search
 layout app_bar_main
 layout content_main
 layout custom_dialog
@@ -1589,6 +1593,7 @@ layout design_navigation_menu_item
 layout design_text_input_password_icon
 layout dialog_add_activities
 layout dialog_add_team
+layout dialog_confirm_progress
 layout dialog_frame_layout
 layout fragment_activities
 layout fragment_notification
@@ -1600,11 +1605,13 @@ layout fragment_progress
 layout fragment_setting
 layout fragment_task
 layout fragment_team
-layout layout_activities
 layout layout_content_main
+layout layout_edit_activities
 layout layout_list_activities
 layout layout_list_progress
+layout layout_list_tasks
 layout layout_list_team
+layout layout_row_designate
 layout layout_row_plan
 layout layout_row_request
 layout mtrl_layout_snackbar
@@ -1629,6 +1636,7 @@ layout select_dialog_item_material
 layout select_dialog_multichoice_material
 layout select_dialog_singlechoice_material
 layout support_simple_spinner_dropdown_item
+layout view_anychart
 menu bottom_nav_menu
 menu drawer_menu
 menu main
@@ -1695,6 +1703,9 @@ string dialog_activity_title
 string dialog_assign_activity
 string dialog_button_add
 string dialog_button_cancel
+string dialog_confirm_no
+string dialog_confirm_progress
+string dialog_confirm_yes
 string dialog_end_date
 string dialog_new_note
 string dialog_pick_color
@@ -1734,6 +1745,7 @@ string nav_header_title
 string notification_row_btn_accept
 string notification_row_btn_ignore
 string notification_row_from
+string notification_row_sender
 string notification_row_title
 string password_toggle_content_description
 string path_password_eye
@@ -1742,7 +1754,7 @@ string path_password_eye_mask_visible
 string path_password_strike_through
 string plan_description
 string plan_end_date
-string plan_row_activities
+string plan_row_from
 string plan_row_title
 string plan_start_date
 string project_id

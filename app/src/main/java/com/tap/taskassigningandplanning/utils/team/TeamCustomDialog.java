@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -74,12 +75,28 @@ public class TeamCustomDialog extends DialogFragment implements View.OnClickList
         return view;
     }
 
+    private boolean emailValidation(String email){
+
+        if (email.isEmpty()) {
+            etRequest.setError(getString(R.string.input_error_email), null);
+            etRequest.requestFocus();
+            return true;
+        }
+
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            etRequest.setError(getString(R.string.input_error_email_invalid), null);
+            etRequest.requestFocus();
+            return true;
+        }
+        return false;
+    }
+
     private void addUser(){
         final String email = etRequest.getText().toString().trim();
 
         final boolean status = false;
 
-        if(!email.isEmpty()){
+        if(!emailValidation(email)){
 
             //Get plan id
             NavigationBottomActivity activity = (NavigationBottomActivity)getActivity();
@@ -159,25 +176,28 @@ public class TeamCustomDialog extends DialogFragment implements View.OnClickList
     }
 
     private void checkEmail(){
-        progressDialog = ProgressDialog.show(getContext(), "", "Sending request...", true);
-        mAuth.fetchSignInMethodsForEmail(etRequest.getText().toString())
-                .addOnCompleteListener(new OnCompleteListener<SignInMethodQueryResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<SignInMethodQueryResult> task) {
-                        if(task.getResult().getSignInMethods().isEmpty()){
-                            Log.d(TAG, "onComplete: invitation sent via email!");
-                            progressDialog.dismiss();
-                            sendMail();
-                            Toast.makeText(getActivity(), "User doesn't exist. Invite via email.", Toast.LENGTH_SHORT).show();
-                        }else {
-                            Log.d(TAG, "onComplete: Send request via app notification");
-                            Toast.makeText(getActivity(), "Invitation sent!", Toast.LENGTH_SHORT).show();
-                            progressDialog.dismiss();
-                            queryEmail();
-                            addUser();
+        String email = etRequest.getText().toString().trim();
+        if(!emailValidation(email)){
+            progressDialog = ProgressDialog.show(getContext(), "", "Sending request...", true);
+            mAuth.fetchSignInMethodsForEmail(etRequest.getText().toString())
+                    .addOnCompleteListener(new OnCompleteListener<SignInMethodQueryResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<SignInMethodQueryResult> task) {
+                            if(task.getResult().getSignInMethods().isEmpty()){
+                                Log.d(TAG, "onComplete: invitation sent via email!");
+                                progressDialog.dismiss();
+                                sendMail();
+                                Toast.makeText(getActivity(), "User doesn't exist. Invite via email.", Toast.LENGTH_SHORT).show();
+                            }else {
+                                Log.d(TAG, "onComplete: Send request via app notification");
+                                Toast.makeText(getActivity(), "Invitation sent!", Toast.LENGTH_SHORT).show();
+                                progressDialog.dismiss();
+                                queryEmail();
+                                addUser();
+                            }
                         }
-                    }
-                });
+                    });
+        }
     }
 
     public void queryEmail(){

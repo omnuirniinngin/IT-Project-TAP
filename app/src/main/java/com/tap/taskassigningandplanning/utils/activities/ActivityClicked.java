@@ -100,7 +100,7 @@ public class ActivityClicked extends AppCompatActivity implements ActivitiesAdap
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
             private void updateLabel() {
-                String myFormat = "MM/dd/yy";
+                String myFormat = "yyyy/MM/dd";
                 java.text.SimpleDateFormat simpleDateFormat = new SimpleDateFormat(myFormat, Locale.US);
                 etStartDate.setText(simpleDateFormat.format(myCalendar.getTime()));
             }
@@ -126,7 +126,7 @@ public class ActivityClicked extends AppCompatActivity implements ActivitiesAdap
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
             private void updateLabel() {
-                String myFormat = "MM/dd/yy";
+                String myFormat = "yyyy/MM/dd";
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat(myFormat, Locale.US);
                 etEndDate.setText(simpleDateFormat.format(myCalendar.getTime()));
             }
@@ -230,23 +230,6 @@ public class ActivityClicked extends AppCompatActivity implements ActivitiesAdap
 
         // Get current user id
         String uID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
-//        if(assignUser.isEmpty()){
-//            List<String> user_id = Arrays.asList(uID);
-//            // Update fields
-//            Activities activities = new Activities(title, notes, dateStart, dateEnd, plan_id, user_id, new Timestamp(new java.util.Date()));
-////            db.collection("Activity").document(activity_id).set(activities);
-//            docRef.update(activities);
-//        }else{
-//            // Assign user to be pass in an array
-//            List<String> user_id = Arrays.asList(uID, assignUser);
-//            // Update fields
-//            Activities activities = new Activities(title, notes, dateStart, dateEnd, plan_id, user_id, new Timestamp(new java.util.Date()));
-//            db.collection("Activity").document(activity_id).set(activities);
-//        }
-
-//        // Assign user to be pass in an array
-//        List<String> user_id = Arrays.asList(uID, assignUser);
 
         db.collection("Team")
                 .whereEqualTo("plan_id", plan_id)
@@ -361,6 +344,7 @@ public class ActivityClicked extends AppCompatActivity implements ActivitiesAdap
 
     @Override
     public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
+
     }
 
     @Override

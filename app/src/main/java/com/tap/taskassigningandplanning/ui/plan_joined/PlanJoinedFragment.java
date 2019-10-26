@@ -20,6 +20,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
@@ -82,35 +83,29 @@ public class PlanJoinedFragment extends Fragment implements PlanJoinedAdapter.Pl
 //        intent = new Intent(getContext(), NavigationBottomActivity.class);
 //        startActivity(intent);
 
-        db.collection("Team")
-                .whereEqualTo("user_id", user_id)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                Log.d(TAG, document.getId() + " => " + document.getData());
-                                Log.d(TAG, "Plan id is: " + document.get("plan_id"));
-                                String plan_id = (String) document.get("plan_id");
-                                String plan_name = (String) document.get("plan_name");
+        DocumentReference docRef = db.collection("Team").document(id);
 
-                                Intent intent = new Intent(getContext(), NavigationBottomActivity.class);
-                                intent.putExtra("plan_id", plan_id);
-                                intent.putExtra("plan_name", plan_name);
-                                startActivity(intent);
-                            }
-                        } else {
-                            Log.d(TAG, "Error getting documents: ", task.getException());
-                        }
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if(task.isSuccessful()){
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+                        String plan_id = (String) document.get("plan_id");
+                        String plan_name = (String) document.get("plan_name");
+
+                        Intent intent = new Intent(getContext(), NavigationBottomActivity.class);
+                        intent.putExtra("plan_id", plan_id);
+                        intent.putExtra("plan_name", plan_name);
+                        startActivity(intent);
+
+                    } else {
+                        Log.d(TAG, "No such document");
                     }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(getContext(), e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
+                }
+            }
+        });
 
     }
 }

@@ -71,7 +71,6 @@ public class ActivityCustomDialog extends DialogFragment implements View.OnClick
         etActivityTitle = view.findViewById(R.id.etActivityTitle);
         etStartDate = view.findViewById(R.id.etStartDate);
         etEndDate = view.findViewById(R.id.etEndDate);
-        etAssignUser = view.findViewById(R.id.etAssignUser);
         btnAdd = view.findViewById(R.id.btnAdd);
         btnCancel = view.findViewById(R.id.btnCancel);
 
@@ -100,7 +99,7 @@ public class ActivityCustomDialog extends DialogFragment implements View.OnClick
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
             private void updateLabel() {
-                String myFormat = "MM/dd/yy";
+                String myFormat = "yyyy-MM-dd";
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat(myFormat, Locale.US);
                 etStartDate.setText(simpleDateFormat.format(myCalendar.getTime()));
             }
@@ -126,7 +125,7 @@ public class ActivityCustomDialog extends DialogFragment implements View.OnClick
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
             private void updateLabel() {
-                String myFormat = "MM/dd/yy";
+                String myFormat = "yyyy-MM-dd";
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat(myFormat, Locale.US);
                 etEndDate.setText(simpleDateFormat.format(myCalendar.getTime()));
             }
@@ -162,7 +161,6 @@ public class ActivityCustomDialog extends DialogFragment implements View.OnClick
         String title = etActivityTitle.getText().toString().trim();
         String dateStart = etStartDate.getText().toString().trim();
         String dateEnd = etEndDate.getText().toString().trim();
-        String assignUser = etAssignUser.getText().toString().trim();
         String notes = null;
 
         // Get current user id

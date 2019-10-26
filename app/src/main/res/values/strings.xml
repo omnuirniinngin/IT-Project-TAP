@@ -64,7 +64,7 @@
 
     <!--layout_row_plan_notification-->
     <string name="plan_row_title">Title</string>
-    <string name="plan_row_activities">List of activities</string>
+    <string name="plan_row_from">From</string>
 
     <!--layout_row_request-->
     <string name="notification_row_title">Title</string>
@@ -72,6 +72,11 @@
     <string name="notification_row_from">Name</string>
     <string name="notification_row_btn_accept">Accept</string>
     <string name="notification_row_btn_ignore">Ignore</string>
+
+    <!--dialog_confirm_progress-->
+    <string name="dialog_confirm_progress">Do you want to finish this task?</string>
+    <string name="dialog_confirm_yes">Finish Task</string>
+    <string name="dialog_confirm_no">Cancel</string>
 
 
 

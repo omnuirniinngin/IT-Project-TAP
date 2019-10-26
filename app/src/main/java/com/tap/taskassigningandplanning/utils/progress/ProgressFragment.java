@@ -32,14 +32,25 @@ import com.tap.taskassigningandplanning.ui.plan.Plan;
 import com.tap.taskassigningandplanning.utils.activities.Activities;
 import com.tap.taskassigningandplanning.utils.activities.ActivitiesAdapter;
 
-public class ProgressFragment extends Fragment implements ActivitiesAdapter.ActivitiesListener{
+import org.joda.time.DateTime;
+import org.joda.time.Period;
+import org.joda.time.PeriodType;
+import org.joda.time.format.PeriodFormatter;
+import org.joda.time.format.PeriodFormatterBuilder;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+
+public class ProgressFragment extends Fragment implements ProgressAdapter.ProgressList{
 
     private static final String TAG = "ProgressFragment";
 
 //    firebase firestore
     private FirebaseFirestore db;
 
-    private ActivitiesAdapter activitiesAdapter;
+    private ProgressAdapter progressAdapter;
     private RecyclerView recyclerView;
 
     TextView tvTitle, tvDaysLeftPlan;
@@ -77,6 +88,40 @@ public class ProgressFragment extends Fragment implements ActivitiesAdapter.Acti
                                 String title = (String) document.get("title");
                                 tvTitle.setText(title);
 
+                                String dateStart = (String) document.get("dateStart");
+                                String dateEnd = (String) document.get("dateEnd");
+
+                                Date date = Calendar.getInstance().getTime();
+                                String myFormat = "yyyy-MM-dd";
+                                SimpleDateFormat simpleDateFormat = new SimpleDateFormat(myFormat);
+                                String currentDate = simpleDateFormat.format(date);
+
+                                DateTime newCurrentDate = new DateTime(currentDate);
+                                DateTime newStartDate = new DateTime(dateStart);
+                                DateTime newEndDate = new DateTime(dateEnd);
+                                Period period = new Period(newStartDate, newEndDate, PeriodType.days());
+
+                                if(newCurrentDate.isAfter(newStartDate)){
+                                    PeriodFormatter formatter = new PeriodFormatterBuilder()
+                                            .appendDays().appendSuffix("day", " Day/s Left").toFormatter();
+
+                                    tvDaysLeftPlan.setText(formatter.print(period));
+                                }
+                                if(newCurrentDate.isEqual(newStartDate)){
+                                    PeriodFormatter formatter = new PeriodFormatterBuilder()
+                                            .appendDays().appendSuffix("day", " Day/s Left").toFormatter();
+
+                                    tvDaysLeftPlan.setText(formatter.print(period));
+                                }
+                                if(newCurrentDate.isBefore(newStartDate)){
+                                    PeriodFormatter formatter = new PeriodFormatterBuilder()
+                                            .appendDays().appendSuffix("day", " Days to start").toFormatter();
+
+                                    tvDaysLeftPlan.setText(formatter.print(period));
+                                }
+
+
+
                             }
                         } else {
                             Log.d(TAG, "Error getting documents: ", task.getException());
@@ -95,25 +140,20 @@ public class ProgressFragment extends Fragment implements ActivitiesAdapter.Acti
         Query query = FirebaseFirestore.getInstance()
                 .collection("Activity")
                 .whereEqualTo("plan_id", plan_id).whereArrayContains("user_id", userId)
-                .orderBy("dateStart", Query.Direction.ASCENDING);
+                .orderBy("dateEnd", Query.Direction.ASCENDING);
 
         FirestoreRecyclerOptions<Activities> options = new FirestoreRecyclerOptions.Builder<Activities>()
                 .setQuery(query, Activities.class)
                 .build();
-        activitiesAdapter = new ActivitiesAdapter(options, this);
+        progressAdapter = new ProgressAdapter(options, this);
 
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(activitiesAdapter);
-        activitiesAdapter.startListening();
+        recyclerView.setAdapter(progressAdapter);
+        progressAdapter.startListening();
 
     }
-
-    @Override
-    public void handleDeleteItem(DocumentSnapshot snapshot) {
-        
-    }
-
+    
     @Override
     public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
 

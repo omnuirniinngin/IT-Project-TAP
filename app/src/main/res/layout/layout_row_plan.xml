@@ -25,9 +25,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/plan_row_activities"
+            android:text="@string/plan_row_from"
             android:layout_below="@id/tvTitle"
-            android:id="@+id/tvEmail"
+            android:id="@+id/tvFrom"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
             android:ellipsize="end"
             android:maxLines="1"/>
