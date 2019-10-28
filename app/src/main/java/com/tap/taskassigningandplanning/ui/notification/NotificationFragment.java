@@ -118,7 +118,7 @@ public class NotificationFragment extends Fragment implements NotificationAdapte
 
     @Override
     public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
-
+        Snackbar.make(recyclerView, "Swipe left to reject or swipe right to accept", Snackbar.LENGTH_LONG).show();
     }
 
     @Override
@@ -128,6 +128,15 @@ public class NotificationFragment extends Fragment implements NotificationAdapte
 
         documentReference.update("status", true);
         documentReference.update("request", "");
+
+        Snackbar.make(recyclerView, "Request successfully accepted!", Snackbar.LENGTH_LONG)
+                .setAction("Undo", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        documentReference.set(team);
+                    }
+                })
+                .show();
     }
 
     @Override
