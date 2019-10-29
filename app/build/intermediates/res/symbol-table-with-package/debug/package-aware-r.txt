@@ -1405,6 +1405,7 @@ id progress_circular
 id progress_horizontal
 id radio
 id recycler_view
+id recycler_view_child
 id relLayout
 id right
 id right_icon
@@ -1494,6 +1495,7 @@ id tvEmail
 id tvFav
 id tvFrom
 id tvHaveAccount
+id tvItem
 id tvName
 id tvNotes
 id tvPercent
@@ -1614,6 +1616,7 @@ layout layout_list_team
 layout layout_row_designate
 layout layout_row_plan
 layout layout_row_request
+layout layout_task_parent_recycler
 layout mtrl_layout_snackbar
 layout mtrl_layout_snackbar_include
 layout nav_header_main

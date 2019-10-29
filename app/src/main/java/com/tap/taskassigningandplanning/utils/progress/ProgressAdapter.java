@@ -46,7 +46,7 @@ public class ProgressAdapter extends FirestoreRecyclerAdapter <Activities, Progr
 
     @Override
     protected void onBindViewHolder(@NonNull ProgressHolder holder, int position, @NonNull Activities activities) {
-        holder.tvTitle.setText(activities.getTitle());
+        holder.tvActivityTitle.setText(activities.getTitle());
         holder.tvPercent.setText(String.valueOf(activities.getProgress())+"%");
 
         String dateStart = activities.getDateStart();
@@ -87,12 +87,11 @@ public class ProgressAdapter extends FirestoreRecyclerAdapter <Activities, Progr
 
     class ProgressHolder extends RecyclerView.ViewHolder{
 
-        TextView tvTitle, tvPercent, tvDaysLeftPlan;
+        TextView tvTitle, tvActivityTitle, tvPercent, tvDaysLeftPlan;
 
         public ProgressHolder(@NonNull View itemView) {
             super(itemView);
-
-            tvTitle = itemView.findViewById(R.id.tvActivityTitle);
+            tvActivityTitle = itemView.findViewById(R.id.tvActivityTitle);
             tvDaysLeftPlan = itemView.findViewById(R.id.tvDaysLeftPlan);
             tvPercent = itemView.findViewById(R.id.tvPercent);
 

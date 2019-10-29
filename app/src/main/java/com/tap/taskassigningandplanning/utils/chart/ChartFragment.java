@@ -96,19 +96,6 @@ public class ChartFragment extends Fragment {
                                 Log.d(TAG, document.getId() + " => " + document.get("progress"));
                                 progressList.add(Integer.valueOf(document.get("progress").toString()));
                                 titleList.add(document.get("title").toString());
-//                                long progress = (long) document.get("progress");
-//                                progressList.add(progress);
-//                                String title = (String) document.get("title");
-//                                progressList.add(progress);
-//                                titleList.add(title);
-//                                String[] title = (String[]) document.get("title");
-//
-//                                for (int i = 0; i < title.length; i++){
-//                                    dataEntries.add(new ValueDataEntry(title[i], progress[i]));
-//                                }
-//
-//                                pie.data(dataEntries);
-//                                anyChartView.setChart(pie);
                             }
 
                             Integer[] prog = new Integer[progressList.size()];
