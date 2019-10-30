@@ -1,5 +1,6 @@
 package com.tap.taskassigningandplanning.utils.team;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -89,9 +90,11 @@ public class TeamFragment extends Fragment implements View.OnClickListener, Team
         switch (view.getId()){
             case R.id.fab:
                 Log.d(TAG, "onClick: Opening dialog activity");
-                TeamCustomDialog dialog = new TeamCustomDialog();
-                dialog.setTargetFragment(TeamFragment.this, 1);
-                dialog.show(getFragmentManager(), "TeamCustomDialog");
+//                TeamCustomDialog dialog = new TeamCustomDialog();
+//                dialog.setTargetFragment(TeamFragment.this, 1);
+//                dialog.show(getFragmentManager(), "TeamCustomDialog");
+                Intent intent = new Intent(getContext(), TeamSearch.class);
+                startActivity(intent);
                 break;
         }
     }

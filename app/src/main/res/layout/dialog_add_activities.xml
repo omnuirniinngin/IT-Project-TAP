@@ -1,57 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="8dp"
-    tools:context=".NavigationBottomActivity">
-
-    <EditText
-        android:id="@+id/etActivityTitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/dialog_activity_title" />
-
-    <EditText
-        android:id="@+id/etStartDate"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:clickable="true"
-        android:focusable="false"
-        android:hint="@string/dialog_start_date" />
-
-    <EditText
-        android:id="@+id/etEndDate"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:clickable="true"
-        android:focusable="false"
-        android:hint="@string/dialog_end_date" />
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:padding="10dp"
+        android:orientation="vertical">
 
-        <Button
-            android:id="@+id/btnAdd"
-            android:layout_width="0dp"
+        <EditText
+            android:id="@+id/etActivityTitle"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="?android:attr/selectableItemBackground"
-            android:text="@string/dialog_button_add" />
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:hint="@string/dialog_activity_title" />
 
-        <Button
-            android:id="@+id/btnCancel"
-            android:layout_width="0dp"
+        <TextView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="?android:attr/selectableItemBackground"
-            android:text="@string/dialog_button_cancel" />
+            android:paddingTop="5dp"
+            android:text="FROM" />
+
+        <EditText
+            android:id="@+id/etStartDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:background="@drawable/edit_text_border_no_radius"
+            android:padding="5dp"
+            android:clickable="true"
+            android:focusable="false"
+            android:hint="@string/dialog_start_date" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dp"
+            android:text="TO" />
+
+        <EditText
+            android:id="@+id/etEndDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:background="@drawable/edit_text_border_no_radius"
+            android:padding="5dp"
+            android:clickable="true"
+            android:focusable="false"
+            android:hint="@string/dialog_end_date" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp">
+
+            <Button
+                android:id="@+id/btnAdd"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="?android:attr/selectableItemBackground"
+                android:text="@string/dialog_button_add" />
+
+            <Button
+                android:id="@+id/btnCancel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="?android:attr/selectableItemBackground"
+                android:text="@string/dialog_button_cancel" />
+
+        </LinearLayout>
+
 
     </LinearLayout>
 
-</LinearLayout>
+
+</RelativeLayout>

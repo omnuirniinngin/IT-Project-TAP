@@ -1328,6 +1328,7 @@ id gone
 id group_divider
 id groups
 id header_cover_image
+id heading_label
 id home
 id homeAsUp
 id icon
@@ -1422,9 +1423,11 @@ id scrollView
 id scrollable
 id search_badge
 id search_bar
+id search_btn
 id search_button
 id search_close_btn
 id search_edit_frame
+id search_field
 id search_go_btn
 id search_mag_icon
 id search_plate
@@ -1575,6 +1578,7 @@ layout activity_login
 layout activity_main_bottom_navigation
 layout activity_main_drawer
 layout activity_registration
+layout activity_search_users
 layout activity_user_search
 layout app_bar_main
 layout content_main

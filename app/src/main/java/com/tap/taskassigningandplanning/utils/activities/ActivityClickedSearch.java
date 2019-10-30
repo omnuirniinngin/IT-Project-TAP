@@ -43,11 +43,11 @@ public class ActivityClickedSearch extends AppCompatActivity implements Activity
 
         recyclerView = findViewById(R.id.recycler_view);
 
-        setupRecyclerAdapater();
+        setupRecyclerAdapter();
 
     }
 
-    private void setupRecyclerAdapater(){
+    private void setupRecyclerAdapter(){
 
         Intent intent = getIntent();
         String plan_id = intent.getExtras().getString("plan_id");
