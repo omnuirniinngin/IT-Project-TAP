@@ -90,11 +90,11 @@ public class TeamFragment extends Fragment implements View.OnClickListener, Team
         switch (view.getId()){
             case R.id.fab:
                 Log.d(TAG, "onClick: Opening dialog activity");
-//                TeamCustomDialog dialog = new TeamCustomDialog();
-//                dialog.setTargetFragment(TeamFragment.this, 1);
-//                dialog.show(getFragmentManager(), "TeamCustomDialog");
-                Intent intent = new Intent(getContext(), TeamSearch.class);
-                startActivity(intent);
+                TeamCustomDialog dialog = new TeamCustomDialog();
+                dialog.setTargetFragment(TeamFragment.this, 1);
+                dialog.show(getFragmentManager(), "TeamCustomDialog");
+//                Intent intent = new Intent(getContext(), TeamSearch.class);
+//                startActivity(intent);
                 break;
         }
     }

@@ -197,7 +197,6 @@ public class ActivityClicked extends AppCompatActivity implements ActivitiesAdap
                     DocumentSnapshot documentSnapshot = task.getResult();
                     if (documentSnapshot.exists()) {
                         Log.d(TAG, "DocumentSnapshot data: " + documentSnapshot.getData());
-
                         Activities activities = documentSnapshot.toObject(Activities.class);
                         etActivityTitle.setText(activities.getTitle());
                         etActivityTitle.setSelection(activities.getTitle().length());
@@ -227,9 +226,6 @@ public class ActivityClicked extends AppCompatActivity implements ActivitiesAdap
         Intent intent = getIntent();
         String activity_id = intent.getExtras().getString("activity_id");
         String plan_id = intent.getExtras().getString("plan_id");
-
-        // Get current user id
-        String uID = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         db.collection("Team")
                 .whereEqualTo("plan_id", plan_id)

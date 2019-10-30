@@ -13,7 +13,7 @@ import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class NavigationBottomActivity extends AppCompatActivity {
 
-    private String plan_id, plan_name;
+    private String plan_id, plan_name, user_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
