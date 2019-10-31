@@ -161,45 +161,45 @@ public class TaskFragment extends Fragment implements TaskAdapter.TaskListener{
 
     @Override
     public void handleProgressChanged(final int progressChanged, final DocumentSnapshot snapshot) {
-//        int value = 100;
-//
-//        if(value == progressChanged){
-//            new AlertDialog.Builder(getContext())
-//                    .setTitle(R.string.dialog_confirm_progress)
-//                    .setPositiveButton("Finish task", new DialogInterface.OnClickListener() {
-//                        @Override
-//                        public void onClick(DialogInterface dialogInterface, int i) {
-//                            snapshot.getReference().update("progress", progressChanged)
-//                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-//                                        @Override
-//                                        public void onSuccess(Void aVoid) {
-//                                            Log.d(TAG, "onSuccess: ");
-//                                        }
-//                                    })
-//                                    .addOnFailureListener(new OnFailureListener() {
-//                                        @Override
-//                                        public void onFailure(@NonNull Exception e) {
-//                                            Log.d(TAG, "onFailure: " + e.getLocalizedMessage());
-//                                        }
-//                                    });
-//                        }
-//                    }).setNegativeButton("Cancel", null)
-//                    .show();
-//        }else{
-//            snapshot.getReference().update("progress", progressChanged)
-//                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-//                        @Override
-//                        public void onSuccess(Void aVoid) {
-//                            Log.d(TAG, "onSuccess: ");
-//                        }
-//                    })
-//                    .addOnFailureListener(new OnFailureListener() {
-//                        @Override
-//                        public void onFailure(@NonNull Exception e) {
-//                            Log.d(TAG, "onFailure: " + e.getLocalizedMessage());
-//                        }
-//                    });
-//        }
+        int value = 100;
+
+        if(value == progressChanged){
+            new AlertDialog.Builder(getContext())
+                    .setTitle(R.string.dialog_confirm_progress)
+                    .setPositiveButton("Finish task", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            snapshot.getReference().update("progress", progressChanged)
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            Log.d(TAG, "onSuccess: ");
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Log.d(TAG, "onFailure: " + e.getLocalizedMessage());
+                                        }
+                                    });
+                        }
+                    }).setNegativeButton("Cancel", null)
+                    .show();
+        }else{
+            snapshot.getReference().update("progress", progressChanged)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Log.d(TAG, "onSuccess: ");
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.d(TAG, "onFailure: " + e.getLocalizedMessage());
+                        }
+                    });
+        }
 
     }
 }

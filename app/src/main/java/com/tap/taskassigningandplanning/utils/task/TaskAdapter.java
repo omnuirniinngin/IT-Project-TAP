@@ -69,14 +69,6 @@ public class TaskAdapter extends FirestoreRecyclerAdapter <Activities, TaskAdapt
             seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                 @Override
                 public void onProgressChanged(SeekBar seekBar, int progress, boolean b) {
-/*
-                    DocumentSnapshot snapshot = getSnapshots().getSnapshot(getAdapterPosition());
-                    Activities activities = getItem(getAdapterPosition());
-                    if(activities.getProgress() != progress){
-//                        listener.handleProgressChanged(progress, snapshot);
-
-                    }
-*/
                     tvPercent.setText("" + progress + "%");
                 }
 
@@ -88,19 +80,25 @@ public class TaskAdapter extends FirestoreRecyclerAdapter <Activities, TaskAdapt
                 @Override
                 public void onStopTrackingTouch(SeekBar seekBar) {
                     DocumentSnapshot snapshot = getSnapshots().getSnapshot(getAdapterPosition());
-                    snapshot.getReference().update("progress", seekBar.getProgress())
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-                                    Log.d(TAG, "onSuccess: ");
-                                }
-                            })
-                            .addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    Log.d(TAG, "onFailure: " + e.getLocalizedMessage());
-                                }
-                            });
+                    int progress = seekBar.getProgress();
+                    Activities activities = getItem(getAdapterPosition());
+                    if(activities.getProgress() != progress){
+                        listener.handleProgressChanged(progress, snapshot);
+                    }
+//                    DocumentSnapshot snapshot = getSnapshots().getSnapshot(getAdapterPosition());
+//                    snapshot.getReference().update("progress", seekBar.getProgress())
+//                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+//                                @Override
+//                                public void onSuccess(Void aVoid) {
+//                                    Log.d(TAG, "onSuccess: ");
+//                                }
+//                            })
+//                            .addOnFailureListener(new OnFailureListener() {
+//                                @Override
+//                                public void onFailure(@NonNull Exception e) {
+//                                    Log.d(TAG, "onFailure: " + e.getLocalizedMessage());
+//                                }
+//                            });
                 }
             });
         }
