@@ -61,33 +61,37 @@ public class ProgressAdapter extends FirestoreRecyclerAdapter <Activities, Progr
         DateTime newCurrentDate = new DateTime(currentDate);
         DateTime newStartDate = new DateTime(dateStart);
         DateTime newEndDate = new DateTime(dateEnd);
-        Period period = new Period(newStartDate, newEndDate, PeriodType.days());
 
-        if(newCurrentDate.isAfter(newStartDate)){
+        if (newCurrentDate.isEqual(newStartDate)) {
+            Period period = new Period(newStartDate, newEndDate, PeriodType.days());
             PeriodFormatter formatter = new PeriodFormatterBuilder()
-                    .appendDays().appendSuffix("day", " Day/s Left").toFormatter();
+                    .appendDays().appendSuffix(" Day/s Left", " Day/s Left").toFormatter();
 
             holder.tvDaysLeftPlan.setText(formatter.print(period));
         }
-        if(newCurrentDate.isEqual(newStartDate)){
+
+        if (newCurrentDate.isBefore(newStartDate)) {
+            Period period = new Period(newStartDate, newEndDate, PeriodType.days());
             PeriodFormatter formatter = new PeriodFormatterBuilder()
-                    .appendDays().appendSuffix("day", " Day/s Left").toFormatter();
+                    .appendDays().appendSuffix(" Day/s Left", " Day/s to start").toFormatter();
 
             holder.tvDaysLeftPlan.setText(formatter.print(period));
         }
-        if(newCurrentDate.isBefore(newStartDate)){
-            PeriodFormatter formatter = new PeriodFormatterBuilder()
-                    .appendDays().appendSuffix("day", " Day/s to start").toFormatter();
 
+        if (newCurrentDate.isAfter(newStartDate)) {
+            Period period = new Period(newCurrentDate, newEndDate, PeriodType.days());
+            PeriodFormatter formatter = new PeriodFormatterBuilder()
+                    .appendDays().appendSuffix(" Day/s Left", " Day/s Left").toFormatter();
             holder.tvDaysLeftPlan.setText(formatter.print(period));
         }
+
 
     }
 
 
     class ProgressHolder extends RecyclerView.ViewHolder{
 
-        TextView tvTitle, tvActivityTitle, tvPercent, tvDaysLeftPlan;
+        TextView tvActivityTitle, tvPercent, tvDaysLeftPlan;
 
         public ProgressHolder(@NonNull View itemView) {
             super(itemView);

@@ -1,5 +1,9 @@
 package com.tap.taskassigningandplanning.utils.task;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.os.AsyncTask;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +17,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.tap.taskassigningandplanning.R;
 import com.tap.taskassigningandplanning.utils.activities.Activities;
@@ -35,6 +41,7 @@ public class TaskAdapter extends FirestoreRecyclerAdapter <Activities, TaskAdapt
 
         int value = activities.getProgress();
         holder.seekBar.setProgress(value);
+
 
         if(value == 100){
             holder.seekBar.setEnabled(false);
@@ -62,11 +69,14 @@ public class TaskAdapter extends FirestoreRecyclerAdapter <Activities, TaskAdapt
             seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                 @Override
                 public void onProgressChanged(SeekBar seekBar, int progress, boolean b) {
+/*
                     DocumentSnapshot snapshot = getSnapshots().getSnapshot(getAdapterPosition());
                     Activities activities = getItem(getAdapterPosition());
                     if(activities.getProgress() != progress){
-                        listener.handleProgressChanged(progress, snapshot);
+//                        listener.handleProgressChanged(progress, snapshot);
+
                     }
+*/
                     tvPercent.setText("" + progress + "%");
                 }
 
@@ -77,10 +87,24 @@ public class TaskAdapter extends FirestoreRecyclerAdapter <Activities, TaskAdapt
 
                 @Override
                 public void onStopTrackingTouch(SeekBar seekBar) {
-
+                    DocumentSnapshot snapshot = getSnapshots().getSnapshot(getAdapterPosition());
+                    snapshot.getReference().update("progress", seekBar.getProgress())
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Log.d(TAG, "onSuccess: ");
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.d(TAG, "onFailure: " + e.getLocalizedMessage());
+                                }
+                            });
                 }
             });
         }
+
     }
     public interface TaskListener{
         void onItemClick(DocumentSnapshot documentSnapshot, int position);

@@ -100,7 +100,7 @@ public class ActivityClicked extends AppCompatActivity implements ActivitiesAdap
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
             private void updateLabel() {
-                String myFormat = "yyyy/MM/dd";
+                String myFormat = "yyyy-MM-dd";
                 java.text.SimpleDateFormat simpleDateFormat = new SimpleDateFormat(myFormat, Locale.US);
                 etStartDate.setText(simpleDateFormat.format(myCalendar.getTime()));
             }
@@ -126,7 +126,7 @@ public class ActivityClicked extends AppCompatActivity implements ActivitiesAdap
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
             private void updateLabel() {
-                String myFormat = "yyyy/MM/dd";
+                String myFormat = "yyyy-MM-dd";
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat(myFormat, Locale.US);
                 etEndDate.setText(simpleDateFormat.format(myCalendar.getTime()));
             }
