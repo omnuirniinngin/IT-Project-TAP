@@ -103,10 +103,10 @@ public class NotificationFragment extends Fragment implements NotificationAdapte
         public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
             new RecyclerViewSwipeDecorator.Builder(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
                     //LEFT
-                    .addSwipeLeftBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorAccent))
+                    .addSwipeLeftBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorPrimary))
                     .addSwipeLeftActionIcon(R.drawable.ic_reject)
                     //RIGHT
-                    .addSwipeRightBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorPrimaryDark))
+                    .addSwipeRightBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorAccent))
                     .addSwipeRightActionIcon(R.drawable.ic_accept)
 
                     .create()
@@ -129,14 +129,7 @@ public class NotificationFragment extends Fragment implements NotificationAdapte
         documentReference.update("status", true);
         documentReference.update("request", "");
 
-        Snackbar.make(recyclerView, "Request successfully accepted!", Snackbar.LENGTH_LONG)
-                .setAction("Undo", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        documentReference.set(team);
-                    }
-                })
-                .show();
+        Snackbar.make(recyclerView, "Request successfully accepted!", Snackbar.LENGTH_LONG).show();
     }
 
     @Override

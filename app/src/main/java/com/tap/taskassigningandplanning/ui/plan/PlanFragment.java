@@ -33,7 +33,6 @@ import com.tap.taskassigningandplanning.NavigationBottomActivity;
 import com.tap.taskassigningandplanning.R;
 import com.tap.taskassigningandplanning.utils.team.Team;
 
-import org.joda.time.DateTime;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -187,7 +186,6 @@ public class PlanFragment extends Fragment implements View.OnClickListener{
                             Intent intent = new Intent(getContext(), NavigationBottomActivity.class);
                             intent.putExtra("plan_id", myId);
                             intent.putExtra("plan_name", title);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP  );
                             getActivity().finish();
 
                             // Add owner to team

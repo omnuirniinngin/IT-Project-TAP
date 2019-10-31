@@ -63,6 +63,11 @@ public class ProgressFragment extends Fragment implements ProgressAdapter.Progre
 
         recyclerView = view.findViewById(R.id.recycler_view);
 
+        NavigationBottomActivity activity = (NavigationBottomActivity)getActivity();
+        Bundle id_result = activity.getPlanId();
+        String plan_name = id_result.getString("plan_name");
+        tvTitle.setText(plan_name);
+
         db = FirebaseFirestore.getInstance();
 
         getPlan();
@@ -85,8 +90,8 @@ public class ProgressFragment extends Fragment implements ProgressAdapter.Progre
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.d(TAG, document.getId() + " => " + document.getData());
-                                String title = (String) document.get("title");
-                                tvTitle.setText(title);
+//                                String title = (String) document.get("title");
+//                                tvTitle.setText(title);
 
                                 String dateStart = (String) document.get("dateStart");
                                 String dateEnd = (String) document.get("dateEnd");

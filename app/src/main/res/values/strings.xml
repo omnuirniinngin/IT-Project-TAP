@@ -5,6 +5,8 @@
     <string name="nav_header_subtitle">Email</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
+    <string name="action_delete">Delete</string>
+
 
     <!--Navigation Drawer-->
     <string name="menu_plan">Start Plan</string>
