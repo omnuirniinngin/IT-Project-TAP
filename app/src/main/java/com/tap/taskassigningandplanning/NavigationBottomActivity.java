@@ -91,10 +91,10 @@ public class NavigationBottomActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(final Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
-        String user_id = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        final String user_id = FirebaseAuth.getInstance().getCurrentUser().getUid();
         db.collection("Plan")
                 .whereEqualTo("plan_id", plan_id)
                 .get()
@@ -105,6 +105,11 @@ public class NavigationBottomActivity extends AppCompatActivity {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.d(TAG, document.getId() + " => " + document.getData());
                                 Log.d(TAG, document.getId() + " => " + document.get("user_id"));
+                                String plan_user_id = (String) document.get("user_id");
+
+                                if(!plan_user_id.equals(user_id)){
+                                    menu.findItem(R.id.action_delete).setEnabled(false);
+                                }
                             }
                         } else {
                             Log.d(TAG, "Error getting documents: ", task.getException());
@@ -218,7 +223,9 @@ public class NavigationBottomActivity extends AppCompatActivity {
                                                 });
                                     }
                                 });
-                        onBackPressed();
+                        Intent intent = new Intent(NavigationBottomActivity.this, MainActivity.class);
+                        startActivity(intent);
+                        finish();
                     }
                 }).setNegativeButton("Cancel", null)
                 .show();
