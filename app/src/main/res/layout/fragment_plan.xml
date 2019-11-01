@@ -1,25 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".ui.plan.PlanFragment">
 
-    <LinearLayout
+    <!--<LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:fillViewport="true"
-        android:gravity="center"
         android:orientation="vertical"
+        android:fillViewport="true"
         android:padding="40dp"
         android:scrollbarThumbHorizontal="@null"
         android:scrollbarThumbVertical="@null">
 
         <TextView
+            android:layout_marginTop="100dp"
             android:id="@+id/text_plan"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -88,7 +84,88 @@
 
         </LinearLayout>
 
-    </LinearLayout>
+    </LinearLayout>-->
+
+    <RelativeLayout
+        android:layout_gravity="center_vertical"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="40dp">
+
+        <TextView
+            android:id="@+id/text_plan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="START A PLAN"
+            android:textAlignment="center"
+            android:textColor="#2699FB"
+            android:textSize="40sp" />
+
+        <EditText
+            android:id="@+id/etPlanTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/text_plan"
+            android:background="@drawable/edit_text_border"
+            android:hint="@string/plan_description"
+            android:inputType="text"
+            android:padding="15dp" />
+
+        <EditText
+            android:id="@+id/etStartDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/edit_text_border"
+            android:layout_below="@id/etPlanTitle"
+            android:clickable="true"
+            android:focusable="false"
+            android:hint="@string/plan_start_date"
+            android:padding="15dp" />
+
+        <EditText
+            android:id="@+id/etEndDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/edit_text_border"
+            android:clickable="true"
+            android:layout_below="@id/etStartDate"
+            android:focusable="false"
+            android:hint="@string/plan_end_date"
+            android:padding="15dp" />
+
+        <LinearLayout
+            android:layout_below="@id/etEndDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnCreate"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/button_border"
+                android:text="Create"
+                android:textColor="#FFFFFF" />
+
+            <Button
+                android:id="@+id/btnCancel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/button_border"
+                android:text="Cancel"
+                android:textColor="#FFFFFF" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
 
 
 </ScrollView>

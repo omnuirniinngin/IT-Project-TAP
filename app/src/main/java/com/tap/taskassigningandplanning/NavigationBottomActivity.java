@@ -136,7 +136,8 @@ public class NavigationBottomActivity extends AppCompatActivity {
     private void deleteBatch(){
 
         new AlertDialog.Builder(this)
-                .setTitle("Do you wish to delete this plan?")
+                .setTitle("Alert!")
+                .setMessage("Do you wish to delete this plan?")
                 .setPositiveButton("Continue", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {

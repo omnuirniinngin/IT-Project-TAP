@@ -16,9 +16,10 @@
     <string name="menu_team">Plans</string>
 
     <!--Plan Fragment - Starting a plan-->
-    <string name="plan_description">New Plan Description</string>
+    <string name="plan_description">Plan Title</string>
     <string name="plan_start_date">Starting Date</string>
     <string name="plan_end_date">Ending Date</string>
+    <string name="plan_owner">Plan Manager</string>
 
     <!--Bottom Navigation-->
     <string name="title_activities">Activities</string>
@@ -79,10 +80,5 @@
     <string name="dialog_confirm_progress">Do you want to finish this task?</string>
     <string name="dialog_confirm_yes">Finish Task</string>
     <string name="dialog_confirm_no">Cancel</string>
-
-
-
-
-
 
 </resources>
