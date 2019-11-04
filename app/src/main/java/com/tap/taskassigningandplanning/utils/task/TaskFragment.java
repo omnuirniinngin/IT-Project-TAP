@@ -2,6 +2,7 @@ package com.tap.taskassigningandplanning.utils.task;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -28,6 +29,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.tap.taskassigningandplanning.NavigationBottomActivity;
 import com.tap.taskassigningandplanning.R;
+import com.tap.taskassigningandplanning.Rating;
 import com.tap.taskassigningandplanning.utils.activities.Activities;
 
 import org.joda.time.DateTime;
@@ -164,9 +166,18 @@ public class TaskFragment extends Fragment implements TaskAdapter.TaskListener{
 
     }
 
+    public void rating(){
+    }
+
     @Override
-    public void handleProgressChanged(final int progressChanged, final DocumentSnapshot snapshot) {
+    public void handleProgressChanged(final int progressChanged, final DocumentSnapshot documentSnapshot) {
         int value = 100;
+
+        Intent intent;
+        intent = getActivity().getIntent();
+
+        final String plan_id = intent.getExtras().getString("plan_id");
+        final String id = documentSnapshot.getId();
 
         if(value == progressChanged){
             new AlertDialog.Builder(getContext())
@@ -174,11 +185,26 @@ public class TaskFragment extends Fragment implements TaskAdapter.TaskListener{
                     .setPositiveButton("Finish task", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-                            snapshot.getReference().update("progress", progressChanged)
+                            documentSnapshot.getReference().update("progress", progressChanged)
                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void aVoid) {
                                             Log.d(TAG, "onSuccess: ");
+
+                                            new AlertDialog.Builder(getContext())
+                                                    .setTitle("Rating")
+                                                    .setMessage("Would you like to give a rate?")
+                                                    .setPositiveButton("Rate now", new DialogInterface.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                                            Intent intent = new Intent(getContext(), Rating.class);
+                                                            intent.putExtra("plan_id", plan_id);
+                                                            intent.putExtra("activity_id", id);
+                                                            startActivity(intent);
+                                                        }
+                                                    }).setNegativeButton("No", null)
+                                                    .show();
+
                                         }
                                     })
                                     .addOnFailureListener(new OnFailureListener() {
@@ -191,7 +217,7 @@ public class TaskFragment extends Fragment implements TaskAdapter.TaskListener{
                     }).setNegativeButton("Cancel", null)
                     .show();
         }else{
-            snapshot.getReference().update("progress", progressChanged)
+            documentSnapshot.getReference().update("progress", progressChanged)
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {

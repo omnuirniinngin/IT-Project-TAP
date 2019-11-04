@@ -257,10 +257,6 @@ public class ActivityClicked extends AppCompatActivity implements ActivitiesAdap
         });
 
 
-//        // Update fields
-//        Activities activities = new Activities(title, notes, dateStart, dateEnd, plan_id, user_id, new Timestamp(new java.util.Date()));
-//        db.collection("Activity").document(activity_id).set(activities);
-
         onBackPressed();
     }
 

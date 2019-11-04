@@ -1,6 +1,7 @@
 package com.tap.taskassigningandplanning.ui.profile;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,37 +18,64 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.amulyakhare.textdrawable.TextDrawable;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.tap.taskassigningandplanning.R;
+import com.tap.taskassigningandplanning.User;
 
 public class ProfileFragment extends Fragment {
+    private static final String TAG = "ProfileFragment";
 
-    private ListView listView1;
-    private ListView listView;
+    //FIREBASE
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthStateListener;
+
+    private TextView tvName, tvEmail, tvBio, tvRatingPercent;
+    private RatingBar ratingBar;
 
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.fragment_profile,
-                container, false);
+        View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
+        tvName = view.findViewById(R.id.tvName);
+        tvEmail = view.findViewById(R.id.tvEmail);
+        tvBio = view.findViewById(R.id.tvBio);
+        tvRatingPercent = view.findViewById(R.id.tvRatingPercent);
+        ratingBar = view.findViewById(R.id.ratingBar);
 
+        ratingBar.setEnabled(false);
 
-        RatingBar ratingBar = rootView.findViewById(R.id.myratingbar);
+        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener(){
+        DocumentReference documentReference = db.collection("Users").document(userId);
+
+        documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
-            public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                DocumentSnapshot documentSnapshot = task.getResult();
+                if (documentSnapshot.exists()) {
+                    Log.d(TAG, "DocumentSnapshot data: " + documentSnapshot.getData());
+                    String name = (String) documentSnapshot.get("name");
+                    String email = (String) documentSnapshot.get("email");
 
-                Toast.makeText(ProfileFragment.this.getContext(),
-                        "Rating changed, current rating "+ ratingBar.getRating(),
-                        Toast.LENGTH_SHORT).show();
+                    tvName.setText(name);
+                    tvEmail.setText(email);
+
+                } else {
+                    Log.d(TAG, "Error getting info");
+                }
             }
         });
 
-
-        return rootView;
+        return view;
     }
 
 

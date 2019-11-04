@@ -45,17 +45,16 @@ public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private String userID;
-    private TextView tvName, tvEmail, tvSubmenu;
+    private TextView tvName, tvEmail;
     private ImageView imageView;
     private TextDrawable textDrawable;
     private ColorGenerator generator;
-
-    int count = 0;
 
     //FIREBASE
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
+
     @Override
     protected void onStart() {
         super.onStart();

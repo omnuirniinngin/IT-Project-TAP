@@ -85,20 +85,6 @@ public class TaskAdapter extends FirestoreRecyclerAdapter <Activities, TaskAdapt
                     if(activities.getProgress() != progress){
                         listener.handleProgressChanged(progress, snapshot);
                     }
-//                    DocumentSnapshot snapshot = getSnapshots().getSnapshot(getAdapterPosition());
-//                    snapshot.getReference().update("progress", seekBar.getProgress())
-//                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-//                                @Override
-//                                public void onSuccess(Void aVoid) {
-//                                    Log.d(TAG, "onSuccess: ");
-//                                }
-//                            })
-//                            .addOnFailureListener(new OnFailureListener() {
-//                                @Override
-//                                public void onFailure(@NonNull Exception e) {
-//                                    Log.d(TAG, "onFailure: " + e.getLocalizedMessage());
-//                                }
-//                            });
                 }
             });
         }

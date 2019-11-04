@@ -41,6 +41,8 @@ public class ActivityClickedSearch extends AppCompatActivity implements Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_search);
 
+        getSupportActionBar().setTitle("Designate");
+
         recyclerView = findViewById(R.id.recycler_view);
 
         setupRecyclerAdapter();
