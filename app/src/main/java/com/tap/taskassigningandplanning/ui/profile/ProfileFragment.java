@@ -49,7 +49,7 @@ public class ProfileFragment extends Fragment {
         tvName = view.findViewById(R.id.tvName);
         tvEmail = view.findViewById(R.id.tvEmail);
         tvBio = view.findViewById(R.id.tvBio);
-//        tvRatingPercent = view.findViewById(R.id.tvRatingPercent);
+        tvRatingPercent = view.findViewById(R.id.tvRatingPercent);
         ratingBar = view.findViewById(R.id.ratingBar);
         ratingBar.setEnabled(false);
 
@@ -75,11 +75,10 @@ public class ProfileFragment extends Fragment {
 
                 int rating_5 = documentSnapshot.getLong("rating_5").intValue();
 
-                int weigh_average = (rating_1*1 + rating_2*2 + rating_3*3 + rating_4*4 + rating_5*5) / counter;
+                float weigh_average = (rating_1*1 + rating_2*2 + rating_3*3 + rating_4*4 + rating_5*5) / counter;
 
-//                tvRatingPercent.setText(String.valueOf(weigh_average)+"%");
+                tvRatingPercent.setText(String.valueOf(weigh_average));
                 ratingBar.setMax(5);
-                ratingBar.setStepSize(1);
                 ratingBar.setRating(weigh_average);
 
 

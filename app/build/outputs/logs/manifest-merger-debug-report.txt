@@ -8,6 +8,7 @@ MERGED from [androidx.multidex:multidex:2.0.0] C:\Users\user\.gradle\caches\tran
 MERGED from [androidx.navigation:navigation-ui:2.1.0] C:\Users\user\.gradle\caches\transforms-2\files-2.1\5fbe416357b1b9d910c74a0fc930309b\jetified-navigation-ui-2.1.0\AndroidManifest.xml:17:1-24:12
 MERGED from [com.google.android.material:material:1.0.0] C:\Users\user\.gradle\caches\transforms-2\files-2.1\bca7565011648857035eb97aee8b3037\material-1.0.0\AndroidManifest.xml:17:1-24:12
 MERGED from [com.github.AnyChart:AnyChart-Android:1.1.2] C:\Users\user\.gradle\caches\transforms-2\files-2.1\987818a22e4c2c93f25f16d1c340a304\jetified-AnyChart-Android-1.1.2\AndroidManifest.xml:2:1-17:12
+MERGED from [me.zhanghai.android.materialratingbar:library:1.3.2] C:\Users\user\.gradle\caches\transforms-2\files-2.1\d94f7033005913d78303ddf4383c1dc9\jetified-library-1.3.2\AndroidManifest.xml:6:1-15:12
 MERGED from [androidx.appcompat:appcompat:1.1.0] C:\Users\user\.gradle\caches\transforms-2\files-2.1\ee83f9aa7d1b41abe15a1fa29f98862f\appcompat-1.1.0\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.constraintlayout:constraintlayout:1.1.3] C:\Users\user\.gradle\caches\transforms-2\files-2.1\84188944032c406317476a0caf29b38a\constraintlayout-1.1.3\AndroidManifest.xml:2:1-11:12
 MERGED from [androidx.lifecycle:lifecycle-extensions:2.1.0] C:\Users\user\.gradle\caches\transforms-2\files-2.1\2c514c16358a2f901920d055a5773930\lifecycle-extensions-2.1.0\AndroidManifest.xml:17:1-25:12
@@ -257,6 +258,8 @@ MERGED from [com.google.android.material:material:1.0.0] C:\Users\user\.gradle\c
 MERGED from [com.google.android.material:material:1.0.0] C:\Users\user\.gradle\caches\transforms-2\files-2.1\bca7565011648857035eb97aee8b3037\material-1.0.0\AndroidManifest.xml:20:5-44
 MERGED from [com.github.AnyChart:AnyChart-Android:1.1.2] C:\Users\user\.gradle\caches\transforms-2\files-2.1\987818a22e4c2c93f25f16d1c340a304\jetified-AnyChart-Android-1.1.2\AndroidManifest.xml:7:5-9:41
 MERGED from [com.github.AnyChart:AnyChart-Android:1.1.2] C:\Users\user\.gradle\caches\transforms-2\files-2.1\987818a22e4c2c93f25f16d1c340a304\jetified-AnyChart-Android-1.1.2\AndroidManifest.xml:7:5-9:41
+MERGED from [me.zhanghai.android.materialratingbar:library:1.3.2] C:\Users\user\.gradle\caches\transforms-2\files-2.1\d94f7033005913d78303ddf4383c1dc9\jetified-library-1.3.2\AndroidManifest.xml:11:5-13:41
+MERGED from [me.zhanghai.android.materialratingbar:library:1.3.2] C:\Users\user\.gradle\caches\transforms-2\files-2.1\d94f7033005913d78303ddf4383c1dc9\jetified-library-1.3.2\AndroidManifest.xml:11:5-13:41
 MERGED from [androidx.appcompat:appcompat:1.1.0] C:\Users\user\.gradle\caches\transforms-2\files-2.1\ee83f9aa7d1b41abe15a1fa29f98862f\appcompat-1.1.0\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.appcompat:appcompat:1.1.0] C:\Users\user\.gradle\caches\transforms-2\files-2.1\ee83f9aa7d1b41abe15a1fa29f98862f\appcompat-1.1.0\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.constraintlayout:constraintlayout:1.1.3] C:\Users\user\.gradle\caches\transforms-2\files-2.1\84188944032c406317476a0caf29b38a\constraintlayout-1.1.3\AndroidManifest.xml:5:5-7:41
