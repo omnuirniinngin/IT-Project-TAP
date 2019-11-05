@@ -1,16 +1,15 @@
 package com.tap.taskassigningandplanning;
 
 public class User {
-    public String name, email, password;
+    public String name, email;
 
     public User(){
 
     }
 
-    public User(String name, String email, String password) {
+    public User(String name, String email) {
         this.name = name;
         this.email = email;
-        this.password = password;
     }
 
     public String getName() {
@@ -29,20 +28,11 @@ public class User {
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     @Override
     public String toString() {
         return "User{" +
                 "name='" + name + '\'' +
                 ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
                 '}';
     }
 }

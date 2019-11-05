@@ -5,6 +5,7 @@ import com.google.firebase.Timestamp;
 public class Team {
     public String email, plan_id, name, user_id, plan_name, creator, request;
     private boolean status;
+    private int rating;
     private Timestamp created;
 
     public Team(){
@@ -21,6 +22,15 @@ public class Team {
         this.request = request;
         this.status = status;
         this.created = created;
+        this.rating = rating;
+    }
+
+    public int getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
     }
 
     public String getEmail() {

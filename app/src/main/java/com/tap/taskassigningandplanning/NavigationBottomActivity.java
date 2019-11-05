@@ -50,7 +50,6 @@ public class NavigationBottomActivity extends AppCompatActivity {
         Intent intent = getIntent();
         plan_id = intent.getExtras().getString("plan_id");
         plan_name = intent.getExtras().getString("plan_name");
-        user_id = intent.getExtras().getString("user_id");
 
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();

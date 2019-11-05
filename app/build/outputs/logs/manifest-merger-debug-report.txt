@@ -241,10 +241,10 @@ activity#com.tap.taskassigningandplanning.utils.team.TeamSearch
 ADDED from C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:46:9-59
 	android:name
 		ADDED from C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:46:19-56
-activity#com.tap.taskassigningandplanning.Rating
-ADDED from C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:47:9-43
+activity#com.tap.taskassigningandplanning.RatingActivity
+ADDED from C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:47:9-51
 	android:name
-		ADDED from C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:47:19-41
+		ADDED from C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:47:19-49
 uses-sdk
 INJECTED from C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml

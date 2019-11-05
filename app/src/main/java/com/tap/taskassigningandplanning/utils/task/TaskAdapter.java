@@ -42,7 +42,6 @@ public class TaskAdapter extends FirestoreRecyclerAdapter <Activities, TaskAdapt
         int value = activities.getProgress();
         holder.seekBar.setProgress(value);
 
-
         if(value == 100){
             holder.seekBar.setEnabled(false);
         }

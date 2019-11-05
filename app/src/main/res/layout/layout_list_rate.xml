@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="?attr/selectableItemBackground"
@@ -15,24 +16,30 @@
             android:id="@+id/tvName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=""
+            android:layout_centerHorizontal="true"
+            android:text="Name"
             android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
         <RatingBar
             android:id="@+id/ratingBar"
-            android:layout_centerHorizontal="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/tvName"
-            android:numStars="5" />
+            android:layout_centerHorizontal="true"
+            android:numStars="5"
+            android:stepSize="1" />
 
-        <!--<SeekBar
-            android:id="@+id/seekBar"
-            android:layout_width="match_parent"
+        <Button
+            android:id="@+id/btnSubmit"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tvName"
-            style="?android:attr/seekBarStyle"
-            android:layout_marginTop="10dp" />-->
+            android:layout_below="@id/ratingBar"
+            android:layout_centerHorizontal="true"
+            android:background="@color/colorAccent"
+            android:gravity="center"
+            android:text="Submit"
+            app:srcCompat="@drawable/ic_accept" />
+
 
     </RelativeLayout>
 

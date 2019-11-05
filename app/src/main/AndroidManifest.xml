@@ -44,7 +44,7 @@
         <activity
             android:name=".utils.activities.ActivityClickedSearch"/>
         <activity android:name=".utils.team.TeamSearch" />
-        <activity android:name=".Rating"/>
+        <activity android:name=".RatingActivity"/>
     </application>
 
 </manifest>

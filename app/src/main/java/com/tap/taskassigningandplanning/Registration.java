@@ -49,7 +49,6 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         Button btnContinue = findViewById(R.id.btnContinue);
         btnContinue.setOnClickListener(this);
 
-        //findViewById(R.id.btnContinue).setOnClickListener(this);
         findViewById(R.id.tvHaveAccount).setOnClickListener(this);
     }
 
@@ -99,26 +98,9 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
-                            User user = new User(name, email, password);
+                            User user = new User(name, email);
                             String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-                            /*FirebaseFirestore.getInstance()
-                                    .collection("Users")
-                                    .add(user)
-                                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                        @Override
-                                        public void onSuccess(DocumentReference documentReference) {
-                                            Log.d(TAG, "onSuccess: User added on Firestore");
-                                            startActivity(new Intent (getApplicationContext(), MainActivity.class));
-
-                                        }
-                                    })
-                                    .addOnFailureListener(new OnFailureListener() {
-                                        @Override
-                                        public void onFailure(@NonNull Exception e) {
-                                            Toast.makeText(Registration.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-                                        }
-                                    });*/
                             db.collection("Users").document(userId)
                                     .set(user)
                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -134,6 +116,23 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
                                             Log.d(TAG, "onFailure: Error creating user");
                                         }
                                     });
+                            int counter = 0;
+                            Rating rating = new Rating(counter);
+
+                            db.collection("Rating").document(userId)
+                                    .set(rating)
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            Log.d(TAG, "onSuccess: User added to Rating collection");
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Log.d(TAG, "onFailure: Error creating rating");
+                                        }
+                                    });
                             progressDialog.dismiss();
                         }else {
                             progressDialog.dismiss();
@@ -142,39 +141,6 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
 
                     }
                 });
-
-//        mAuth.createUserWithEmailAndPassword(email, password)
-//                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<AuthResult> task) {
-//                        if (task.isSuccessful()){
-//                            User user = new User(
-//                                    name,
-//                                    email,
-//                                    password
-//                            );
-//                            FirebaseDatabase.getInstance().getReference("Users")
-//                                    .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-//                                    .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>(){
-//
-//                                @Override
-//                                public void onComplete(@NonNull Task<Void> task) {
-//                                    if (task.isSuccessful()) {
-//                                        startActivity(new Intent (getApplicationContext(), MainActivity.class));
-//                                        //Toast.makeText(Registration.this, getString(R.string.registration_success), Toast.LENGTH_LONG).show();
-//                                    } else {
-//                                        //display a failure message
-//                                        Toast.makeText(Registration.this, "User already exist.",
-//                                                Toast.LENGTH_SHORT).show();
-//                                        progressDialog.dismiss();
-//                                    }
-//                                }
-//                            });
-//                        }else {
-//                            Toast.makeText(Registration.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
-//                        }
-//                    }
-//                });
     }
 
     @Override

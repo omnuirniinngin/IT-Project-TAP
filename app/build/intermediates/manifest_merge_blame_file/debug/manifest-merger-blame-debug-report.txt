@@ -112,9 +112,9 @@
 61        <activity android:name="com.tap.taskassigningandplanning.utils.team.TeamSearch" />
 61-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:46:9-59
 61-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:46:19-56
-62        <activity android:name="com.tap.taskassigningandplanning.Rating" />
-62-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:47:9-43
-62-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:47:19-41
+62        <activity android:name="com.tap.taskassigningandplanning.RatingActivity" />
+62-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:47:9-51
+62-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:47:19-49
 63        <activity
 63-->[com.google.firebase:firebase-auth:19.1.0] C:\Users\user\.gradle\caches\transforms-2\files-2.1\92a33d795a7bd539a1c45448e512dea5\firebase-auth-19.1.0\AndroidManifest.xml:24:9-31:50
 64            android:name="com.google.firebase.auth.internal.FederatedSignInActivity"

@@ -38,6 +38,7 @@ public class ProfileFragment extends Fragment {
 
     private TextView tvName, tvEmail, tvBio, tvRatingPercent;
     private RatingBar ratingBar;
+    private int myRating;
 
 
     @Override
@@ -51,11 +52,58 @@ public class ProfileFragment extends Fragment {
         tvRatingPercent = view.findViewById(R.id.tvRatingPercent);
         ratingBar = view.findViewById(R.id.ratingBar);
 
-        ratingBar.setEnabled(false);
+        final String current_user = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        final DocumentReference ratingRef = db.collection("Rating").document(current_user);
 
-        DocumentReference documentReference = db.collection("Users").document(userId);
+        ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
+                final int rating = (int) v;
+                myRating = (int) ratingBar.getRating();
+
+                ratingRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        DocumentSnapshot documentSnapshot = task.getResult();
+                        Log.d(TAG, "onComplete: " + documentSnapshot.getData());
+                        int counter = documentSnapshot.getLong("counter").intValue();
+                        int total_rate;
+
+                        switch (rating){
+                            case 1:
+                                int rating_1 = documentSnapshot.getLong("rating_1").intValue();
+                                total_rate = rating_1 * counter;
+                                tvRatingPercent.setText(total_rate);
+                                break;
+                            case 2:
+                                int rating_2 = documentSnapshot.getLong("rating_2").intValue();
+                                total_rate = rating_2 * counter;
+                                tvRatingPercent.setText(total_rate);
+                                break;
+                            case 3:
+                                int rating_3 = documentSnapshot.getLong("rating_3").intValue();
+                                total_rate = rating_3 * counter;
+                                tvRatingPercent.setText(total_rate);
+                                break;
+                            case 4:
+                                int rating_4 = documentSnapshot.getLong("rating_4").intValue();
+                                total_rate = rating_4 * counter;
+                                tvRatingPercent.setText(total_rate);
+                                break;
+                            case 5:
+                                int rating_5 = documentSnapshot.getLong("rating_5").intValue();
+                                total_rate = rating_5 * counter;
+                                tvRatingPercent.setText(total_rate);
+                                break;
+                        }
+
+                    }
+                });
+            }
+        });
+
+        DocumentReference documentReference = db.collection("Users").document(current_user);
 
         documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -75,11 +123,46 @@ public class ProfileFragment extends Fragment {
             }
         });
 
+        /*ratingRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                DocumentSnapshot documentSnapshot = task.getResult();
+                int counter = documentSnapshot.getLong("counter").intValue();
+                int total_rate;
+                if (documentSnapshot.exists()) {
+                    if(myRating==1){
+                        int rating_1 = documentSnapshot.getLong("rating_1").intValue();
+                        total_rate = rating_1 * counter;
+                        tvRatingPercent.setText(total_rate);
+                    }
+                    if(myRating==2){
+                        int rating_2 = documentSnapshot.getLong("rating_2").intValue();
+                        total_rate = rating_2 * counter;
+                        tvRatingPercent.setText(total_rate);
+                    }
+                    if(myRating==3){
+                        int rating_3 = documentSnapshot.getLong("rating_3").intValue();
+                        total_rate = rating_3 * counter;
+                        tvRatingPercent.setText(total_rate);
+                    }
+                    if(myRating==4){
+                        int rating_4 = documentSnapshot.getLong("rating_4").intValue();
+                        total_rate = rating_4 * counter;
+                        tvRatingPercent.setText(total_rate);
+                    }
+                    if(myRating==5){
+                        int rating_5 = documentSnapshot.getLong("rating_5").intValue();
+                        total_rate = rating_5 * counter;
+                        tvRatingPercent.setText(total_rate);
+                    }
+                } else {
+                    Log.d(TAG, "Error getting info");
+                }
+            }
+        });*/
+
         return view;
     }
-
-
-
 
 }
 

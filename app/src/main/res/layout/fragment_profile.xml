@@ -116,6 +116,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginStart="30dp"
                 android:numStars="5"
+                android:stepSize="1"
                 android:paddingBottom="5dp"
                 android:theme="@style/CustomRatingBar" />
 

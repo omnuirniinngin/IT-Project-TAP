@@ -59,7 +59,7 @@
             android:parentActivityName="com.tap.taskassigningandplanning.utils.activities.Activities" />
         <activity android:name="com.tap.taskassigningandplanning.utils.activities.ActivityClickedSearch" />
         <activity android:name="com.tap.taskassigningandplanning.utils.team.TeamSearch" />
-        <activity android:name="com.tap.taskassigningandplanning.Rating" />
+        <activity android:name="com.tap.taskassigningandplanning.RatingActivity" />
         <activity
             android:name="com.google.firebase.auth.internal.FederatedSignInActivity"
             android:excludeFromRecents="true"

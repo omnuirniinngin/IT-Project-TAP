@@ -29,7 +29,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.tap.taskassigningandplanning.NavigationBottomActivity;
 import com.tap.taskassigningandplanning.R;
-import com.tap.taskassigningandplanning.Rating;
+import com.tap.taskassigningandplanning.RatingActivity;
 import com.tap.taskassigningandplanning.utils.activities.Activities;
 
 import org.joda.time.DateTime;
@@ -166,18 +166,16 @@ public class TaskFragment extends Fragment implements TaskAdapter.TaskListener{
 
     }
 
-    public void rating(){
-    }
-
     @Override
     public void handleProgressChanged(final int progressChanged, final DocumentSnapshot documentSnapshot) {
         int value = 100;
-
         Intent intent;
         intent = getActivity().getIntent();
 
         final String plan_id = intent.getExtras().getString("plan_id");
         final String id = documentSnapshot.getId();
+        //Current user
+        final String current_user = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         if(value == progressChanged){
             new AlertDialog.Builder(getContext())
@@ -189,21 +187,39 @@ public class TaskFragment extends Fragment implements TaskAdapter.TaskListener{
                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void aVoid) {
-                                            Log.d(TAG, "onSuccess: ");
+                                            Log.d(TAG, "onSuccess: " + progressChanged);
 
-                                            new AlertDialog.Builder(getContext())
-                                                    .setTitle("Rating")
-                                                    .setMessage("Would you like to give a rate?")
-                                                    .setPositiveButton("Rate now", new DialogInterface.OnClickListener() {
+                                            db.collection("Plan").whereEqualTo("plan_id", plan_id)
+                                                    .get()
+                                                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                                         @Override
-                                                        public void onClick(DialogInterface dialogInterface, int i) {
-                                                            Intent intent = new Intent(getContext(), Rating.class);
-                                                            intent.putExtra("plan_id", plan_id);
-                                                            intent.putExtra("activity_id", id);
-                                                            startActivity(intent);
+                                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                            if (task.isSuccessful()) {
+                                                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                                                    Log.d(TAG, document.getId() + " => " + document.getData());
+                                                                    String user_id = (String) document.get("user_id");
+
+                                                                    if(user_id.equals(current_user)){
+                                                                        new AlertDialog.Builder(getContext())
+                                                                                .setTitle("RatingActivity")
+                                                                                .setMessage("Would you like to give a rate?")
+                                                                                .setPositiveButton("Rate now", new DialogInterface.OnClickListener() {
+                                                                                    @Override
+                                                                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                                                                        Intent intent = new Intent(getContext(), RatingActivity.class);
+                                                                                        intent.putExtra("plan_id", plan_id);
+                                                                                        intent.putExtra("activity_id", id);
+                                                                                        startActivity(intent);
+                                                                                    }
+                                                                                }).setNegativeButton("No", null)
+                                                                                .show();
+                                                                    }
+                                                                }
+                                                            } else {
+                                                                Log.d(TAG, "Error getting documents: ", task.getException());
+                                                            }
                                                         }
-                                                    }).setNegativeButton("No", null)
-                                                    .show();
+                                                    });
 
                                         }
                                     })
@@ -231,6 +247,78 @@ public class TaskFragment extends Fragment implements TaskAdapter.TaskListener{
                         }
                     });
         }
+
+
+        /*if(value == progressChanged){
+            new AlertDialog.Builder(getContext())
+                    .setTitle(R.string.dialog_confirm_progress)
+                    .setPositiveButton("Finish task", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            documentSnapshot.getReference().update("progress", progressChanged)
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            Log.d(TAG, "onSuccess: " + progressChanged);
+
+                                            db.collection("Plan").whereEqualTo("plan_id", plan_id)
+                                                    .get()
+                                                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                                        @Override
+                                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                            if (task.isSuccessful()) {
+                                                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                                                    Log.d(TAG, document.getId() + " => " + document.getData());
+                                                                    String user_id = (String) document.get("user_id");
+
+                                                                    if(user_id.equals(current_user)){
+                                                                        new AlertDialog.Builder(getContext())
+                                                                                .setTitle("RatingActivity")
+                                                                                .setMessage("Would you like to give a rate?")
+                                                                                .setPositiveButton("Rate now", new DialogInterface.OnClickListener() {
+                                                                                    @Override
+                                                                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                                                                        Intent intent = new Intent(getContext(), RatingActivity.class);
+                                                                                        intent.putExtra("plan_id", plan_id);
+                                                                                        intent.putExtra("activity_id", id);
+                                                                                        startActivity(intent);
+                                                                                    }
+                                                                                }).setNegativeButton("No", null)
+                                                                                .show();
+                                                                    }
+                                                                }
+                                                            } else {
+                                                                Log.d(TAG, "Error getting documents: ", task.getException());
+                                                            }
+                                                        }
+                                                    });
+
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Log.d(TAG, "onFailure: " + e.getLocalizedMessage());
+                                        }
+                                    });
+                        }
+                    }).setNegativeButton("Cancel", null)
+                    .show();
+        }else{
+            documentSnapshot.getReference().update("progress", progressChanged)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Log.d(TAG, "onSuccess: ");
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.d(TAG, "onFailure: " + e.getLocalizedMessage());
+                        }
+                    });
+        }*/
 
     }
 }
