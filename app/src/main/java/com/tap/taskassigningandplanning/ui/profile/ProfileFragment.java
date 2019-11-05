@@ -49,12 +49,39 @@ public class ProfileFragment extends Fragment {
         tvName = view.findViewById(R.id.tvName);
         tvEmail = view.findViewById(R.id.tvEmail);
         tvBio = view.findViewById(R.id.tvBio);
-        tvRatingPercent = view.findViewById(R.id.tvRatingPercent);
+//        tvRatingPercent = view.findViewById(R.id.tvRatingPercent);
         ratingBar = view.findViewById(R.id.ratingBar);
+        ratingBar.setEnabled(false);
 
         final String current_user = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         final DocumentReference ratingRef = db.collection("Rating").document(current_user);
+
+        ratingRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                DocumentSnapshot documentSnapshot = task.getResult();
+                Log.d(TAG, "onComplete: " + documentSnapshot.getData());
+                int counter = documentSnapshot.getLong("counter").intValue();
+                int total_rate;
+
+                int rating_1 = documentSnapshot.getLong("rating_1").intValue();
+
+                int rating_2 = documentSnapshot.getLong("rating_2").intValue();
+
+                int rating_3 = documentSnapshot.getLong("rating_3").intValue();
+
+                int rating_4 = documentSnapshot.getLong("rating_4").intValue();
+
+                int rating_5 = documentSnapshot.getLong("rating_5").intValue();
+
+                int weigh_average = (rating_1*1 + rating_2*2 + rating_3*3 + rating_4*4 + rating_5*5) / counter;
+
+//                tvRatingPercent.setText(String.valueOf(weigh_average)+"%");
+                ratingBar.setMax(5);
+                ratingBar.setStepSize(1);
+                ratingBar.setRating(weigh_average);
+
 
         ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
@@ -62,7 +89,7 @@ public class ProfileFragment extends Fragment {
                 final int rating = (int) v;
                 myRating = (int) ratingBar.getRating();
 
-                ratingRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+               /* ratingRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                         DocumentSnapshot documentSnapshot = task.getResult();
@@ -70,33 +97,49 @@ public class ProfileFragment extends Fragment {
                         int counter = documentSnapshot.getLong("counter").intValue();
                         int total_rate;
 
-                        switch (rating){
+                        int rating_1 = documentSnapshot.getLong("rating_1").intValue();
+
+                        int rating_2 = documentSnapshot.getLong("rating_2").intValue();
+
+                        int rating_3 = documentSnapshot.getLong("rating_3").intValue();
+
+                        int rating_4 = documentSnapshot.getLong("rating_4").intValue();
+
+                        int rating_5 = documentSnapshot.getLong("rating_5").intValue();
+
+                        int weigh_average = (rating_1*1 + rating_2+2 + rating_3*3 + rating_4*4 + rating_5*5) / counter;
+
+                        tvRatingPercent.setText(String.valueOf(weigh_average)+"%");*/
+
+
+
+                        /*switch (rating){
                             case 1:
                                 int rating_1 = documentSnapshot.getLong("rating_1").intValue();
                                 total_rate = rating_1 * counter;
-                                tvRatingPercent.setText(total_rate);
+                                tvRatingPercent.setText(String.valueOf(total_rate)+"%");
                                 break;
                             case 2:
-                                int rating_2 = documentSnapshot.getLong("rating_2").intValue();
-                                total_rate = rating_2 * counter;
-                                tvRatingPercent.setText(total_rate);
+                                int rating_2 = documentSnapshot.getLong("rating_1").intValue();
+                                total_rate = rating_1 * counter;
+                                tvRatingPercent.setText(String.valueOf(total_rate)+"%");
                                 break;
                             case 3:
                                 int rating_3 = documentSnapshot.getLong("rating_3").intValue();
                                 total_rate = rating_3 * counter;
-                                tvRatingPercent.setText(total_rate);
+                                tvRatingPercent.setText(String.valueOf(total_rate)+"%");
                                 break;
                             case 4:
-                                int rating_4 = documentSnapshot.getLong("rating_4").intValue();
-                                total_rate = rating_4 * counter;
-                                tvRatingPercent.setText(total_rate);
+                                int rating_4 = documentSnapshot.getLong("rating_3").intValue();
+                                total_rate = rating_3 * counter;
+                                tvRatingPercent.setText(String.valueOf(total_rate)+"%");
                                 break;
                             case 5:
                                 int rating_5 = documentSnapshot.getLong("rating_5").intValue();
                                 total_rate = rating_5 * counter;
-                                tvRatingPercent.setText(total_rate);
+                                tvRatingPercent.setText(String.valueOf(total_rate)+"%");
                                 break;
-                        }
+                        }*/
 
                     }
                 });

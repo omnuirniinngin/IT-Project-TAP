@@ -74,11 +74,11 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:layout_below="@id/tvEmail"
-                android:gravity="center_horizontal">
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
 
-                <TextView
+<!--                <TextView
                     android:id="@+id/tvRatingPercent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -95,7 +95,7 @@
                     android:text="Job Success"
                     android:textColor="#2196F3"
                     android:textSize="12sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold" />-->
 
 
             </LinearLayout>
@@ -116,8 +116,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginStart="30dp"
                 android:numStars="5"
-                android:stepSize="1"
-                android:paddingBottom="5dp"
+                android:stepSize="1.0"
                 android:theme="@style/CustomRatingBar" />
 
         </RelativeLayout>

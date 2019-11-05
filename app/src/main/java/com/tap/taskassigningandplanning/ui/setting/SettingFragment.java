@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,16 +19,16 @@ import com.tap.taskassigningandplanning.R;
 
 public class SettingFragment extends Fragment {
     private FirebaseAuth mAuth;
-    Button btnSignOut;
+    TextView tvSignout;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_setting, container, false);
 
-        btnSignOut = view.findViewById(R.id.btnSignOut);
+        tvSignout = view.findViewById(R.id.btnSignOut);
 
-        btnSignOut.setOnClickListener(new View.OnClickListener() {
+        tvSignout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 FirebaseAuth.getInstance().signOut();
