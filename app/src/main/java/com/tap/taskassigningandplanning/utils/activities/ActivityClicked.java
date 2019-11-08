@@ -1,5 +1,6 @@
 package com.tap.taskassigningandplanning.utils.activities;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Canvas;
@@ -26,8 +27,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
-import com.google.firebase.Timestamp;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -37,13 +36,12 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.tap.taskassigningandplanning.R;
+import com.tap.taskassigningandplanning.utils.activities.Task.ActivityTask;
 import com.tap.taskassigningandplanning.utils.team.Team;
 
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -61,13 +59,14 @@ public class ActivityClicked extends AppCompatActivity implements ActivitiesAdap
 
     private Intent intent;
 
-    private EditText etActivityTitle, etNotes, etStartDate, etEndDate, etAssignUser;
+    private EditText etActivityTitle, etNotes, etStartDate, etEndDate, etAssignUser, etTask;
+    private String plan_id, activity_id;
     private ActivityClickedAdapter activityClickedAdapter;
     private RecyclerView recyclerView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        setContentView(R.layout.layout_edit_activities);
+        setContentView(R.layout.activity_edit_activities);
         super.onCreate(savedInstanceState);
 
         recyclerView = findViewById(R.id.recycler_view);
@@ -78,6 +77,12 @@ public class ActivityClicked extends AppCompatActivity implements ActivitiesAdap
         etStartDate = findViewById(R.id.etStartDate);
         etEndDate = findViewById(R.id.etEndDate);
         etAssignUser = findViewById(R.id.etAssignUser);
+        etTask = findViewById(R.id.etTask);
+
+        intent = getIntent();
+
+        plan_id = intent.getExtras().getString("plan_id");
+        activity_id = intent.getExtras().getString("activity_id");
 
         db = FirebaseFirestore.getInstance();
 
@@ -133,6 +138,7 @@ public class ActivityClicked extends AppCompatActivity implements ActivitiesAdap
         });
 
         etAssignUser.setOnClickListener(this);
+        etTask.setOnClickListener(this);
 
         EditActivity();
         setupRecyclerView();
@@ -343,15 +349,19 @@ public class ActivityClicked extends AppCompatActivity implements ActivitiesAdap
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.etAssignUser:
-                intent = getIntent();
 
-                String plan_id = intent.getExtras().getString("plan_id");
-                String activity_id = intent.getExtras().getString("activity_id");
                 intent = new Intent(this, ActivityClickedSearch.class);
                 intent.putExtra("plan_id", plan_id);
                 intent.putExtra("activity_id", activity_id);
                 startActivity(intent);
                 break;
+            case R.id.etTask:
+                intent = new Intent(this, ActivityTask.class);
+                intent.putExtra("plan_id", plan_id);
+                intent.putExtra("activity_id", activity_id);
+                startActivity(intent);
+                break;
+
         }
     }
 

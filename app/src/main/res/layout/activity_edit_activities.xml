@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TITLE" />
+
+        <EditText
+            android:id="@+id/etActivityTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:hint="Title"
+            android:maxLines="1" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="NOTES" />
+
+        <EditText
+            android:id="@+id/etNotes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Add notes"
+            android:inputType="textMultiLine"
+            android:lines="5" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dp"
+            android:text="FROM" />
+
+        <EditText
+            android:id="@+id/etStartDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/edit_text_border_no_radius"
+            android:clickable="true"
+            android:focusable="false"
+            android:gravity="center_horizontal"
+            android:hint="@string/plan_start_date"
+            android:inputType="date"
+            android:padding="5dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dp"
+            android:text="TO" />
+
+        <EditText
+            android:id="@+id/etEndDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/edit_text_border_no_radius"
+            android:clickable="true"
+            android:focusable="false"
+            android:gravity="center_horizontal"
+            android:hint="@string/plan_end_date"
+            android:inputType="date"
+            android:padding="5dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dp"
+            android:text="Create Task" />
+
+        <EditText
+            android:id="@+id/etTask"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/edit_text_border_no_radius"
+            android:clickable="true"
+            android:focusable="false"
+            android:gravity="center_horizontal"
+            android:hint="@string/title_task"
+            android:inputType="date"
+            android:padding="5dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dp"
+            android:text="Designate Activity" />
+
+        <EditText
+            android:id="@+id/etAssignUser"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/edit_text_border_no_radius"
+            android:clickable="true"
+            android:focusable="false"
+            android:gravity="center_horizontal"
+            android:hint="Search from team"
+            android:inputType="text"
+            android:padding="5dp" />
+
+        <include
+            layout="@layout/layout_content_main"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp" />
+
+    </LinearLayout>
+
+</ScrollView>

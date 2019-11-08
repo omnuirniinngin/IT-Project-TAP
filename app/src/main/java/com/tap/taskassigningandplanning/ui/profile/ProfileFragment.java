@@ -63,7 +63,6 @@ public class ProfileFragment extends Fragment {
                 DocumentSnapshot documentSnapshot = task.getResult();
                 Log.d(TAG, "onComplete: " + documentSnapshot.getData());
                 int counter = documentSnapshot.getLong("counter").intValue();
-                int total_rate;
 
                 int rating_1 = documentSnapshot.getLong("rating_1").intValue();
 
@@ -77,71 +76,17 @@ public class ProfileFragment extends Fragment {
 
                 float weigh_average = (rating_1*1 + rating_2*2 + rating_3*3 + rating_4*4 + rating_5*5) / counter;
 
-                tvRatingPercent.setText(String.valueOf(weigh_average));
-                ratingBar.setMax(5);
-                ratingBar.setRating(weigh_average);
+                if(counter==0){
+                    ratingBar.setMax(5);
+                    ratingBar.setRating(0);
+                }
 
+                if (counter > 0) {
+                    tvRatingPercent.setText(String.valueOf(weigh_average));
+                    ratingBar.setMax(5);
+                    ratingBar.setRating(weigh_average);
+                }
 
-        ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
-            @Override
-            public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
-                final int rating = (int) v;
-                myRating = (int) ratingBar.getRating();
-
-               /* ratingRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        DocumentSnapshot documentSnapshot = task.getResult();
-                        Log.d(TAG, "onComplete: " + documentSnapshot.getData());
-                        int counter = documentSnapshot.getLong("counter").intValue();
-                        int total_rate;
-
-                        int rating_1 = documentSnapshot.getLong("rating_1").intValue();
-
-                        int rating_2 = documentSnapshot.getLong("rating_2").intValue();
-
-                        int rating_3 = documentSnapshot.getLong("rating_3").intValue();
-
-                        int rating_4 = documentSnapshot.getLong("rating_4").intValue();
-
-                        int rating_5 = documentSnapshot.getLong("rating_5").intValue();
-
-                        int weigh_average = (rating_1*1 + rating_2+2 + rating_3*3 + rating_4*4 + rating_5*5) / counter;
-
-                        tvRatingPercent.setText(String.valueOf(weigh_average)+"%");*/
-
-
-
-                        /*switch (rating){
-                            case 1:
-                                int rating_1 = documentSnapshot.getLong("rating_1").intValue();
-                                total_rate = rating_1 * counter;
-                                tvRatingPercent.setText(String.valueOf(total_rate)+"%");
-                                break;
-                            case 2:
-                                int rating_2 = documentSnapshot.getLong("rating_1").intValue();
-                                total_rate = rating_1 * counter;
-                                tvRatingPercent.setText(String.valueOf(total_rate)+"%");
-                                break;
-                            case 3:
-                                int rating_3 = documentSnapshot.getLong("rating_3").intValue();
-                                total_rate = rating_3 * counter;
-                                tvRatingPercent.setText(String.valueOf(total_rate)+"%");
-                                break;
-                            case 4:
-                                int rating_4 = documentSnapshot.getLong("rating_3").intValue();
-                                total_rate = rating_3 * counter;
-                                tvRatingPercent.setText(String.valueOf(total_rate)+"%");
-                                break;
-                            case 5:
-                                int rating_5 = documentSnapshot.getLong("rating_5").intValue();
-                                total_rate = rating_5 * counter;
-                                tvRatingPercent.setText(String.valueOf(total_rate)+"%");
-                                break;
-                        }*/
-
-                    }
-                });
             }
         });
 
@@ -164,44 +109,6 @@ public class ProfileFragment extends Fragment {
                 }
             }
         });
-
-        /*ratingRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                DocumentSnapshot documentSnapshot = task.getResult();
-                int counter = documentSnapshot.getLong("counter").intValue();
-                int total_rate;
-                if (documentSnapshot.exists()) {
-                    if(myRating==1){
-                        int rating_1 = documentSnapshot.getLong("rating_1").intValue();
-                        total_rate = rating_1 * counter;
-                        tvRatingPercent.setText(total_rate);
-                    }
-                    if(myRating==2){
-                        int rating_2 = documentSnapshot.getLong("rating_2").intValue();
-                        total_rate = rating_2 * counter;
-                        tvRatingPercent.setText(total_rate);
-                    }
-                    if(myRating==3){
-                        int rating_3 = documentSnapshot.getLong("rating_3").intValue();
-                        total_rate = rating_3 * counter;
-                        tvRatingPercent.setText(total_rate);
-                    }
-                    if(myRating==4){
-                        int rating_4 = documentSnapshot.getLong("rating_4").intValue();
-                        total_rate = rating_4 * counter;
-                        tvRatingPercent.setText(total_rate);
-                    }
-                    if(myRating==5){
-                        int rating_5 = documentSnapshot.getLong("rating_5").intValue();
-                        total_rate = rating_5 * counter;
-                        tvRatingPercent.setText(total_rate);
-                    }
-                } else {
-                    Log.d(TAG, "Error getting info");
-                }
-            }
-        });*/
 
         return view;
     }

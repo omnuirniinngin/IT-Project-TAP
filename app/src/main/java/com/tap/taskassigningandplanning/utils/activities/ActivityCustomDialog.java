@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatDialogFragment;
 import androidx.fragment.app.DialogFragment;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -43,7 +44,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-public class ActivityCustomDialog extends DialogFragment implements View.OnClickListener{
+public class ActivityCustomDialog extends AppCompatDialogFragment implements View.OnClickListener{
     private static final String TAG = "ActivityCustomDialog";
 
     private EditText etActivityTitle;

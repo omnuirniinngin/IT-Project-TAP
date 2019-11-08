@@ -55,9 +55,6 @@ public class ActivityClickedSearch extends AppCompatActivity implements Activity
         String plan_id = intent.getExtras().getString("plan_id");
         String activity_id = intent.getExtras().getString("activity_id");
 
-        Log.d(TAG, "Plan id is: " + plan_id);
-        Log.d(TAG, "Activity id is: " + activity_id);
-
         CollectionReference id = db.collection("Team");
 
         Query query = id.whereEqualTo("plan_id", plan_id).orderBy("name", Query.Direction.ASCENDING);

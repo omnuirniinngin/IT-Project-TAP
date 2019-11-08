@@ -80,11 +80,6 @@ public class TeamFragment extends Fragment implements View.OnClickListener, Team
         teamAdapter.startListening();
     }
 
-//    @Override
-//    public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
-//
-//    }
-
     @Override
     public void onClick(View view) {
         switch (view.getId()){
@@ -93,8 +88,6 @@ public class TeamFragment extends Fragment implements View.OnClickListener, Team
                 TeamCustomDialog dialog = new TeamCustomDialog();
                 dialog.setTargetFragment(TeamFragment.this, 1);
                 dialog.show(getFragmentManager(), "TeamCustomDialog");
-//                Intent intent = new Intent(getContext(), TeamSearch.class);
-//                startActivity(intent);
                 break;
         }
     }

@@ -22,6 +22,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.SignInMethodQueryResult;
 import com.google.firebase.firestore.CollectionReference;
@@ -191,9 +192,9 @@ public class TeamCustomDialog extends DialogFragment implements View.OnClickList
                             }else {
                                 Log.d(TAG, "onComplete: Send request via app notification");
                                 Toast.makeText(getActivity(), "Invitation sent!", Toast.LENGTH_SHORT).show();
-                                progressDialog.dismiss();
                                 queryEmail();
                                 addUser();
+                                progressDialog.dismiss();
                             }
                         }
                     });
@@ -233,7 +234,37 @@ public class TeamCustomDialog extends DialogFragment implements View.OnClickList
     }
 
     public void sendMail(){
-        String email = etRequest.getText().toString().trim();
+        final String email = etRequest.getText().toString().trim();
+        /*String password = "1234";
+        final String name = "Setup profile";*/
+
+/*        mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+
+                        if(task.isSuccessful()){
+                            User user = new User(name, email);
+                            String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+                            db.collection("Users").document(userId)
+                                    .set(user)
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            Log.d(TAG, "onSuccess: User added on Firestore");
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Log.d(TAG, "onFailure: Error creating user");
+                                        }
+                                    });
+                        }
+                    }
+                });*/
+
         Log.d(TAG, "sendMail: ");
 
         String[] TO_EMAIL = {email};
@@ -245,7 +276,7 @@ public class TeamCustomDialog extends DialogFragment implements View.OnClickList
         intent.putExtra(Intent.EXTRA_SUBJECT, "Invitation request.");
         intent.putExtra(Intent.EXTRA_TEXT,
                 "Good day! I would like you to be part of my on going plan and you are one of the selected person I want to work on this particular task." +
-                        "To accept my request kindly download this app. ###LINK");
+                        "To accept my request kindly download this app. ***LINK***");
 
         startActivity(Intent.createChooser(intent, "Send request"));
     }
