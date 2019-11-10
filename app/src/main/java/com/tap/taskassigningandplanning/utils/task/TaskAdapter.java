@@ -2,6 +2,7 @@ package com.tap.taskassigningandplanning.utils.task;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.res.ColorStateList;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -43,14 +44,12 @@ public class TaskAdapter extends FirestoreRecyclerAdapter <Activities, TaskAdapt
     @Override
     protected void onBindViewHolder(@NonNull final TaskHolder holder, int position, @NonNull Activities activities) {
         holder.tvTitle.setText(activities.getTitle());
-        holder.tvPercent.setText(String.valueOf(activities.getProgress())+"%");
+        holder.tvPercent.setText(String.valueOf(activities.getCompleted_task())+"/"+String.valueOf(activities.getTotal_task()));
+        int completed_task = activities.getCompleted_task();
+        int total_task = activities.getTotal_task();
 
-        int value = activities.getProgress();
-        holder.seekBar.setProgress(value);
-
-        if(value == 100){
-            holder.seekBar.setEnabled(false);
-        }
+        float progress = (completed_task*100 / total_task);
+        holder.progressBar.setProgress((int) progress);
 
     }
 
@@ -64,17 +63,15 @@ public class TaskAdapter extends FirestoreRecyclerAdapter <Activities, TaskAdapt
 
     class TaskHolder extends RecyclerView.ViewHolder{
         TextView tvTitle, tvPercent;
-        SeekBar seekBar;
         ProgressBar progressBar;
 
         public TaskHolder(@NonNull View itemView) {
             super(itemView);
             tvTitle = itemView.findViewById(R.id.tvActivityTitle);
-            seekBar = itemView.findViewById(R.id.seekBar);
             tvPercent = itemView.findViewById(R.id.tvPercent);
             progressBar = itemView.findViewById(R.id.progressBar);
 
-            seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+/*            seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                 @Override
                 public void onProgressChanged(SeekBar seekBar, int progress, boolean b) {
                     tvPercent.setText("" + progress + "%");
@@ -90,11 +87,12 @@ public class TaskAdapter extends FirestoreRecyclerAdapter <Activities, TaskAdapt
                     DocumentSnapshot snapshot = getSnapshots().getSnapshot(getAdapterPosition());
                     int progress = seekBar.getProgress();
                     Activities activities = getItem(getAdapterPosition());
-                    if(activities.getProgress() != progress){
+                    if(activities.getCompleted_task() != progress){
                         listener.handleProgressChanged(progress, snapshot);
                     }
                 }
-            });
+            });*/
+
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

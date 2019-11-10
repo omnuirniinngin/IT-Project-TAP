@@ -31,6 +31,7 @@ import com.tap.taskassigningandplanning.R;
 import com.tap.taskassigningandplanning.ui.plan.Plan;
 import com.tap.taskassigningandplanning.utils.activities.Activities;
 import com.tap.taskassigningandplanning.utils.activities.ActivitiesAdapter;
+import com.tap.taskassigningandplanning.utils.activities.Task.ActivityTask;
 
 import org.joda.time.DateTime;
 import org.joda.time.Period;
@@ -161,6 +162,15 @@ public class ProgressFragment extends Fragment implements ProgressAdapter.Progre
     
     @Override
     public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
+        Intent intent;
+        intent = getActivity().getIntent();
 
+        String plan_id = intent.getExtras().getString("plan_id");
+        String activity_id = documentSnapshot.getId();
+
+        intent = new Intent(getContext(), ActivityTask.class);
+        intent.putExtra("plan_id", plan_id);
+        intent.putExtra("activity_id", activity_id);
+        startActivity(intent);
     }
 }

@@ -1380,7 +1380,6 @@ id navigation_activities
 id navigation_chart
 id navigation_header_container
 id navigation_progress
-id navigation_task
 id navigation_team
 id never
 id none
@@ -1433,7 +1432,6 @@ id search_mag_icon
 id search_plate
 id search_src_text
 id search_voice_btn
-id seekBar
 id select_dialog_listview
 id selected
 id shortcut
@@ -1504,6 +1502,7 @@ id tvItem
 id tvName
 id tvNotes
 id tvPercent
+id tvProgress
 id tvRatingPercent
 id tvSender
 id tvStatus

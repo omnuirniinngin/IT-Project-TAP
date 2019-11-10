@@ -28,6 +28,15 @@
             android:layout_toRightOf="@id/cbCompleted"
             android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
+<!--        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="&#8942;"
+            android:layout_alignParentEnd="true"
+            android:textAppearance="?android:textAppearanceLarge"
+            android:layout_marginRight="15dp"
+            android:id="@+id/tvMenu"/>-->
+
 
     </RelativeLayout>
 

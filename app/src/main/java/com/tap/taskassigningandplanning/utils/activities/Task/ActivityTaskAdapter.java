@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -66,11 +67,16 @@ public class ActivityTaskAdapter extends FirestoreRecyclerAdapter <Task, Activit
                 }
             });
         }
+
+        public void deleteItem(){
+            listener.handleDeleteItem(getSnapshots().getSnapshot(getAdapterPosition()));
+        }
     }
 
     interface TaskListener{
         void handleCheckChanged(boolean isChecked, DocumentSnapshot snapshot);
         void handleEditTask(DocumentSnapshot snapshot);
+        void handleDeleteItem(DocumentSnapshot snapshot);
     }
 
 }

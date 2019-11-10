@@ -1,9 +1,11 @@
 package com.tap.taskassigningandplanning.utils.progress;
 
 import android.text.method.DateTimeKeyListener;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -47,7 +49,18 @@ public class ProgressAdapter extends FirestoreRecyclerAdapter <Activities, Progr
     @Override
     protected void onBindViewHolder(@NonNull ProgressHolder holder, int position, @NonNull Activities activities) {
         holder.tvActivityTitle.setText(activities.getTitle());
-        holder.tvPercent.setText(String.valueOf(activities.getProgress())+"%");
+        holder.tvPercent.setText(String.valueOf(activities.getCompleted_task())+"/"+String.valueOf(activities.getTotal_task()));
+        int completed_task = activities.getCompleted_task();
+        int total_task_task = activities.getTotal_task();
+
+        if ( total_task_task == 0 ){
+            holder.progressBar.setProgress(0);
+        }
+        if (total_task_task > 0 ){
+            float progress = completed_task*100 / total_task_task;
+            holder.progressBar.setProgress((int) progress);
+        }
+
 
         String dateStart = activities.getDateStart();
         String dateEnd = activities.getDateEnd();
@@ -92,12 +105,14 @@ public class ProgressAdapter extends FirestoreRecyclerAdapter <Activities, Progr
     class ProgressHolder extends RecyclerView.ViewHolder{
 
         TextView tvActivityTitle, tvPercent, tvDays;
+        ProgressBar progressBar;
 
         public ProgressHolder(@NonNull View itemView) {
             super(itemView);
             tvActivityTitle = itemView.findViewById(R.id.tvActivityTitle);
             tvDays = itemView.findViewById(R.id.tvDays);
-            tvPercent = itemView.findViewById(R.id.tvPercent);
+            tvPercent = itemView.findViewById(R.id.tvProgress);
+            progressBar = itemView.findViewById(R.id.progressBar);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

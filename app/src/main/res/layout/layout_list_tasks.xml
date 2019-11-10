@@ -27,23 +27,19 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:inputType="number"
-            android:text="0%"
+            android:text="0/0"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
-        <SeekBar
-            android:id="@+id/seekBar"
-            style="?android:attr/seekBarStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tvActivityTitle"
-            android:layout_marginTop="10dp" />
 
         <androidx.core.widget.ContentLoadingProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/progressBar"
-            android:layout_below="@id/seekBar"
-            android:layout_marginTop="10dp"/>
+            android:layout_below="@id/tvPercent"
+            android:layout_marginTop="10dp"
+            android:indeterminateTint="@color/colorPrimary"
+            android:max="100" />
 
     </RelativeLayout>
 

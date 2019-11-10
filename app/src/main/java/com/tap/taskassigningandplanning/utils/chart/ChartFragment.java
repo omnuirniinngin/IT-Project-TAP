@@ -94,7 +94,7 @@ public class ChartFragment extends Fragment {
                             List<String> titleList = new ArrayList<>();
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.d(TAG, document.getId() + " => " + document.get("progress"));
-                                progressList.add(Integer.valueOf(document.get("progress").toString()));
+                                progressList.add(Integer.valueOf(document.get("completed_task").toString()));
                                 titleList.add(document.get("title").toString());
                             }
 

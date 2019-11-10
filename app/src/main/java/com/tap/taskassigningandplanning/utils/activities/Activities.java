@@ -9,7 +9,8 @@ import java.util.List;
 public class Activities {
 
     private String title, notes, dateStart, dateEnd, plan_id;
-    private int progress;
+    private int completed_task;
+    private int total_task;
     List<String> user_id;
     private Timestamp created;
 
@@ -25,15 +26,23 @@ public class Activities {
         this.plan_id = plan_id;
         this.user_id = user_id;
         this.created = created;
-        this.progress = progress;
+        this.completed_task = completed_task;
     }
 
-    public int getProgress() {
-        return progress;
+    public int getCompleted_task() {
+        return completed_task;
     }
 
-    public void setProgress(int progress) {
-        this.progress = progress;
+    public void setCompleted_task(int completed_task) {
+        this.completed_task = completed_task;
+    }
+
+    public int getTotal_task() {
+        return total_task;
+    }
+
+    public void setTotal_task(int total_task) {
+        this.total_task = total_task;
     }
 
     public String getTitle() {
