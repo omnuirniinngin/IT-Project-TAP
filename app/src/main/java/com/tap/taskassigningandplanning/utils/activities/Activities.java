@@ -17,7 +17,7 @@ public class Activities {
         //empty constructor needed
     }
 
-    public Activities(String title, String notes, String dateStart, String dateEnd, String plan_id, List<String> user_id, Timestamp created) {
+    public Activities(String title, String dateStart, String dateEnd, String plan_id, List<String> user_id, Timestamp created) {
         this.title = title;
         this.notes = notes;
         this.dateStart = dateStart;

@@ -33,13 +33,12 @@
             android:textSize="25sp"/>
 
         <TextView
-            android:id="@+id/tvDaysLeftPlan"
+            android:id="@+id/tvDays"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:text="Day/s left"
             android:layout_centerVertical="true"/>
 
     </RelativeLayout>

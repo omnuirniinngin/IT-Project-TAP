@@ -17,9 +17,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.tap.taskassigningandplanning.R;
 import com.tap.taskassigningandplanning.utils.activities.Activities;
 import com.tap.taskassigningandplanning.utils.progress.Progress;
@@ -45,6 +51,7 @@ public class TaskAdapter extends FirestoreRecyclerAdapter <Activities, TaskAdapt
         if(value == 100){
             holder.seekBar.setEnabled(false);
         }
+
     }
 
     @NonNull
@@ -58,12 +65,14 @@ public class TaskAdapter extends FirestoreRecyclerAdapter <Activities, TaskAdapt
     class TaskHolder extends RecyclerView.ViewHolder{
         TextView tvTitle, tvPercent;
         SeekBar seekBar;
+        ProgressBar progressBar;
 
         public TaskHolder(@NonNull View itemView) {
             super(itemView);
             tvTitle = itemView.findViewById(R.id.tvActivityTitle);
             seekBar = itemView.findViewById(R.id.seekBar);
             tvPercent = itemView.findViewById(R.id.tvPercent);
+            progressBar = itemView.findViewById(R.id.progressBar);
 
             seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                 @Override
@@ -83,6 +92,33 @@ public class TaskAdapter extends FirestoreRecyclerAdapter <Activities, TaskAdapt
                     Activities activities = getItem(getAdapterPosition());
                     if(activities.getProgress() != progress){
                         listener.handleProgressChanged(progress, snapshot);
+                    }
+                }
+            });
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int position = getAdapterPosition();
+                    if(position != RecyclerView.NO_POSITION && listener != null){
+                        DocumentSnapshot documentReference = getSnapshots().getSnapshot(getAdapterPosition());
+                        Activities activities = getItem(getAdapterPosition());
+                        Log.d(TAG, "onClick: " + getSnapshots());
+//                        FirebaseFirestore.getInstance().collection("Task").whereEqualTo("plan_id", activities.getPlan_id())
+//                                .get()
+//                                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//                                    @Override
+//                                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                                        if (task.isSuccessful()) {
+//                                            for (QueryDocumentSnapshot document : task.getResult()) {
+//                                                Log.d(TAG, document.getId() + " => " + document.getData());
+//                                            }
+//                                        } else {
+//                                            Log.d(TAG, "Error getting documents: ", task.getException());
+//                                        }
+//                                    }
+//                                });
+                        listener.onItemClick(getSnapshots().getSnapshot(position), position);
                     }
                 }
             });

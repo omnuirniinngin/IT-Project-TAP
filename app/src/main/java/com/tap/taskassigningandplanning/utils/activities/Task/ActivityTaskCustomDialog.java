@@ -21,6 +21,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.tap.taskassigningandplanning.R;
 
@@ -71,6 +72,8 @@ public class ActivityTaskCustomDialog extends DialogFragment {
     public void addTask(){
         String title = tvTitle.getText().toString().trim();
         Task task = new Task(title, activity_id, plan_id, false, new Timestamp(new Date()));
+
+        final DocumentReference activity_ref = db.collection("Activity").document(activity_id);
 
         db.collection("Task")
                 .add(task)

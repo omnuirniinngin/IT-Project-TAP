@@ -63,7 +63,8 @@ public class NavigationBottomActivity extends AppCompatActivity {
                 R.id.navigation_chart, R.id.navigation_team)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+//        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+        getSupportActionBar().setTitle(plan_name);
         NavigationUI.setupWithNavController(navView, navController);
 
     }
@@ -213,6 +214,33 @@ public class NavigationBottomActivity extends AppCompatActivity {
                                                     @Override
                                                     public void onSuccess(Void aVoid) {
                                                         Log.d(TAG, "onSuccess: Deleted all plan with plan_id: " + plan_id);
+                                                    }
+                                                })
+                                                .addOnFailureListener(new OnFailureListener() {
+                                                    @Override
+                                                    public void onFailure(@NonNull Exception e) {
+                                                        Log.d(TAG, "onFailure: e");
+                                                    }
+                                                });
+                                    }
+                                });
+                        FirebaseFirestore.getInstance().collection("Task")
+                                .whereEqualTo("plan_id", plan_id)
+                                .get()
+                                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                                    @Override
+                                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                        WriteBatch batch = FirebaseFirestore.getInstance().batch();
+
+                                        List<DocumentSnapshot> snapshotList = queryDocumentSnapshots.getDocuments();
+                                        for (DocumentSnapshot snapshot : snapshotList){
+                                            batch.delete(snapshot.getReference());
+                                        }
+                                        batch.commit()
+                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void aVoid) {
+                                                        Log.d(TAG, "onSuccess: Deleted all task with plan_id: " + plan_id);
                                                     }
                                                 })
                                                 .addOnFailureListener(new OnFailureListener() {

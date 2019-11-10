@@ -1,6 +1,8 @@
 package com.tap.taskassigningandplanning.utils.activities;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Canvas;
 import android.os.Bundle;
@@ -100,10 +102,30 @@ public class ActivityFragment extends Fragment implements View.OnClickListener, 
         }
 
         @Override
-        public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+        public void onSwiped(@NonNull final RecyclerView.ViewHolder viewHolder, int direction) {
             if(direction == ItemTouchHelper.LEFT){
+
+                /*new AlertDialog.Builder(getContext())
+                        .setTitle("Alert!")
+                        .setMessage("Do you wish to delete this activity?")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                ActivitiesAdapter.ActivityHolder activityHolder = (ActivitiesAdapter.ActivityHolder) viewHolder;
+                                activityHolder.deleteItem();
+                            }
+                        })
+                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+
+                            }
+                        });*/
+
                 ActivitiesAdapter.ActivityHolder activityHolder = (ActivitiesAdapter.ActivityHolder) viewHolder;
                 activityHolder.deleteItem();
+
+
             }
         }
 
@@ -157,14 +179,34 @@ public class ActivityFragment extends Fragment implements View.OnClickListener, 
                                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                         if (task.isSuccessful()) {
                                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                                Log.d(TAG, document.getId() + " => " + document.getData());
                                                 String Team = document.getId();
                                                 DocumentReference docTeam = db.collection("Team").document(Team);
-
                                                 docTeam.update("activity_id", FieldValue.arrayRemove(activity_id));
                                             }
                                         } else {
                                             Log.d(TAG, "Error getting documents: ", task.getException());
+                                        }
+                                    }
+                                });
+
+                        db.collection("Task")
+                                .whereEqualTo("activity_id", activity_id)
+                                .get()
+                                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                        if (task.isSuccessful()) {
+                                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                                String Task = document.getId();
+                                                db.collection("Task").document(Task)
+                                                        .delete()
+                                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                            @Override
+                                                            public void onSuccess(Void aVoid) {
+                                                                Log.d(TAG, "DocumentSnapshot successfully deleted!");
+                                                            }
+                                                        });
+                                            }
                                         }
                                     }
                                 });

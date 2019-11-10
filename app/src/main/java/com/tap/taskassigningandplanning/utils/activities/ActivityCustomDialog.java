@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,8 +19,10 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 import androidx.fragment.app.DialogFragment;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
@@ -28,12 +31,16 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.ServerTimestamp;
 import com.google.type.Date;
 import com.tap.taskassigningandplanning.NavigationBottomActivity;
 import com.tap.taskassigningandplanning.R;
 import com.tap.taskassigningandplanning.ui.plan.Plan;
 import com.tap.taskassigningandplanning.ui.plan.PlanFragment;
+
+import org.joda.time.DateTime;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -157,12 +164,10 @@ public class ActivityCustomDialog extends AppCompatDialogFragment implements Vie
         return false;
     }
 
-//    private void addActivity(){
     private void addActivity(){
         String title = etActivityTitle.getText().toString().trim();
         String dateStart = etStartDate.getText().toString().trim();
         String dateEnd = etEndDate.getText().toString().trim();
-        String notes = null;
 
         // Get current user id
         String user_id = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -175,7 +180,7 @@ public class ActivityCustomDialog extends AppCompatDialogFragment implements Vie
         List<String> userId = Arrays.asList(user_id);
 
         if(!hasValidationErrors(title, dateStart, dateEnd)){
-            Activities activities = new Activities(title, notes, dateStart, dateEnd, plan_id, userId, new Timestamp(new java.util.Date()));
+            Activities activities = new Activities(title, dateStart, dateEnd, plan_id, userId, new Timestamp(new java.util.Date()));
 
             FirebaseFirestore.getInstance()
                     .collection("Activity")
@@ -200,7 +205,54 @@ public class ActivityCustomDialog extends AppCompatDialogFragment implements Vie
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.btnAdd:
-                addActivity();
+                // Get plan_id created from user
+                NavigationBottomActivity navigationBottomActivity = (NavigationBottomActivity)getActivity();
+                Bundle id_result = navigationBottomActivity.getPlanId();
+                String plan_id = id_result.getString("plan_id");
+
+                final String activity_date_end = etEndDate.getText().toString();
+                final String activity_date_start = etStartDate.getText().toString();
+                db.collection("Plan").whereEqualTo("plan_id", plan_id)
+                        .get()
+                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    for (QueryDocumentSnapshot document : task.getResult()) {
+                                        String plan_date_end = (String) document.get("dateEnd");
+                                        String plan_date_start = (String) document.get("dateStart");
+
+                                        DateTime activity_dateEnd = new DateTime(activity_date_end);
+                                        DateTime activity_dateStart = new DateTime(activity_date_start);
+                                        DateTime plan_dateEnd = new DateTime(plan_date_end);
+                                        DateTime plan_dateStart = new DateTime(plan_date_start);
+
+                                        if (activity_dateStart.isBefore(plan_dateStart) || activity_dateStart.isAfter(plan_dateEnd)) {
+                                            Toast.makeText(getContext(), "Invalid range of starting date.", Toast.LENGTH_LONG).show();
+                                        }
+
+                                        if (activity_dateEnd.isAfter(plan_dateEnd) || activity_dateEnd.isBefore(plan_dateStart)) {
+                                            Toast.makeText(getContext(), "Invalid range of ending date.", Toast.LENGTH_LONG).show();
+                                        }
+
+                                        if( activity_dateEnd.isBefore(plan_dateEnd) && activity_dateStart.isBefore(plan_dateEnd) ) {
+                                            addActivity();
+                                        }
+
+                                        if( activity_dateEnd.isBefore(plan_dateEnd) && activity_dateStart.isEqual(plan_dateEnd) ) {
+                                            addActivity();
+                                        }
+
+                                        if( activity_dateEnd.isEqual(plan_dateEnd) && activity_dateStart.isBefore(plan_dateEnd) ) {
+                                            addActivity();
+                                        }
+
+                                    }
+                                } else {
+                                    Log.d(TAG, "Error getting documents: ", task.getException());
+                                }
+                            }
+                        });
                 break;
             case R.id.btnCancel:
                 Log.d(TAG, "onClick: Closing Dialog");

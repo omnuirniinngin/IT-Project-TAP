@@ -430,6 +430,15 @@ attr maxButtonHeight
 attr maxImageSize
 attr measureWithLargestChild
 attr menu
+attr mrb_fillBackgroundStars
+attr mrb_indeterminateTint
+attr mrb_indeterminateTintMode
+attr mrb_progressBackgroundTint
+attr mrb_progressBackgroundTintMode
+attr mrb_progressTint
+attr mrb_progressTintMode
+attr mrb_secondaryProgressTint
+attr mrb_secondaryProgressTintMode
 attr multiChoiceItemLayout
 attr navGraph
 attr navigationContentDescription
@@ -1082,7 +1091,6 @@ drawable abc_textfield_search_material
 drawable abc_vector_test
 drawable avd_hide_password
 drawable avd_show_password
-drawable bm_bg1
 drawable btn_checkbox_checked_mtrl
 drawable btn_checkbox_checked_to_unchecked_mtrl_animation
 drawable btn_checkbox_unchecked_mtrl
@@ -1118,7 +1126,6 @@ drawable design_ic_visibility
 drawable design_ic_visibility_off
 drawable design_password_eye
 drawable design_snackbar_background
-drawable donzal_pf
 drawable edit_text_border
 drawable edit_text_border_no_radius
 drawable googleg_disabled_color_18
@@ -1127,6 +1134,7 @@ drawable ic_accept
 drawable ic_activities
 drawable ic_add_activity
 drawable ic_delete_sweep_black_24dp
+drawable ic_done
 drawable ic_edit
 drawable ic_email
 drawable ic_identity
@@ -1149,10 +1157,10 @@ drawable ic_stars_black_24dp
 drawable ic_task
 drawable ic_team
 drawable logo
+drawable mrb_star_border_icon_black_36dp
+drawable mrb_star_icon_black_36dp
 drawable mtrl_snackbar_background
 drawable mtrl_tabs_default_indicator
-drawable mulawan_pf
-drawable muring_pf
 drawable navigation_empty_icon
 drawable notification_action_background
 drawable notification_bg
@@ -1166,7 +1174,6 @@ drawable notification_template_icon_bg
 drawable notification_template_icon_low_bg
 drawable notification_tile_bg
 drawable notify_panel_notification_icon_bg
-drawable salvador_pf
 drawable sbtn_design
 drawable side_nav_bar
 drawable tooltip_frame_dark
@@ -1220,7 +1227,9 @@ id action_bar_subtitle
 id action_bar_title
 id action_container
 id action_context_bar
+id action_delete
 id action_divider
+id action_done
 id action_image
 id action_menu_divider
 id action_menu_presenter
@@ -1253,14 +1262,10 @@ id btnCreateAccount
 id btnFinish
 id btnLogin
 id btnSignOut
-id btn_s1
-id btn_s2
-id btn_s3
-id btn_s4
-id btn_s5
-id btn_s6
+id btnSubmit
 id buttonPanel
 id cancel_action
+id cbCompleted
 id center
 id center_horizontal
 id center_vertical
@@ -1292,9 +1297,6 @@ id disableHome
 id drawer_layout
 id drawer_navigation
 id edit_query
-id editprofile
-id editskills
-id editteam
 id end
 id end_padder
 id enterAlways
@@ -1312,6 +1314,7 @@ id etPasswordLayout
 id etPlanTitle
 id etRequest
 id etStartDate
+id etTask
 id exitUntilCollapsed
 id expand_activities_button
 id expanded_menu
@@ -1341,6 +1344,7 @@ id info
 id invisible
 id italic
 id item_touch_helper_previous_elevation
+id ivEdit
 id ivLogo
 id labeled
 id largeLabel
@@ -1349,7 +1353,6 @@ id layout_info
 id layout_profile
 id layout_rf
 id layout_skills
-id layout_team
 id left
 id light
 id line1
@@ -1365,11 +1368,6 @@ id mobile_navigation_bottom
 id mtrl_child_content_container
 id mtrl_internal_children_alpha_tag
 id multiply
-id my_email
-id my_name
-id my_progress
-id my_school
-id myratingbar
 id nav_controller_view_tag
 id nav_host_fragment
 id nav_notification
@@ -1402,9 +1400,11 @@ id parent_matrix
 id percent
 id pin
 id profile_image
+id progressBar
 id progress_circular
 id progress_horizontal
 id radio
+id ratingBar
 id recycler_view
 id recycler_view_child
 id relLayout
@@ -1492,7 +1492,9 @@ id transition_position
 id transition_scene_layoutid_cache
 id transition_transform
 id tvActivityTitle
+id tvBio
 id tvCreateAccount
+id tvDays
 id tvDaysLeftPlan
 id tvEmail
 id tvFav
@@ -1502,10 +1504,10 @@ id tvItem
 id tvName
 id tvNotes
 id tvPercent
+id tvRatingPercent
 id tvSender
 id tvStatus
 id tvTitle
-id txtteams
 id unchecked
 id uniform
 id unlabeled
@@ -1574,11 +1576,16 @@ layout abc_search_dropdown_item_icons_2line
 layout abc_search_view
 layout abc_select_dialog_material
 layout abc_tooltip
+layout activity_edit_activities
+layout activity_edit_plan
 layout activity_login
 layout activity_main_bottom_navigation
 layout activity_main_drawer
+layout activity_rating
 layout activity_registration
 layout activity_search_users
+layout activity_setting
+layout activity_task
 layout activity_user_search
 layout app_bar_main
 layout content_main
@@ -1598,6 +1605,7 @@ layout design_navigation_menu
 layout design_navigation_menu_item
 layout design_text_input_password_icon
 layout dialog_add_activities
+layout dialog_add_task
 layout dialog_add_team
 layout dialog_confirm_progress
 layout dialog_frame_layout
@@ -1612,14 +1620,15 @@ layout fragment_setting
 layout fragment_task
 layout fragment_team
 layout layout_content_main
-layout layout_edit_activities
 layout layout_list_activities
 layout layout_list_progress
+layout layout_list_rate
 layout layout_list_tasks
 layout layout_list_team
 layout layout_row_designate
 layout layout_row_plan
 layout layout_row_request
+layout layout_row_task
 layout layout_task_parent_recycler
 layout mtrl_layout_snackbar
 layout mtrl_layout_snackbar_include
@@ -1648,6 +1657,7 @@ menu bottom_nav_menu
 menu drawer_menu
 menu main
 menu main_menu_search
+menu menu_rate_done
 menu save_menu
 mipmap ic_launcher
 mipmap ic_launcher_foreground
@@ -1681,6 +1691,7 @@ string abc_searchview_description_voice
 string abc_shareactionprovider_share_with
 string abc_shareactionprovider_share_with_application
 string abc_toolbar_collapse_description
+string action_delete
 string action_settings
 string app_name
 string appbar_scrolling_view_behavior
@@ -1761,6 +1772,7 @@ string path_password_eye_mask_visible
 string path_password_strike_through
 string plan_description
 string plan_end_date
+string plan_owner
 string plan_row_from
 string plan_row_title
 string plan_start_date
@@ -2283,6 +2295,10 @@ style Widget_MaterialComponents_TextInputLayout_FilledBox_Dense
 style Widget_MaterialComponents_TextInputLayout_OutlinedBox
 style Widget_MaterialComponents_TextInputLayout_OutlinedBox_Dense
 style Widget_MaterialComponents_Toolbar
+style Widget_MaterialRatingBar_RatingBar
+style Widget_MaterialRatingBar_RatingBar_Indicator
+style Widget_MaterialRatingBar_RatingBar_Indicator_Small
+style Widget_MaterialRatingBar_RatingBar_Small
 style Widget_Support_CoordinatorLayout
 styleable ActionBar background backgroundSplit backgroundStacked contentInsetEnd contentInsetEndWithActions contentInsetLeft contentInsetRight contentInsetStart contentInsetStartWithNavigation customNavigationLayout displayOptions divider elevation height hideOnContentScroll homeAsUpIndicator homeLayout icon indeterminateProgressStyle itemPadding logo navigationMode popupTheme progressBarPadding progressBarStyle subtitle subtitleTextStyle title titleTextStyle
 styleable ActionBarLayout android_layout_gravity
@@ -2340,6 +2356,7 @@ styleable LoadingImageView circleCrop imageAspectRatio imageAspectRatioAdjust
 styleable MaterialButton android_insetLeft android_insetRight android_insetTop android_insetBottom backgroundTint backgroundTintMode cornerRadius icon iconGravity iconPadding iconSize iconTint iconTintMode rippleColor strokeColor strokeWidth
 styleable MaterialCardView strokeColor strokeWidth
 styleable MaterialComponentsTheme bottomSheetDialogTheme bottomSheetStyle chipGroupStyle chipStandaloneStyle chipStyle colorAccent colorBackgroundFloating colorPrimary colorPrimaryDark colorSecondary editTextStyle floatingActionButtonStyle materialButtonStyle materialCardViewStyle navigationViewStyle scrimBackground snackbarButtonStyle tabStyle textAppearanceBody1 textAppearanceBody2 textAppearanceButton textAppearanceCaption textAppearanceHeadline1 textAppearanceHeadline2 textAppearanceHeadline3 textAppearanceHeadline4 textAppearanceHeadline5 textAppearanceHeadline6 textAppearanceOverline textAppearanceSubtitle1 textAppearanceSubtitle2 textInputStyle
+styleable MaterialRatingBar mrb_fillBackgroundStars mrb_indeterminateTint mrb_indeterminateTintMode mrb_progressBackgroundTint mrb_progressBackgroundTintMode mrb_progressTint mrb_progressTintMode mrb_secondaryProgressTint mrb_secondaryProgressTintMode
 styleable MenuGroup android_enabled android_id android_visible android_menuCategory android_orderInCategory android_checkableBehavior
 styleable MenuItem android_icon android_enabled android_id android_checked android_visible android_menuCategory android_orderInCategory android_title android_titleCondensed android_alphabeticShortcut android_numericShortcut android_checkable android_onClick actionLayout actionProviderClass actionViewClass alphabeticModifiers contentDescription iconTint iconTintMode numericModifiers showAsAction tooltipText
 styleable MenuView android_windowAnimationStyle android_itemTextAppearance android_horizontalDivider android_verticalDivider android_headerBackground android_itemBackground android_itemIconDisabledAlpha preserveIconSpacing subMenuArrow

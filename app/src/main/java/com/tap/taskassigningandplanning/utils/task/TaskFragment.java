@@ -22,6 +22,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
@@ -31,6 +32,8 @@ import com.tap.taskassigningandplanning.NavigationBottomActivity;
 import com.tap.taskassigningandplanning.R;
 import com.tap.taskassigningandplanning.RatingActivity;
 import com.tap.taskassigningandplanning.utils.activities.Activities;
+import com.tap.taskassigningandplanning.utils.activities.ActivityClicked;
+import com.tap.taskassigningandplanning.utils.activities.Task.ActivityTask;
 
 import org.joda.time.DateTime;
 import org.joda.time.Period;
@@ -90,9 +93,6 @@ public class TaskFragment extends Fragment implements TaskAdapter.TaskListener{
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                Log.d(TAG, document.getId() + " => " + document.getData());
-//                                String title = (String) document.get("title");
-//                                tvTitle.setText(title);
 
                                 String dateStart = (String) document.get("dateStart");
                                 String dateEnd = (String) document.get("dateEnd");
@@ -164,6 +164,16 @@ public class TaskFragment extends Fragment implements TaskAdapter.TaskListener{
     @Override
     public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
 
+        Intent intent;
+        intent = getActivity().getIntent();
+
+        String plan_id = intent.getExtras().getString("plan_id");
+        String activity_id = documentSnapshot.getId();
+
+        intent = new Intent(getContext(), ActivityTask.class);
+        intent.putExtra("plan_id", plan_id);
+        intent.putExtra("activity_id", activity_id);
+        startActivity(intent);
     }
 
     @Override
@@ -247,78 +257,6 @@ public class TaskFragment extends Fragment implements TaskAdapter.TaskListener{
                         }
                     });
         }
-
-
-        /*if(value == progressChanged){
-            new AlertDialog.Builder(getContext())
-                    .setTitle(R.string.dialog_confirm_progress)
-                    .setPositiveButton("Finish task", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            documentSnapshot.getReference().update("progress", progressChanged)
-                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                        @Override
-                                        public void onSuccess(Void aVoid) {
-                                            Log.d(TAG, "onSuccess: " + progressChanged);
-
-                                            db.collection("Plan").whereEqualTo("plan_id", plan_id)
-                                                    .get()
-                                                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                                        @Override
-                                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                                            if (task.isSuccessful()) {
-                                                                for (QueryDocumentSnapshot document : task.getResult()) {
-                                                                    Log.d(TAG, document.getId() + " => " + document.getData());
-                                                                    String user_id = (String) document.get("user_id");
-
-                                                                    if(user_id.equals(current_user)){
-                                                                        new AlertDialog.Builder(getContext())
-                                                                                .setTitle("RatingActivity")
-                                                                                .setMessage("Would you like to give a rate?")
-                                                                                .setPositiveButton("Rate now", new DialogInterface.OnClickListener() {
-                                                                                    @Override
-                                                                                    public void onClick(DialogInterface dialogInterface, int i) {
-                                                                                        Intent intent = new Intent(getContext(), RatingActivity.class);
-                                                                                        intent.putExtra("plan_id", plan_id);
-                                                                                        intent.putExtra("activity_id", id);
-                                                                                        startActivity(intent);
-                                                                                    }
-                                                                                }).setNegativeButton("No", null)
-                                                                                .show();
-                                                                    }
-                                                                }
-                                                            } else {
-                                                                Log.d(TAG, "Error getting documents: ", task.getException());
-                                                            }
-                                                        }
-                                                    });
-
-                                        }
-                                    })
-                                    .addOnFailureListener(new OnFailureListener() {
-                                        @Override
-                                        public void onFailure(@NonNull Exception e) {
-                                            Log.d(TAG, "onFailure: " + e.getLocalizedMessage());
-                                        }
-                                    });
-                        }
-                    }).setNegativeButton("Cancel", null)
-                    .show();
-        }else{
-            documentSnapshot.getReference().update("progress", progressChanged)
-                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-                            Log.d(TAG, "onSuccess: ");
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Log.d(TAG, "onFailure: " + e.getLocalizedMessage());
-                        }
-                    });
-        }*/
 
     }
 }

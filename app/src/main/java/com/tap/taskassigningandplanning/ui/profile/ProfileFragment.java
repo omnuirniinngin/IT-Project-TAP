@@ -57,38 +57,39 @@ public class ProfileFragment extends Fragment {
 
         final DocumentReference ratingRef = db.collection("Rating").document(current_user);
 
-        ratingRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                DocumentSnapshot documentSnapshot = task.getResult();
-                Log.d(TAG, "onComplete: " + documentSnapshot.getData());
-                int counter = documentSnapshot.getLong("counter").intValue();
-
-                int rating_1 = documentSnapshot.getLong("rating_1").intValue();
-
-                int rating_2 = documentSnapshot.getLong("rating_2").intValue();
-
-                int rating_3 = documentSnapshot.getLong("rating_3").intValue();
-
-                int rating_4 = documentSnapshot.getLong("rating_4").intValue();
-
-                int rating_5 = documentSnapshot.getLong("rating_5").intValue();
-
-                float weigh_average = (rating_1*1 + rating_2*2 + rating_3*3 + rating_4*4 + rating_5*5) / counter;
-
-                if(counter==0){
-                    ratingBar.setMax(5);
-                    ratingBar.setRating(0);
-                }
-
-                if (counter > 0) {
-                    tvRatingPercent.setText(String.valueOf(weigh_average));
-                    ratingBar.setMax(5);
-                    ratingBar.setRating(weigh_average);
-                }
-
-            }
-        });
+        //Get Rating
+//        ratingRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+//            @Override
+//            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+//                DocumentSnapshot documentSnapshot = task.getResult();
+//                Log.d(TAG, "onComplete: " + documentSnapshot.getData());
+//                int counter = documentSnapshot.getLong("counter").intValue();
+//
+//                int rating_1 = documentSnapshot.getLong("rating_1").intValue();
+//
+//                int rating_2 = documentSnapshot.getLong("rating_2").intValue();
+//
+//                int rating_3 = documentSnapshot.getLong("rating_3").intValue();
+//
+//                int rating_4 = documentSnapshot.getLong("rating_4").intValue();
+//
+//                int rating_5 = documentSnapshot.getLong("rating_5").intValue();
+//
+//                float weigh_average = (rating_1*1 + rating_2*2 + rating_3*3 + rating_4*4 + rating_5*5) / counter;
+//
+//                if(counter==0){
+//                    ratingBar.setMax(5);
+//                    ratingBar.setRating(0);
+//                }
+//
+//                if (counter > 0) {
+//                    tvRatingPercent.setText(String.valueOf(weigh_average));
+//                    ratingBar.setMax(5);
+//                    ratingBar.setRating(weigh_average);
+//                }
+//
+//            }
+//        });
 
         DocumentReference documentReference = db.collection("Users").document(current_user);
 

@@ -39,6 +39,8 @@ import com.tap.taskassigningandplanning.R;
 import com.tap.taskassigningandplanning.utils.activities.Task.ActivityTask;
 import com.tap.taskassigningandplanning.utils.team.Team;
 
+import org.joda.time.DateTime;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -60,7 +62,7 @@ public class ActivityClicked extends AppCompatActivity implements ActivitiesAdap
     private Intent intent;
 
     private EditText etActivityTitle, etNotes, etStartDate, etEndDate, etAssignUser, etTask;
-    private String plan_id, activity_id;
+    private String plan_id, activity_id, title;
     private ActivityClickedAdapter activityClickedAdapter;
     private RecyclerView recyclerView;
 
@@ -79,8 +81,8 @@ public class ActivityClicked extends AppCompatActivity implements ActivitiesAdap
         etAssignUser = findViewById(R.id.etAssignUser);
         etTask = findViewById(R.id.etTask);
 
+        //Get intent extras
         intent = getIntent();
-
         plan_id = intent.getExtras().getString("plan_id");
         activity_id = intent.getExtras().getString("activity_id");
 
@@ -140,7 +142,7 @@ public class ActivityClicked extends AppCompatActivity implements ActivitiesAdap
         etAssignUser.setOnClickListener(this);
         etTask.setOnClickListener(this);
 
-        EditActivity();
+        FillActivity();
         setupRecyclerView();
     }
 
@@ -183,15 +185,54 @@ public class ActivityClicked extends AppCompatActivity implements ActivitiesAdap
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.save_button:
-                updateActivity();
+                final String activity_date_end = etEndDate.getText().toString();
+                final String activity_date_start = etStartDate.getText().toString();
+                db.collection("Plan").whereEqualTo("plan_id", plan_id)
+                        .get()
+                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    for (QueryDocumentSnapshot document : task.getResult()) {
+                                        String plan_date_end = (String) document.get("dateEnd");
+                                        String plan_date_start = (String) document.get("dateStart");
+
+                                        DateTime activity_dateEnd = new DateTime(activity_date_end);
+                                        DateTime activity_dateStart = new DateTime(activity_date_start);
+                                        DateTime plan_dateEnd = new DateTime(plan_date_end);
+                                        DateTime plan_dateStart = new DateTime(plan_date_start);
+
+                                        if (activity_dateStart.isBefore(plan_dateStart) || activity_dateStart.isAfter(plan_dateEnd)) {
+                                            Toast.makeText(ActivityClicked.this, "Invalid range of starting date.", Toast.LENGTH_LONG).show();
+                                        }
+
+                                        if (activity_dateEnd.isAfter(plan_dateEnd) || activity_dateEnd.isBefore(plan_dateStart)) {
+                                            Toast.makeText(ActivityClicked.this, "Invalid range of ending date.", Toast.LENGTH_LONG).show();
+                                        }
+
+                                        if( activity_dateEnd.isBefore(plan_dateEnd) && activity_dateStart.isBefore(plan_dateEnd) ) {
+                                            updateActivity();
+                                        }
+
+                                        if( activity_dateEnd.isBefore(plan_dateEnd) && activity_dateStart.isEqual(plan_dateEnd) ) {
+                                            updateActivity();
+                                        }
+
+                                        if( activity_dateEnd.isEqual(plan_dateEnd) && activity_dateStart.isBefore(plan_dateEnd) ) {
+                                            updateActivity();
+                                        }
+                                    }
+                                } else {
+                                    Log.d(TAG, "Error getting documents: ", task.getException());
+                                }
+                            }
+                        });
                 break;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    private void EditActivity(){
-        intent = getIntent();
-        String activity_id = intent.getExtras().getString("activity_id");
+    private void FillActivity(){
 
         final DocumentReference documentReference = db.collection("Activity").document(activity_id);
 
@@ -349,7 +390,6 @@ public class ActivityClicked extends AppCompatActivity implements ActivitiesAdap
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.etAssignUser:
-
                 intent = new Intent(this, ActivityClickedSearch.class);
                 intent.putExtra("plan_id", plan_id);
                 intent.putExtra("activity_id", activity_id);
@@ -359,6 +399,7 @@ public class ActivityClicked extends AppCompatActivity implements ActivitiesAdap
                 intent = new Intent(this, ActivityTask.class);
                 intent.putExtra("plan_id", plan_id);
                 intent.putExtra("activity_id", activity_id);
+                intent.putExtra("activity_name", etActivityTitle.getText().toString());
                 startActivity(intent);
                 break;
 

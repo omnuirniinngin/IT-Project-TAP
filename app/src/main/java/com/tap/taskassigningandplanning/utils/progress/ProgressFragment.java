@@ -53,13 +53,13 @@ public class ProgressFragment extends Fragment implements ProgressAdapter.Progre
     private ProgressAdapter progressAdapter;
     private RecyclerView recyclerView;
 
-    TextView tvTitle, tvDaysLeftPlan;
+    TextView tvTitle, tvDays;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_progress, container, false);
 
         tvTitle = view.findViewById(R.id.tvTitle);
-        tvDaysLeftPlan = view.findViewById(R.id.tvDaysLeftPlan);
+        tvDays = view.findViewById(R.id.tvDays);
 
         recyclerView = view.findViewById(R.id.recycler_view);
 
@@ -90,9 +90,6 @@ public class ProgressFragment extends Fragment implements ProgressAdapter.Progre
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.d(TAG, document.getId() + " => " + document.getData());
-//                                String title = (String) document.get("title");
-//                                tvTitle.setText(title);
-
                                 String dateStart = (String) document.get("dateStart");
                                 String dateEnd = (String) document.get("dateEnd");
 
@@ -110,22 +107,22 @@ public class ProgressFragment extends Fragment implements ProgressAdapter.Progre
                                     PeriodFormatter formatter = new PeriodFormatterBuilder()
                                             .appendDays().appendSuffix(" Day/s Left", " Day/s Left").toFormatter();
 
-                                    tvDaysLeftPlan.setText(formatter.print(period));
+                                    tvDays.setText(formatter.print(period));
                                 }
 
                                 if (newCurrentDate.isBefore(newStartDate)) {
-                                    Period period = new Period(newStartDate, newEndDate, PeriodType.days());
+                                    Period period = new Period(newCurrentDate, newStartDate, PeriodType.days());
                                     PeriodFormatter formatter = new PeriodFormatterBuilder()
-                                            .appendDays().appendSuffix(" Day/s Left", " Day/s to start").toFormatter();
+                                            .appendDays().appendSuffix(" Day/s Left", " Day/s Remaining").toFormatter();
 
-                                    tvDaysLeftPlan.setText(formatter.print(period));
+                                    tvDays.setText(formatter.print(period));
                                 }
 
                                 if (newCurrentDate.isAfter(newStartDate)) {
                                     Period period = new Period(newCurrentDate, newEndDate, PeriodType.days());
                                     PeriodFormatter formatter = new PeriodFormatterBuilder()
                                             .appendDays().appendSuffix(" Day/s Left", " Day/s Left").toFormatter();
-                                    tvDaysLeftPlan.setText(formatter.print(period));
+                                    tvDays.setText(formatter.print(period));
                                 }
 
 

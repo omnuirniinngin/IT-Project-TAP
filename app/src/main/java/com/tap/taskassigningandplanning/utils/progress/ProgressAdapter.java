@@ -67,22 +67,22 @@ public class ProgressAdapter extends FirestoreRecyclerAdapter <Activities, Progr
             PeriodFormatter formatter = new PeriodFormatterBuilder()
                     .appendDays().appendSuffix(" Day/s Left", " Day/s Left").toFormatter();
 
-            holder.tvDaysLeftPlan.setText(formatter.print(period));
+            holder.tvDays.setText(formatter.print(period));
         }
 
         if (newCurrentDate.isBefore(newStartDate)) {
-            Period period = new Period(newStartDate, newEndDate, PeriodType.days());
+            Period period = new Period(newCurrentDate, newStartDate, PeriodType.days());
             PeriodFormatter formatter = new PeriodFormatterBuilder()
-                    .appendDays().appendSuffix(" Day/s Left", " Day/s to start").toFormatter();
+                    .appendDays().appendSuffix(" Day/s Left", " Day/s Remaining").toFormatter();
 
-            holder.tvDaysLeftPlan.setText(formatter.print(period));
+            holder.tvDays.setText(formatter.print(period));
         }
 
         if (newCurrentDate.isAfter(newStartDate)) {
             Period period = new Period(newCurrentDate, newEndDate, PeriodType.days());
             PeriodFormatter formatter = new PeriodFormatterBuilder()
                     .appendDays().appendSuffix(" Day/s Left", " Day/s Left").toFormatter();
-            holder.tvDaysLeftPlan.setText(formatter.print(period));
+            holder.tvDays.setText(formatter.print(period));
         }
 
 
@@ -91,12 +91,12 @@ public class ProgressAdapter extends FirestoreRecyclerAdapter <Activities, Progr
 
     class ProgressHolder extends RecyclerView.ViewHolder{
 
-        TextView tvActivityTitle, tvPercent, tvDaysLeftPlan;
+        TextView tvActivityTitle, tvPercent, tvDays;
 
         public ProgressHolder(@NonNull View itemView) {
             super(itemView);
             tvActivityTitle = itemView.findViewById(R.id.tvActivityTitle);
-            tvDaysLeftPlan = itemView.findViewById(R.id.tvDaysLeftPlan);
+            tvDays = itemView.findViewById(R.id.tvDays);
             tvPercent = itemView.findViewById(R.id.tvPercent);
 
             itemView.setOnClickListener(new View.OnClickListener() {
