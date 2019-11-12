@@ -1,7 +1,9 @@
 package com.tap.taskassigningandplanning.utils.activities;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Canvas;
 import android.os.Bundle;
@@ -27,6 +29,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -61,7 +64,7 @@ public class ActivityClicked extends AppCompatActivity implements ActivitiesAdap
 
     private Intent intent;
 
-    private EditText etActivityTitle, etNotes, etStartDate, etEndDate, etAssignUser, etTask;
+    private EditText etActivityTitle, etNotes, etStartDate, etEndDate, etTask;
     private String plan_id, activity_id, title;
     private ActivityClickedAdapter activityClickedAdapter;
     private RecyclerView recyclerView;
@@ -78,7 +81,6 @@ public class ActivityClicked extends AppCompatActivity implements ActivitiesAdap
         etNotes = findViewById(R.id.etNotes);
         etStartDate = findViewById(R.id.etStartDate);
         etEndDate = findViewById(R.id.etEndDate);
-        etAssignUser = findViewById(R.id.etAssignUser);
         etTask = findViewById(R.id.etTask);
 
         //Get intent extras
@@ -138,8 +140,6 @@ public class ActivityClicked extends AppCompatActivity implements ActivitiesAdap
                 etEndDate.setText(simpleDateFormat.format(myCalendar.getTime()));
             }
         });
-
-        etAssignUser.setOnClickListener(this);
         etTask.setOnClickListener(this);
 
         FillActivity();
@@ -318,7 +318,6 @@ public class ActivityClicked extends AppCompatActivity implements ActivitiesAdap
                 .setQuery(query, Team.class)
                 .build();
         activityClickedAdapter = new ActivityClickedAdapter(options, this);
-
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(activityClickedAdapter);
@@ -344,13 +343,52 @@ public class ActivityClicked extends AppCompatActivity implements ActivitiesAdap
         documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
-                String user_id = (String) documentSnapshot.get("user_id");
-                DocumentReference userRef = db.collection("Activity").document(activity_id);
-                userRef.update("user_id", FieldValue.arrayRemove(user_id));
+                final String user_id = (String) documentSnapshot.get("user_id");
+                final DocumentReference userRef = db.collection("Activity").document(activity_id);
+                userRef.get()
+                        .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    DocumentSnapshot document = task.getResult();
+                                    if (document.exists()) {
+                                        Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+                                        String plan_id = (String) document.get("plan_id");
+
+                                        db.collection("Plan")
+                                                .whereEqualTo("plan_id", plan_id)
+                                                .get()
+                                                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                        if (task.isSuccessful()) {
+                                                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                                                String plan_user_id = (String) document.get("user_id");
+                                                                String Uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+                                                                if(!plan_user_id.equals(user_id)){
+                                                                    userRef.update("user_id", FieldValue.arrayRemove(user_id));
+                                                                }
+                                                            }
+                                                        } else {
+                                                            Log.d(TAG, "Error getting documents: ", task.getException());
+                                                        }
+                                                    }
+                                                });
+
+                                    } else {
+                                        Log.d(TAG, "No such document");
+                                    }
+                                } else {
+                                    Log.d(TAG, "get failed with ", task.getException());
+                                }
+                            }
+                        });
+
             }
         });
 
-        //Delete activity document id to Team collection
+        // Delete activity document id to Team collection
         documentReference.update("activity_id", FieldValue.arrayRemove(activity_id))
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
@@ -360,14 +398,61 @@ public class ActivityClicked extends AppCompatActivity implements ActivitiesAdap
                     }
                 });
 
+        // Delete user from Task Collection
+        documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                final String user_id = (String) documentSnapshot.get("user_id");
+
+                db.collection("Task")
+                        .whereEqualTo("activity_id", activity_id)
+                        .get()
+                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    for (QueryDocumentSnapshot document : task.getResult()) {
+                                        String task_id = document.getId();
+                                        String plan_id = (String) document.get("plan_id");
+                                        final DocumentReference userRef = db.collection("Task").document(task_id);
+                                        db.collection("Plan")
+                                                .whereEqualTo("plan_id", plan_id)
+                                                .get()
+                                                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                        if (task.isSuccessful()) {
+                                                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                                                String plan_user_id = (String) document.get("user_id");
+                                                                String Uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+                                                                if(!plan_user_id.equals(user_id)){
+                                                                    userRef.update("user_id", FieldValue.arrayRemove(user_id));
+                                                                }
+                                                            }
+                                                        } else {
+                                                            Log.d(TAG, "Error getting documents: ", task.getException());
+                                                        }
+                                                    }
+                                                });
+                                    }
+                                } else {
+                                    Log.d(TAG, "Error getting documents: ", task.getException());
+                                }
+                            }
+                        });
+            }
+        });
+
+
         //Restore deleted
-        Snackbar.make(recyclerView, "Item deleted", Snackbar.LENGTH_LONG)
+        /*Snackbar.make(recyclerView, "Item deleted", Snackbar.LENGTH_LONG)
                 .setAction("Undo", new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         documentReference.update("activity_id", FieldValue.arrayUnion(activity_id));
 
-                        // Delete user from Activity Collection
+                        // Add user from Activity Document
                         documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                             @Override
                             public void onSuccess(DocumentSnapshot documentSnapshot) {
@@ -376,9 +461,36 @@ public class ActivityClicked extends AppCompatActivity implements ActivitiesAdap
                                 userRef.update("user_id", FieldValue.arrayUnion(user_id));
                             }
                         });
+
+                        // Add user back from Task Document
+                        documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                            @Override
+                            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                final String user_id = (String) documentSnapshot.get("user_id");
+
+                                db.collection("Task")
+                                        .whereEqualTo("activity_id", activity_id)
+                                        .get()
+                                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                if (task.isSuccessful()) {
+                                                    for (QueryDocumentSnapshot document : task.getResult()) {
+                                                        String task_id = document.getId();
+                                                        DocumentReference userRef = db.collection("Task").document(task_id);
+                                                        userRef.update("user_id", FieldValue.arrayUnion(user_id));
+                                                    }
+                                                } else {
+                                                    Log.d(TAG, "Error getting documents: ", task.getException());
+                                                }
+                                            }
+                                        });
+                            }
+                        });
+
                     }
                 })
-                .show();
+                .show();*/
     }
 
     @Override
@@ -387,14 +499,13 @@ public class ActivityClicked extends AppCompatActivity implements ActivitiesAdap
     }
 
     @Override
+    public void handleDelete(DocumentSnapshot snapshot) {
+
+    }
+
+    @Override
     public void onClick(View view) {
         switch (view.getId()){
-            case R.id.etAssignUser:
-                intent = new Intent(this, ActivityClickedSearch.class);
-                intent.putExtra("plan_id", plan_id);
-                intent.putExtra("activity_id", activity_id);
-                startActivity(intent);
-                break;
             case R.id.etTask:
                 intent = new Intent(this, ActivityTask.class);
                 intent.putExtra("plan_id", plan_id);

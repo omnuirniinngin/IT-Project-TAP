@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -62,6 +63,7 @@ public class ActivityClickedAdapter extends FirestoreRecyclerAdapter<Team, Activ
                     }
                 }
             });
+
         }
         public void deleteItem(){
             listener.handleDeleteItem(getSnapshots().getSnapshot(getAdapterPosition()));

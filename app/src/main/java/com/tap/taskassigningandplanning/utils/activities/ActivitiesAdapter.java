@@ -3,6 +3,7 @@ package com.tap.taskassigningandplanning.utils.activities;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -39,11 +40,13 @@ public class ActivitiesAdapter extends FirestoreRecyclerAdapter <Activities, Act
 
     class ActivityHolder extends RecyclerView.ViewHolder {
         TextView tvTitle, tvNotes;
+        ImageButton btnDelete;
 
         public ActivityHolder(final View itemView) {
             super(itemView);
             tvTitle = itemView.findViewById(R.id.tvTitle);
             tvNotes = itemView.findViewById(R.id.tvNotes);
+            btnDelete = itemView.findViewById(R.id.btnDelete);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -55,16 +58,20 @@ public class ActivitiesAdapter extends FirestoreRecyclerAdapter <Activities, Act
                     }
                 }
             });
-        }
 
-        public void deleteItem(){
-            listener.handleDeleteItem(getSnapshots().getSnapshot(getAdapterPosition()));
+            btnDelete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    DocumentSnapshot snapshot = getSnapshots().getSnapshot(getAdapterPosition());
+                    listener.handleDelete(snapshot);
+                }
+            });
         }
 
     }
 
     public interface ActivitiesListener{
-        void handleDeleteItem(DocumentSnapshot snapshot);
         void onItemClick(DocumentSnapshot documentSnapshot, int position);
+        void handleDelete(DocumentSnapshot snapshot);
     }
 }

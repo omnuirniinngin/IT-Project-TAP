@@ -14,36 +14,51 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp">
+            android:padding="10dp">
 
             <TextView
-                android:id="@+id/tvProgress"
+                android:id="@+id/tvTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:text="0/0"
-                android:textAppearance="@style/TextAppearance.AppCompat" />
+                android:text="Activity Title: " />
 
             <TextView
                 android:id="@+id/tvActivityTitle"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_toEndOf="@+id/tvProgress"
+                android:layout_toEndOf="@id/tvTitle"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="Activity Title"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvTaskCompleted"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvTitle"
+                android:text="Task Completed: " />
+
+            <TextView
+                android:id="@+id/tvCompleted"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvActivityTitle"
+                android:layout_toEndOf="@id/tvTaskCompleted" />
+
 
             <TextView
                 android:id="@+id/tvDays"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:text="Day/s left" />
+                android:layout_alignParentEnd="true" />
+
+            <TextView
+                android:id="@+id/tvPercent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/tvCompleted"
+                android:layout_alignParentEnd="true"/>
 
         </RelativeLayout>
 
@@ -54,9 +69,8 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:layout_below="@id/tvProgress"
-            android:layout_centerHorizontal="true"
-            android:indeterminateTint="@color/colorPrimary"
+            android:backgroundTint="@color/colorAccent"
+            android:indeterminateTint="@color/colorPrimaryDark"
             android:max="100" />
 
     </LinearLayout>

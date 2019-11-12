@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageButton;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
@@ -29,6 +30,13 @@ public class ActivityTaskAdapter extends FirestoreRecyclerAdapter <Task, Activit
     protected void onBindViewHolder(@NonNull ActivityTaskHolder holder, int position, @NonNull Task task) {
         holder.tvTitle.setText(task.getTitle());
         holder.cbCompleted.setChecked(task.isCompleted());
+
+        boolean completed = task.isCompleted();
+
+        if(completed == true){
+            holder.btnDelete.setEnabled(false);
+            holder.btnDelete.setVisibility(View.INVISIBLE);
+        }
     }
 
     @NonNull
@@ -42,12 +50,15 @@ public class ActivityTaskAdapter extends FirestoreRecyclerAdapter <Task, Activit
     class ActivityTaskHolder extends RecyclerView.ViewHolder{
         TextView tvTitle;
         CheckBox cbCompleted;
+        ImageButton btnDesignate, btnDelete;
 
         public ActivityTaskHolder(@NonNull View itemView) {
             super(itemView);
 
             tvTitle = itemView.findViewById(R.id.tvTitle);
             cbCompleted = itemView.findViewById(R.id.cbCompleted);
+            btnDesignate = itemView.findViewById(R.id.btnDesignate);
+            btnDelete = itemView.findViewById(R.id.btnDelete);
 
             cbCompleted.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
@@ -66,17 +77,30 @@ public class ActivityTaskAdapter extends FirestoreRecyclerAdapter <Task, Activit
                     listener.handleEditTask(snapshot);
                 }
             });
-        }
 
-        public void deleteItem(){
-            listener.handleDeleteItem(getSnapshots().getSnapshot(getAdapterPosition()));
+            btnDesignate.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    DocumentSnapshot snapshot = getSnapshots().getSnapshot(getAdapterPosition());
+                    listener.handleDesignateUser(snapshot);
+                }
+            });
+
+            btnDelete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    DocumentSnapshot snapshot = getSnapshots().getSnapshot(getAdapterPosition());
+                    listener.handleDelete(snapshot);
+                }
+            });
         }
     }
 
     interface TaskListener{
         void handleCheckChanged(boolean isChecked, DocumentSnapshot snapshot);
         void handleEditTask(DocumentSnapshot snapshot);
-        void handleDeleteItem(DocumentSnapshot snapshot);
+        void handleDelete(DocumentSnapshot snapshot);
+        void handleDesignateUser(DocumentSnapshot snapshot);
     }
 
 }

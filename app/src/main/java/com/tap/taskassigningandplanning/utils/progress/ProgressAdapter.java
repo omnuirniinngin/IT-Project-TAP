@@ -49,16 +49,19 @@ public class ProgressAdapter extends FirestoreRecyclerAdapter <Activities, Progr
     @Override
     protected void onBindViewHolder(@NonNull ProgressHolder holder, int position, @NonNull Activities activities) {
         holder.tvActivityTitle.setText(activities.getTitle());
-        holder.tvPercent.setText(String.valueOf(activities.getCompleted_task())+"/"+String.valueOf(activities.getTotal_task()));
+        holder.tvCompleted.setText(String.valueOf(activities.getCompleted_task())+"/"+String.valueOf(activities.getTotal_task()));
         int completed_task = activities.getCompleted_task();
         int total_task_task = activities.getTotal_task();
 
         if ( total_task_task == 0 ){
             holder.progressBar.setProgress(0);
+            holder.tvPercent.setText("0%");
+
         }
         if (total_task_task > 0 ){
             float progress = completed_task*100 / total_task_task;
             holder.progressBar.setProgress((int) progress);
+            holder.tvPercent.setText((int) progress + "%");
         }
 
 
@@ -86,7 +89,7 @@ public class ProgressAdapter extends FirestoreRecyclerAdapter <Activities, Progr
         if (newCurrentDate.isBefore(newStartDate)) {
             Period period = new Period(newCurrentDate, newStartDate, PeriodType.days());
             PeriodFormatter formatter = new PeriodFormatterBuilder()
-                    .appendDays().appendSuffix(" Day/s Left", " Day/s Remaining").toFormatter();
+                    .appendDays().appendSuffix(" Day/s Remaining", " Day/s Remaining").toFormatter();
 
             holder.tvDays.setText(formatter.print(period));
         }
@@ -104,14 +107,15 @@ public class ProgressAdapter extends FirestoreRecyclerAdapter <Activities, Progr
 
     class ProgressHolder extends RecyclerView.ViewHolder{
 
-        TextView tvActivityTitle, tvPercent, tvDays;
+        TextView tvActivityTitle, tvCompleted, tvDays, tvPercent;
         ProgressBar progressBar;
 
         public ProgressHolder(@NonNull View itemView) {
             super(itemView);
             tvActivityTitle = itemView.findViewById(R.id.tvActivityTitle);
             tvDays = itemView.findViewById(R.id.tvDays);
-            tvPercent = itemView.findViewById(R.id.tvProgress);
+            tvCompleted = itemView.findViewById(R.id.tvCompleted);
+            tvPercent = itemView.findViewById(R.id.tvPercent);
             progressBar = itemView.findViewById(R.id.progressBar);
 
             itemView.setOnClickListener(new View.OnClickListener() {

@@ -54,13 +54,14 @@ public class ProgressFragment extends Fragment implements ProgressAdapter.Progre
     private ProgressAdapter progressAdapter;
     private RecyclerView recyclerView;
 
-    TextView tvTitle, tvDays;
+    private TextView tvTitle, tvDays, tvPlanDuration;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_progress, container, false);
 
         tvTitle = view.findViewById(R.id.tvTitle);
         tvDays = view.findViewById(R.id.tvDays);
+        tvPlanDuration = view.findViewById(R.id.tvPlanDuration);
 
         recyclerView = view.findViewById(R.id.recycler_view);
 
@@ -106,7 +107,7 @@ public class ProgressFragment extends Fragment implements ProgressAdapter.Progre
                                 if (newCurrentDate.isEqual(newStartDate)) {
                                     Period period = new Period(newStartDate, newEndDate, PeriodType.days());
                                     PeriodFormatter formatter = new PeriodFormatterBuilder()
-                                            .appendDays().appendSuffix(" Day/s Left", " Day/s Left").toFormatter();
+                                            .appendDays().appendSuffix(" Day/s", " Day/s").toFormatter();
 
                                     tvDays.setText(formatter.print(period));
                                 }
@@ -114,7 +115,7 @@ public class ProgressFragment extends Fragment implements ProgressAdapter.Progre
                                 if (newCurrentDate.isBefore(newStartDate)) {
                                     Period period = new Period(newCurrentDate, newStartDate, PeriodType.days());
                                     PeriodFormatter formatter = new PeriodFormatterBuilder()
-                                            .appendDays().appendSuffix(" Day/s Left", " Day/s Remaining").toFormatter();
+                                            .appendDays().appendSuffix(" Day/s", " Day/s Remaining").toFormatter();
 
                                     tvDays.setText(formatter.print(period));
                                 }
@@ -122,9 +123,15 @@ public class ProgressFragment extends Fragment implements ProgressAdapter.Progre
                                 if (newCurrentDate.isAfter(newStartDate)) {
                                     Period period = new Period(newCurrentDate, newEndDate, PeriodType.days());
                                     PeriodFormatter formatter = new PeriodFormatterBuilder()
-                                            .appendDays().appendSuffix(" Day/s Left", " Day/s Left").toFormatter();
+                                            .appendDays().appendSuffix(" Day/s", " Day/s").toFormatter();
                                     tvDays.setText(formatter.print(period));
                                 }
+
+                                Period period = new Period(newStartDate, newEndDate, PeriodType.days());
+                                PeriodFormatter formatter = new PeriodFormatterBuilder()
+                                        .appendDays().appendSuffix(" Day/s", " Day/s").toFormatter();
+
+                                tvPlanDuration.setText(formatter.print(period));
 
 
 

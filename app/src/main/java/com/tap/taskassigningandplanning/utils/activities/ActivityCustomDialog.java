@@ -205,54 +205,59 @@ public class ActivityCustomDialog extends AppCompatDialogFragment implements Vie
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.btnAdd:
-                // Get plan_id created from user
-                NavigationBottomActivity navigationBottomActivity = (NavigationBottomActivity)getActivity();
-                Bundle id_result = navigationBottomActivity.getPlanId();
-                String plan_id = id_result.getString("plan_id");
+                String title = etActivityTitle.getText().toString().trim();
+                String dateStart = etStartDate.getText().toString().trim();
+                String dateEnd = etEndDate.getText().toString().trim();
+                if(!hasValidationErrors(title, dateStart, dateEnd)){
+                    // Get plan_id created from user
+                    NavigationBottomActivity navigationBottomActivity = (NavigationBottomActivity)getActivity();
+                    Bundle id_result = navigationBottomActivity.getPlanId();
+                    String plan_id = id_result.getString("plan_id");
 
-                final String activity_date_end = etEndDate.getText().toString();
-                final String activity_date_start = etStartDate.getText().toString();
-                db.collection("Plan").whereEqualTo("plan_id", plan_id)
-                        .get()
-                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                if (task.isSuccessful()) {
-                                    for (QueryDocumentSnapshot document : task.getResult()) {
-                                        String plan_date_end = (String) document.get("dateEnd");
-                                        String plan_date_start = (String) document.get("dateStart");
+                    final String activity_date_end = etEndDate.getText().toString();
+                    final String activity_date_start = etStartDate.getText().toString();
+                    db.collection("Plan").whereEqualTo("plan_id", plan_id)
+                            .get()
+                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                    if (task.isSuccessful()) {
+                                        for (QueryDocumentSnapshot document : task.getResult()) {
+                                            String plan_date_end = (String) document.get("dateEnd");
+                                            String plan_date_start = (String) document.get("dateStart");
 
-                                        DateTime activity_dateEnd = new DateTime(activity_date_end);
-                                        DateTime activity_dateStart = new DateTime(activity_date_start);
-                                        DateTime plan_dateEnd = new DateTime(plan_date_end);
-                                        DateTime plan_dateStart = new DateTime(plan_date_start);
+                                            DateTime activity_dateEnd = new DateTime(activity_date_end);
+                                            DateTime activity_dateStart = new DateTime(activity_date_start);
+                                            DateTime plan_dateEnd = new DateTime(plan_date_end);
+                                            DateTime plan_dateStart = new DateTime(plan_date_start);
 
-                                        if (activity_dateStart.isBefore(plan_dateStart) || activity_dateStart.isAfter(plan_dateEnd)) {
-                                            Toast.makeText(getContext(), "Invalid range of starting date.", Toast.LENGTH_LONG).show();
+                                            if (activity_dateStart.isBefore(plan_dateStart) || activity_dateStart.isAfter(plan_dateEnd)) {
+                                                Toast.makeText(getContext(), "Invalid range of starting date.", Toast.LENGTH_LONG).show();
+                                            }
+
+                                            if (activity_dateEnd.isAfter(plan_dateEnd) || activity_dateEnd.isBefore(plan_dateStart)) {
+                                                Toast.makeText(getContext(), "Invalid range of ending date.", Toast.LENGTH_LONG).show();
+                                            }
+
+                                            if( activity_dateEnd.isBefore(plan_dateEnd) && activity_dateStart.isBefore(plan_dateEnd) ) {
+                                                addActivity();
+                                            }
+
+                                            if( activity_dateEnd.isBefore(plan_dateEnd) && activity_dateStart.isEqual(plan_dateEnd) ) {
+                                                addActivity();
+                                            }
+
+                                            if( activity_dateEnd.isEqual(plan_dateEnd) && activity_dateStart.isBefore(plan_dateEnd) ) {
+                                                addActivity();
+                                            }
+
                                         }
-
-                                        if (activity_dateEnd.isAfter(plan_dateEnd) || activity_dateEnd.isBefore(plan_dateStart)) {
-                                            Toast.makeText(getContext(), "Invalid range of ending date.", Toast.LENGTH_LONG).show();
-                                        }
-
-                                        if( activity_dateEnd.isBefore(plan_dateEnd) && activity_dateStart.isBefore(plan_dateEnd) ) {
-                                            addActivity();
-                                        }
-
-                                        if( activity_dateEnd.isBefore(plan_dateEnd) && activity_dateStart.isEqual(plan_dateEnd) ) {
-                                            addActivity();
-                                        }
-
-                                        if( activity_dateEnd.isEqual(plan_dateEnd) && activity_dateStart.isBefore(plan_dateEnd) ) {
-                                            addActivity();
-                                        }
-
+                                    } else {
+                                        Log.d(TAG, "Error getting documents: ", task.getException());
                                     }
-                                } else {
-                                    Log.d(TAG, "Error getting documents: ", task.getException());
                                 }
-                            }
-                        });
+                            });
+                }
                 break;
             case R.id.btnCancel:
                 Log.d(TAG, "onClick: Closing Dialog");

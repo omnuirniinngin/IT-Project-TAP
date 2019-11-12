@@ -21,13 +21,16 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.Timestamp;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.tap.taskassigningandplanning.R;
 
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 public class ActivityTaskCustomDialog extends DialogFragment {
     private static final String TAG = "ActivityTaskCustomDialo";
@@ -74,7 +77,9 @@ public class ActivityTaskCustomDialog extends DialogFragment {
 
     public void addTask(){
         String title = tvTitle.getText().toString().trim();
-        Task task = new Task(title, activity_id, plan_id, false, new Timestamp(new Date()));
+        String user_id = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        List<String> userId = Arrays.asList(user_id);
+        Task task = new Task(title, activity_id, plan_id, userId, false, new Timestamp(new Date()));
 
         final DocumentReference activity_ref = db.collection("Activity").document(activity_id);
 

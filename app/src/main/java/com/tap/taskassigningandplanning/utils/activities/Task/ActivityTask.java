@@ -1,5 +1,7 @@
 package com.tap.taskassigningandplanning.utils.activities.Task;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Canvas;
 import android.os.Bundle;
@@ -20,6 +22,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
@@ -87,10 +90,12 @@ public class ActivityTask extends AppCompatActivity implements View.OnClickListe
         setupRecyclerView();
     }
     private void setupRecyclerView(){
+        String user_id = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         Query query = FirebaseFirestore.getInstance()
                 .collection("Task")
                 .whereEqualTo("activity_id", activity_id)
+                .whereArrayContains("user_id", user_id)
                 .orderBy("created", Query.Direction.ASCENDING);
 
         FirestoreRecyclerOptions<Task> options = new FirestoreRecyclerOptions.Builder<Task>()
@@ -102,9 +107,6 @@ public class ActivityTask extends AppCompatActivity implements View.OnClickListe
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(activityTaskAdapter);
         activityTaskAdapter.startListening();
-
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
-        itemTouchHelper.attachToRecyclerView(recyclerView);
 
     }
 
@@ -121,52 +123,6 @@ public class ActivityTask extends AppCompatActivity implements View.OnClickListe
         ActivityTaskCustomDialog activityTaskCustomDialog = new ActivityTaskCustomDialog();
         activityTaskCustomDialog.show(getSupportFragmentManager(), "Add Task");
     }
-
-    ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
-        @Override
-        public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-            return false;
-        }
-
-        @Override
-        public void onSwiped(@NonNull final RecyclerView.ViewHolder viewHolder, int direction) {
-            if(direction == ItemTouchHelper.LEFT){
-
-                /*new AlertDialog.Builder(getContext())
-                        .setTitle("Alert!")
-                        .setMessage("Do you wish to delete this activity?")
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                ActivitiesAdapter.ActivityHolder activityHolder = (ActivitiesAdapter.ActivityHolder) viewHolder;
-                                activityHolder.deleteItem();
-                            }
-                        })
-                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-
-                            }
-                        });*/
-
-                ActivityTaskAdapter.ActivityTaskHolder taskHolder= (ActivityTaskAdapter.ActivityTaskHolder) viewHolder;
-                taskHolder.deleteItem();
-
-
-            }
-        }
-
-        @Override
-        public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
-            new RecyclerViewSwipeDecorator.Builder(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
-                    .addBackgroundColor(ContextCompat.getColor(ActivityTask.this, R.color.colorAccent))
-                    .addActionIcon(R.drawable.ic_delete_sweep_black_24dp)
-                    .create()
-                    .decorate();
-
-            super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
-        }
-    };
 
     @Override
     public void handleCheckChanged(boolean isChecked, final DocumentSnapshot snapshot) {
@@ -197,7 +153,7 @@ public class ActivityTask extends AppCompatActivity implements View.OnClickListe
                                     }
                                 });
 
-                        // Get tasks where equal to activity_id where completed is true
+                        // Get tasks where equal to activity_id
                         db.collection("Task")
                                 .whereEqualTo("activity_id", activity_id)
                                 .get()
@@ -216,6 +172,7 @@ public class ActivityTask extends AppCompatActivity implements View.OnClickListe
                                         }
                                     }
                                 });
+
                         Log.d(TAG, "onSuccess: " + snapshot.getId());
                     }
                 })
@@ -243,42 +200,53 @@ public class ActivityTask extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
-    public void handleDeleteItem(DocumentSnapshot snapshot) {
+    public void handleDelete(final DocumentSnapshot snapshot) {
         final DocumentReference documentReference = snapshot.getReference();
         final DocumentReference docActivity = db.collection("Activity").document(activity_id);
         final Task task = snapshot.toObject(Task.class);
-        snapshot.getReference().delete()
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
+
+        new AlertDialog.Builder(this)
+                .setTitle("Alert!")
+                .setMessage("Do you wish to delete this activity?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
-                    public void onSuccess(Void aVoid) {
-                        docActivity.get()
-                                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        snapshot.getReference().delete()
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
-                                    public void onSuccess(DocumentSnapshot snapshot) {
-                                        int total_task = snapshot.getLong("total_task").intValue();
-                                        int new_total_task = total_task - 1;
-                                        docActivity.update("total_task", new_total_task);
-                                    }
-                                });
-                    }
-                });
-        Snackbar.make(recyclerView, "Task successfully deleted.", Snackbar.LENGTH_LONG)
-                .setAction("Undo", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        documentReference.set(task);
-                        docActivity.get()
-                                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                                    @Override
-                                    public void onSuccess(DocumentSnapshot snapshot) {
-                                        int total_task = snapshot.getLong("total_task").intValue();
-                                        int new_total_task = total_task + 1;
-                                        docActivity.update("total_task", new_total_task);
+                                    public void onSuccess(Void aVoid) {
+                                        docActivity.get()
+                                                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                                    @Override
+                                                    public void onSuccess(DocumentSnapshot snapshot) {
+                                                        int total_task = snapshot.getLong("total_task").intValue();
+                                                        int new_total_task = total_task - 1;
+                                                        docActivity.update("total_task", new_total_task);
+                                                    }
+                                                });
                                     }
                                 });
                     }
                 })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                })
                 .show();
+    }
+
+    @Override
+    public void handleDesignateUser(DocumentSnapshot snapshot) {
+        DocumentReference documentReference = snapshot.getReference();
+        String snapshot_id = documentReference.getId();
+        Bundle bundle = new Bundle();
+        bundle.putString("snapshot_id", snapshot_id);
+
+        ActivitySearchUserDialog activitySearchUserDialog = new ActivitySearchUserDialog();
+        activitySearchUserDialog.setArguments(bundle);
+        activitySearchUserDialog.show(getSupportFragmentManager(), "Designate Task");
     }
 
 }

@@ -25,7 +25,7 @@ public class ActivityTaskCustomEditDialog extends DialogFragment {
     //FirebaseFirestore
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-    String title, snapshot_id, new_title;
+    String title, snapshot_id;
     int position;
     private TextView tvTitle;
 
@@ -41,7 +41,6 @@ public class ActivityTaskCustomEditDialog extends DialogFragment {
         Bundle bundle = getArguments();
         title = bundle.getString("title", "");
         snapshot_id = bundle.getString("snapshot_id", "");
-        Log.d(TAG, "onCreateDialog: " + snapshot_id);
 
         tvTitle = view.findViewById(R.id.tvTitle);
         tvTitle.setText(title);
@@ -50,7 +49,7 @@ public class ActivityTaskCustomEditDialog extends DialogFragment {
         Selection.setSelection(text, position);
 
         builder.setView(view)
-                .setTitle("Add task")
+                .setTitle("Edit task")
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {

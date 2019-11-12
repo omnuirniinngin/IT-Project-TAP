@@ -36,6 +36,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.tap.taskassigningandplanning.NavigationBottomActivity;
 import com.tap.taskassigningandplanning.R;
+import com.tap.taskassigningandplanning.utils.activities.Task.ActivitySearchUserDialog;
 
 import java.util.Calendar;
 
@@ -90,57 +91,7 @@ public class ActivityFragment extends Fragment implements View.OnClickListener, 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(activitiesAdapter);
         activitiesAdapter.startListening();
-
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
-        itemTouchHelper.attachToRecyclerView(recyclerView);
     }
-
-    ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
-        @Override
-        public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-            return false;
-        }
-
-        @Override
-        public void onSwiped(@NonNull final RecyclerView.ViewHolder viewHolder, int direction) {
-            if(direction == ItemTouchHelper.LEFT){
-
-                /*new AlertDialog.Builder(getContext())
-                        .setTitle("Alert!")
-                        .setMessage("Do you wish to delete this activity?")
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                ActivitiesAdapter.ActivityHolder activityHolder = (ActivitiesAdapter.ActivityHolder) viewHolder;
-                                activityHolder.deleteItem();
-                            }
-                        })
-                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-
-                            }
-                        });*/
-
-                ActivitiesAdapter.ActivityHolder activityHolder = (ActivitiesAdapter.ActivityHolder) viewHolder;
-                activityHolder.deleteItem();
-
-
-            }
-        }
-
-        @Override
-        public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
-            new RecyclerViewSwipeDecorator.Builder(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
-                    .addBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorAccent))
-                    .addActionIcon(R.drawable.ic_delete_sweep_black_24dp)
-                    .create()
-                    .decorate();
-
-            super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
-        }
-    };
-
 
     @Override
     public void onClick(View view) {
@@ -155,96 +106,6 @@ public class ActivityFragment extends Fragment implements View.OnClickListener, 
     }
 
     @Override
-    public void handleDeleteItem(DocumentSnapshot snapshot) {
-
-        NavigationBottomActivity activity = (NavigationBottomActivity)getActivity();
-        Bundle id_result = activity.getPlanId();
-        final String plan_id = id_result.getString("plan_id");
-
-        final DocumentReference documentReference = snapshot.getReference();
-        final Activities activities = snapshot.toObject(Activities.class);
-        final String activity_id = documentReference.getId();
-
-        documentReference.delete()
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Log.d(TAG, "onSuccess: Item deleted: " + activity_id);
-
-                        db.collection("Team")
-                                .whereArrayContains("activity_id", activity_id)
-                                .get()
-                                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                        if (task.isSuccessful()) {
-                                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                                String Team = document.getId();
-                                                DocumentReference docTeam = db.collection("Team").document(Team);
-                                                docTeam.update("activity_id", FieldValue.arrayRemove(activity_id));
-                                            }
-                                        } else {
-                                            Log.d(TAG, "Error getting documents: ", task.getException());
-                                        }
-                                    }
-                                });
-
-                        db.collection("Task")
-                                .whereEqualTo("activity_id", activity_id)
-                                .get()
-                                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                        if (task.isSuccessful()) {
-                                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                                String Task = document.getId();
-                                                db.collection("Task").document(Task)
-                                                        .delete()
-                                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                            @Override
-                                                            public void onSuccess(Void aVoid) {
-                                                                Log.d(TAG, "DocumentSnapshot successfully deleted!");
-                                                            }
-                                                        });
-                                            }
-                                        }
-                                    }
-                                });
-                    }
-                });
-        Snackbar.make(recyclerView, "Task successfully deleted.", Snackbar.LENGTH_LONG)
-                .setAction("Undo", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        documentReference.set(activities);
-
-                        db.collection("Team")
-                                .whereEqualTo("plan_id", plan_id)
-                                .get()
-                                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                        if (task.isSuccessful()) {
-                                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                                Log.d(TAG, document.getId() + " => " + document.getData());
-                                                String Team = document.getId();
-                                                DocumentReference docTeam = db.collection("Team").document(Team);
-
-                                                docTeam.update("activity_id", FieldValue.arrayUnion(activity_id));
-                                            }
-                                        } else {
-                                            Log.d(TAG, "Error getting documents: ", task.getException());
-                                        }
-                                    }
-                                });
-
-                    }
-                })
-                .show();
-
-    }
-
-    @Override
     public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
         Intent intent;
         intent = getActivity().getIntent();
@@ -256,5 +117,79 @@ public class ActivityFragment extends Fragment implements View.OnClickListener, 
         intent.putExtra("plan_id", plan_id);
         intent.putExtra("activity_id", id);
         startActivity(intent);
+    }
+
+    @Override
+    public void handleDelete(final DocumentSnapshot snapshot) {
+
+        new AlertDialog.Builder(getContext())
+                .setTitle("Alert!")
+                .setMessage("Do you wish to delete this activity?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        NavigationBottomActivity activity = (NavigationBottomActivity)getActivity();
+                        Bundle id_result = activity.getPlanId();
+                        final String plan_id = id_result.getString("plan_id");
+
+                        final DocumentReference documentReference = snapshot.getReference();
+                        final Activities activities = snapshot.toObject(Activities.class);
+                        final String activity_id = documentReference.getId();
+
+                        documentReference.delete()
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        Log.d(TAG, "onSuccess: Item deleted: " + activity_id);
+
+                                        db.collection("Team")
+                                                .whereArrayContains("activity_id", activity_id)
+                                                .get()
+                                                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                        if (task.isSuccessful()) {
+                                                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                                                String Team = document.getId();
+                                                                DocumentReference docTeam = db.collection("Team").document(Team);
+                                                                docTeam.update("activity_id", FieldValue.arrayRemove(activity_id));
+                                                            }
+                                                        } else {
+                                                            Log.d(TAG, "Error getting documents: ", task.getException());
+                                                        }
+                                                    }
+                                                });
+
+                                        db.collection("Task")
+                                                .whereEqualTo("activity_id", activity_id)
+                                                .get()
+                                                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                        if (task.isSuccessful()) {
+                                                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                                                String Task = document.getId();
+                                                                db.collection("Task").document(Task)
+                                                                        .delete()
+                                                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                            @Override
+                                                                            public void onSuccess(Void aVoid) {
+                                                                                Log.d(TAG, "DocumentSnapshot successfully deleted!");
+                                                                            }
+                                                                        });
+                                                            }
+                                                        }
+                                                    }
+                                                });
+                                    }
+                                });
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                }).show();
     }
 }
