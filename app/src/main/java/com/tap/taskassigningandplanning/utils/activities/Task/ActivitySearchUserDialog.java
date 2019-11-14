@@ -113,10 +113,15 @@ public class ActivitySearchUserDialog extends DialogFragment implements Activity
                     DocumentReference activityRef = db.collection("Activity").document(activity_id);
                     activityRef.update("user_id", FieldValue.arrayUnion(user_id));
 
+//                    // Add user to task
+//                    DocumentReference taskRef = db.collection("Task").document(snapshot_id);
+//                    Log.d(TAG, "onComplete: " + snapshot_id);
+//                    taskRef.update("user_id", FieldValue.arrayUnion(user_id));
+
                     // Add user to task
                     DocumentReference taskRef = db.collection("Task").document(snapshot_id);
                     Log.d(TAG, "onComplete: " + snapshot_id);
-                    taskRef.update("user_id", FieldValue.arrayUnion(user_id));
+                    taskRef.update("user_task", user_id);
 
                     getDialog().dismiss();
 

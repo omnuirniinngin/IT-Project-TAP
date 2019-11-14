@@ -25,7 +25,7 @@
     <string name="title_activities">Activities</string>
     <string name="title_progress">Progress</string>
     <string name="title_task">Tasks</string>
-    <string name="title_chart">Pie Chart</string>
+    <string name="title_chart">Progress Chart</string>
     <string name="title_team">Teams</string>
 
     <!--ListView Activities Fragment-->

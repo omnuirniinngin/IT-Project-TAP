@@ -56,7 +56,40 @@ public class ActivityFragment extends Fragment implements View.OnClickListener, 
         recyclerView = view.findViewById(R.id.recycler_view);
 
         fab = view.findViewById(R.id.fab);
-        fab.setOnClickListener(this);
+
+        final String user_id = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        NavigationBottomActivity activity = (NavigationBottomActivity)getActivity();
+        Bundle id_result = activity.getPlanId();
+        final String plan_id = id_result.getString("plan_id");
+
+        db.collection("Plan")
+                .whereEqualTo("plan_id", plan_id)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for(QueryDocumentSnapshot document : task.getResult()){
+                                String creator = (String) document.get("user_id");
+
+                                if (!creator.equals(user_id)) {
+                                    fab.setEnabled(false);
+                                } else if (creator.equals(user_id)){
+                                    fab.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view) {
+                                            ActivityCustomDialog dialog = new ActivityCustomDialog();
+                                            dialog.setTargetFragment(ActivityFragment.this, 1);
+                                            dialog.show(getFragmentManager(), "ActivityCustomDialog");
+                                        }
+                                    });
+                                }
+                            }
+                        }
+                    }
+                });
+
+//        fab.setOnClickListener(this);
 
         setupRecyclerView();
 //        setCountActivity();

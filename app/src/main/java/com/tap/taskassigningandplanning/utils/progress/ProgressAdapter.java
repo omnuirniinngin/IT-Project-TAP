@@ -51,15 +51,15 @@ public class ProgressAdapter extends FirestoreRecyclerAdapter <Activities, Progr
         holder.tvActivityTitle.setText(activities.getTitle());
         holder.tvCompleted.setText(String.valueOf(activities.getCompleted_task())+"/"+String.valueOf(activities.getTotal_task()));
         int completed_task = activities.getCompleted_task();
-        int total_task_task = activities.getTotal_task();
+        int total_task = activities.getTotal_task();
 
-        if ( total_task_task == 0 ){
+        if ( total_task == 0 ){
             holder.progressBar.setProgress(0);
             holder.tvPercent.setText("0%");
 
         }
-        if (total_task_task > 0 ){
-            float progress = completed_task*100 / total_task_task;
+        if (total_task > 0 ){
+            float progress = completed_task*100 / total_task;
             holder.progressBar.setProgress((int) progress);
             holder.tvPercent.setText((int) progress + "%");
         }

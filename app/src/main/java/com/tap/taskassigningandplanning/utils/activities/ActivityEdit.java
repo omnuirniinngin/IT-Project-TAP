@@ -206,7 +206,7 @@ public class ActivityEdit extends AppCompatActivity implements ActivitiesAdapter
                                             Toast.makeText(ActivityEdit.this, "Invalid range of ending date.", Toast.LENGTH_LONG).show();
                                         }
 
-                                        if( activity_dateEnd.isBefore(plan_dateEnd) && activity_dateStart.isBefore(plan_dateEnd) ) {
+                                        if( activity_dateEnd.isBefore(plan_dateEnd) && activity_dateStart.isAfter(plan_dateStart) ) {
                                             updateActivity();
                                         }
 
@@ -215,6 +215,14 @@ public class ActivityEdit extends AppCompatActivity implements ActivitiesAdapter
                                         }
 
                                         if( activity_dateEnd.isEqual(plan_dateEnd) && activity_dateStart.isBefore(plan_dateEnd) ) {
+                                            updateActivity();
+                                        }
+
+                                        if( activity_dateEnd.isEqual(plan_dateStart) && activity_dateStart.isEqual(plan_dateStart) ) {
+                                            updateActivity();
+                                        }
+
+                                        if( activity_dateEnd.isEqual(plan_dateEnd) && activity_dateStart.isEqual(plan_dateEnd) ) {
                                             updateActivity();
                                         }
                                     }

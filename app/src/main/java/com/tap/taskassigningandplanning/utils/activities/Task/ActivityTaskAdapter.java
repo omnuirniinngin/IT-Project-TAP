@@ -37,11 +37,17 @@ public class ActivityTaskAdapter extends FirestoreRecyclerAdapter <Task, Activit
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         String creator = task.getCreator();
 
-        if(completed==true && !userId.equals(creator)){
-            holder.cbCompleted.setEnabled(false);
+//        if(completed==true && !userId.equals(creator)){
+//            holder.cbCompleted.setEnabled(false);
+//        }
+
+        if(!userId.equals(creator)){
+            holder.btnDesignate.setEnabled(false);
         }
 
         if(!userId.equals(creator)){
+            holder.btnDelete.setVisibility(View.INVISIBLE);
+        }else if(userId.equals(creator) && completed == true){
             holder.btnDelete.setVisibility(View.INVISIBLE);
         }
 }
