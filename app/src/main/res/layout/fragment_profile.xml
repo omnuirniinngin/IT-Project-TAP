@@ -130,7 +130,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:padding="25dp"
-                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ac eros consectetur, blandit libero non, dapibus libero. Integer mattis ac sapien ac consectetur."
+                android:layout_centerHorizontal="true"
                 android:textColor="#2196F3"
                 android:textSize="15sp"
                 android:textStyle="bold" />

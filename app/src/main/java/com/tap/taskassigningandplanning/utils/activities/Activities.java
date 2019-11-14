@@ -8,9 +8,10 @@ import java.util.List;
 
 public class Activities {
 
-    private String title, notes, dateStart, dateEnd, plan_id;
+    private String title, notes, dateStart, dateEnd, plan_id, creator;
     private int completed_task;
     private int total_task;
+    private boolean completed;
     List<String> user_id;
     private Timestamp created;
 
@@ -18,15 +19,33 @@ public class Activities {
         //empty constructor needed
     }
 
-    public Activities(String title, String dateStart, String dateEnd, String plan_id, List<String> user_id, Timestamp created) {
+    public Activities(String title, String dateStart, String dateEnd, String plan_id, String creator, List<String> user_id, Timestamp created) {
         this.title = title;
         this.notes = notes;
         this.dateStart = dateStart;
         this.dateEnd = dateEnd;
         this.plan_id = plan_id;
+        this.creator = creator;
         this.user_id = user_id;
         this.created = created;
+        this.completed = completed;
         this.completed_task = completed_task;
+    }
+
+    public String getCreator() {
+        return creator;
+    }
+
+    public void setCreator(String creator) {
+        this.creator = creator;
+    }
+
+    public boolean isCompleted() {
+        return completed;
+    }
+
+    public void setCompleted(boolean completed) {
+        this.completed = completed;
     }
 
     public int getCompleted_task() {
@@ -109,6 +128,10 @@ public class Activities {
                 ", dateStart='" + dateStart + '\'' +
                 ", dateEnd='" + dateEnd + '\'' +
                 ", plan_id='" + plan_id + '\'' +
+                ", creator='" + creator + '\'' +
+                ", completed_task=" + completed_task +
+                ", total_task=" + total_task +
+                ", completed=" + completed +
                 ", user_id=" + user_id +
                 ", created=" + created +
                 '}';

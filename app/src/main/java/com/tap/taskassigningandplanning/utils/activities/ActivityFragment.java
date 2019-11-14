@@ -4,19 +4,15 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Canvas;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -25,7 +21,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -36,11 +31,8 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.tap.taskassigningandplanning.NavigationBottomActivity;
 import com.tap.taskassigningandplanning.R;
-import com.tap.taskassigningandplanning.utils.activities.Task.ActivitySearchUserDialog;
 
 import java.util.Calendar;
-
-import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
 
 public class ActivityFragment extends Fragment implements View.OnClickListener, ActivitiesAdapter.ActivitiesListener {
     private static final String TAG = "ActivityDialogFragment";
@@ -67,8 +59,51 @@ public class ActivityFragment extends Fragment implements View.OnClickListener, 
         fab.setOnClickListener(this);
 
         setupRecyclerView();
+//        setCountActivity();
         return view;
     }
+
+//    private void setCountActivity(){
+//        NavigationBottomActivity activity = (NavigationBottomActivity)getActivity();
+//        Bundle id_result = activity.getPlanId();
+//        final String plan_id = id_result.getString("plan_id");
+//
+//        db.collection("Activity")
+//                .whereEqualTo("plan_id", plan_id)
+//                .get()
+//                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                        if (task.isSuccessful()) {
+//                            int count = 0;
+//                            for (final QueryDocumentSnapshot document : task.getResult()) {
+//                                count++;
+//                                boolean completed;
+//                                completed = (boolean) document.get("completed");
+//                            }
+//                            final int new_count = count;
+//                            db.collection("Plan")
+//                                    .whereEqualTo("plan_id", plan_id)
+//                                    .get()
+//                                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//                                        @Override
+//                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                                            if (task.isSuccessful()) {
+//                                                String plan_document_id = "";
+//                                                for (QueryDocumentSnapshot document : task.getResult()) {
+//                                                    plan_document_id = document.getId();
+//                                                }
+//                                                DocumentReference documentReference = db.collection("Plan").document(plan_document_id);
+//                                                documentReference.update("total_activity", new_count);
+//                                            }
+//                                        }
+//                                    });
+//                        } else {
+//                            Log.d(TAG, "Error getting documents: ", task.getException());
+//                        }
+//                    }
+//                });
+//    }
 
     private void setupRecyclerView(){
         String user_id = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -113,7 +148,7 @@ public class ActivityFragment extends Fragment implements View.OnClickListener, 
         String plan_id = intent.getExtras().getString("plan_id");
         String id = documentSnapshot.getId();
 
-        intent = new Intent(getContext(), ActivityClicked.class);
+        intent = new Intent(getContext(), ActivityEdit.class);
         intent.putExtra("plan_id", plan_id);
         intent.putExtra("activity_id", id);
         startActivity(intent);

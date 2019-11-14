@@ -61,7 +61,14 @@ public class MainActivity extends AppCompatActivity {
         if(mAuth.getCurrentUser() == null){
             finish();
             startActivity(new Intent(this, Login.class));
+        }else {
+            mAuth.addAuthStateListener(mAuthStateListener);
         }
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mAuth.addAuthStateListener(mAuthStateListener);
     }
 
     @Override
@@ -102,47 +109,35 @@ public class MainActivity extends AppCompatActivity {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
-                    // User is signed in
-                    Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
-                    toastMessage("Successfully signed in with: " + user.getEmail());
-                    //tvEmail.setText(user.getEmail()); //get email displayed using this method
-                } else {
-                    // User is signed out
-                    Log.d(TAG, "onAuthStateChanged:signed_out");
-                    toastMessage("Successfully signed out.");
+
+                    // get plan_id to get all plans created
+                    String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+                    generator = ColorGenerator.MATERIAL;
+                    imageView = navigationView.getHeaderView(0).findViewById(R.id.imageView);
+                    tvName = navigationView.getHeaderView(0).findViewById(R.id.tvName);
+                    tvEmail = navigationView.getHeaderView(0).findViewById(R.id.tvEmail);
+
+                    DocumentReference docUser = db.collection("Users").document(userId);
+
+                    docUser.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                            DocumentSnapshot documentSnapshot = task.getResult();
+                            if (documentSnapshot.exists()) {
+                                User user = documentSnapshot.toObject(User.class);
+                                tvName.setText(user.getName());
+                                tvEmail.setText(user.getEmail());
+                                textDrawable = TextDrawable.builder().buildRoundRect(String.valueOf(user.getName().charAt(0)), generator.getRandomColor(), 8);
+                                imageView.setImageDrawable(textDrawable);
+
+                            }
+                        }
+                    });
+
                 }
-                // ...
             }
         };
-
-        // get plan_id to get all plans created
-        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
-        generator = ColorGenerator.MATERIAL;
-        imageView = navigationView.getHeaderView(0).findViewById(R.id.imageView);
-        tvName = navigationView.getHeaderView(0).findViewById(R.id.tvName);
-        tvEmail = navigationView.getHeaderView(0).findViewById(R.id.tvEmail);
-
-        DocumentReference documentReference = db.collection("Users").document(userId);
-
-        documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                DocumentSnapshot documentSnapshot = task.getResult();
-                if (documentSnapshot.exists()) {
-                    Log.d(TAG, "DocumentSnapshot data: " + documentSnapshot.getData());
-
-                    User user = documentSnapshot.toObject(User.class);
-                    tvName.setText(user.getName());
-                    tvEmail.setText(user.getEmail());
-                    textDrawable = TextDrawable.builder().buildRoundRect(String.valueOf(user.getName().charAt(0)), generator.getRandomColor(), 8);
-                    imageView.setImageDrawable(textDrawable);
-
-                } else {
-                    Log.d(TAG, "Error getting info");
-                }
-            }
-        });
     }
 
     @Override

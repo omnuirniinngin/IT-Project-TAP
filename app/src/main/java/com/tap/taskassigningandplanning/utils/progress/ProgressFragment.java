@@ -1,5 +1,6 @@
 package com.tap.taskassigningandplanning.utils.progress;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -18,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
@@ -54,7 +57,7 @@ public class ProgressFragment extends Fragment implements ProgressAdapter.Progre
     private ProgressAdapter progressAdapter;
     private RecyclerView recyclerView;
 
-    private TextView tvTitle, tvDays, tvPlanDuration;
+    private TextView tvTitle, tvDays, tvPlanDuration, tvCompleted;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_progress, container, false);
@@ -62,17 +65,21 @@ public class ProgressFragment extends Fragment implements ProgressAdapter.Progre
         tvTitle = view.findViewById(R.id.tvTitle);
         tvDays = view.findViewById(R.id.tvDays);
         tvPlanDuration = view.findViewById(R.id.tvPlanDuration);
+        tvCompleted = view.findViewById(R.id.tvCompleted);
 
         recyclerView = view.findViewById(R.id.recycler_view);
 
         NavigationBottomActivity activity = (NavigationBottomActivity)getActivity();
         Bundle id_result = activity.getPlanId();
+        String plan_id = id_result.getString("plan_id");
         String plan_name = id_result.getString("plan_name");
+
         tvTitle.setText(plan_name);
 
         db = FirebaseFirestore.getInstance();
 
         getPlan();
+        getActivityCompleted();
         setupRecyclerView();
         return view;
     }
@@ -91,7 +98,6 @@ public class ProgressFragment extends Fragment implements ProgressAdapter.Progre
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                Log.d(TAG, document.getId() + " => " + document.getData());
                                 String dateStart = (String) document.get("dateStart");
                                 String dateEnd = (String) document.get("dateEnd");
 
@@ -143,6 +149,49 @@ public class ProgressFragment extends Fragment implements ProgressAdapter.Progre
                 });
     }
 
+    private void getActivityCompleted(){
+        NavigationBottomActivity activity = (NavigationBottomActivity)getActivity();
+        Bundle id_result = activity.getPlanId();
+        final String plan_id = id_result.getString("plan_id");
+
+        db.collection("Activity")
+                .whereEqualTo("plan_id", plan_id)
+                .whereEqualTo("completed", true)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            int count_true = 0;
+                            for (final QueryDocumentSnapshot document : task.getResult()) {
+                                count_true++;
+
+                            }
+
+                            final int finalCount_true = count_true;
+                            db.collection("Activity")
+                                    .whereEqualTo("plan_id", plan_id)
+                                    .get()
+                                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                            if (task.isSuccessful()) {
+                                                int activity_total = 0;
+                                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                                    activity_total++;
+//                                                    activity_total = document.getLong("total_activity").intValue();
+                                                }
+                                                tvCompleted.setText(finalCount_true + "/" + activity_total);
+                                            }
+                                        }
+                                    });
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
+    }
+
     private void setupRecyclerView(){
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         NavigationBottomActivity activity = (NavigationBottomActivity)getActivity();
@@ -178,6 +227,18 @@ public class ProgressFragment extends Fragment implements ProgressAdapter.Progre
         intent = new Intent(getContext(), ActivityTask.class);
         intent.putExtra("plan_id", plan_id);
         intent.putExtra("activity_id", activity_id);
-        startActivity(intent);
+        startActivityForResult(intent, 5);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if ((requestCode == 5) && (resultCode == Activity.RESULT_OK)){
+            // recreate your fragment here
+            FragmentTransaction ft = getFragmentManager().beginTransaction();
+            ft.detach(this).attach(this).commit();
+        }
+
     }
 }

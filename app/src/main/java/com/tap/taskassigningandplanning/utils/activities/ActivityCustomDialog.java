@@ -178,9 +178,10 @@ public class ActivityCustomDialog extends AppCompatDialogFragment implements Vie
         String plan_id = id_result.getString("plan_id");
 
         List<String> userId = Arrays.asList(user_id);
+        String creator = user_id;
 
         if(!hasValidationErrors(title, dateStart, dateEnd)){
-            Activities activities = new Activities(title, dateStart, dateEnd, plan_id, userId, new Timestamp(new java.util.Date()));
+            Activities activities = new Activities(title, dateStart, dateEnd, plan_id, creator, userId, new Timestamp(new java.util.Date()));
 
             FirebaseFirestore.getInstance()
                     .collection("Activity")

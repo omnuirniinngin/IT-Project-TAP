@@ -2,6 +2,9 @@ package com.tap.taskassigningandplanning;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.Network;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
@@ -66,6 +69,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         final String name = etFullName.getText().toString().trim();
         final String email = etEmail.getText().toString().trim();
         final String password = etPassword.getText().toString().trim();
+        final String bio = "";
 
         if (name.isEmpty()) {
             etFullName.setError(getString(R.string.input_error_name), null);
@@ -98,7 +102,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
-                            User user = new User(name, email);
+                            User user = new User(name, email, bio);
                             String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
                             db.collection("Users").document(userId)
@@ -143,11 +147,33 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
                 });
     }
 
+    private boolean haveNetwork(){
+        boolean have_WIFI = false;
+        boolean have_MobileData = false;
+
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+        NetworkInfo[] networkInfos = connectivityManager.getAllNetworkInfo();
+
+        for (NetworkInfo info:networkInfos){
+            if(info.getTypeName().equalsIgnoreCase("WIFI"))
+                if(info.isConnected())
+                have_WIFI = true;
+            if(info.getTypeName().equalsIgnoreCase("MOBILE"))
+                if(info.isConnected())
+                have_MobileData = true;
+        }
+        return have_MobileData || have_WIFI;
+    }
+
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btnContinue:
-                registerUser();
+                if(haveNetwork()){
+                    registerUser();
+                }else if(!haveNetwork()){
+                    Toast.makeText(this, "Network connection is not available", Toast.LENGTH_SHORT).show();
+                }
                 break;
             case R.id.tvHaveAccount:
                 Intent intent = new Intent(Registration.this, Login.class);

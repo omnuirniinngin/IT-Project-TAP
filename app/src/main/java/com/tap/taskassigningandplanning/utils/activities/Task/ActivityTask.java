@@ -1,5 +1,6 @@
 package com.tap.taskassigningandplanning.utils.activities.Task;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -73,7 +74,6 @@ public class ActivityTask extends AppCompatActivity implements View.OnClickListe
                 if(task.isSuccessful()){
                     DocumentSnapshot documentSnapshot = task.getResult();
                     if (documentSnapshot.exists()) {
-                        Log.d(TAG, "DocumentSnapshot data: " + documentSnapshot.getData());
                         Activities activities = documentSnapshot.toObject(Activities.class);
                         getSupportActionBar().setTitle(activities.getTitle());
                     } else {
@@ -88,6 +88,7 @@ public class ActivityTask extends AppCompatActivity implements View.OnClickListe
         fab.setOnClickListener(this);
 
         setupRecyclerView();
+        setResult(Activity.RESULT_OK);
     }
     private void setupRecyclerView(){
         String user_id = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -125,63 +126,238 @@ public class ActivityTask extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
-    public void handleCheckChanged(boolean isChecked, final DocumentSnapshot snapshot) {
+    public void handleCheckChanged(final boolean isChecked, final DocumentSnapshot snapshot) {
 
-        Log.d(TAG, "handleCheckChanged: " + isChecked);
-        snapshot.getReference().update("completed", isChecked)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
+        new AlertDialog.Builder(this)
+                .setTitle("Finish Task?")
+                .setMessage("You can no longer update this task.")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
-                    public void onSuccess(Void aVoid) {
-                        // Get tasks where equal to activity_id where completed is true
-                        db.collection("Task")
-                                .whereEqualTo("activity_id", activity_id)
-                                .whereEqualTo("completed", true)
-                                .get()
-                                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        snapshot.getReference().update("completed", isChecked)
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
-                                    public void onComplete(@NonNull com.google.android.gms.tasks.Task<QuerySnapshot> task) {
-                                        if (task.isSuccessful()) {
-                                            DocumentReference documentReference = db.collection("Activity").document(activity_id);
-                                            int count = 0;
-                                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                                count++;
-                                            }
-                                            documentReference.update("completed_task", count);
-                                        } else {
-                                            Log.d(TAG, "Error getting documents: ", task.getException());
-                                        }
+                                    public void onSuccess(Void aVoid) {
+                                        final DocumentReference documentReference = db.collection("Activity").document(activity_id);
+
+                                        // Get tasks where equal to activity_id where completed is true
+                                        db.collection("Task")
+                                                .whereEqualTo("activity_id", activity_id)
+                                                .whereEqualTo("completed", true)
+                                                .get()
+                                                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull com.google.android.gms.tasks.Task<QuerySnapshot> task) {
+                                                        if (task.isSuccessful()) {
+                                                            int count = 0;
+                                                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                                                count++;
+                                                            }
+                                                            documentReference.update("completed_task", count);
+                                                        } else {
+                                                            Log.d(TAG, "Error getting documents: ", task.getException());
+                                                        }
+                                                    }
+                                                });
+
+                                        // Get tasks where equal to activity_id
+                                        db.collection("Task")
+                                                .whereEqualTo("activity_id", activity_id)
+                                                .get()
+                                                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull com.google.android.gms.tasks.Task<QuerySnapshot> task) {
+                                                        if (task.isSuccessful()) {
+                                                            int count = 0;
+                                                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                                                count++;
+                                                            }
+                                                            documentReference.update("total_task", count);
+                                                        } else {
+                                                            Log.d(TAG, "Error getting documents: ", task.getException());
+                                                        }
+                                                    }
+                                                });
+
+
+                                        // Get tasks where equal to activity_id where completed false
+                                        db.collection("Task")
+                                                .whereEqualTo("activity_id", activity_id)
+                                                .whereEqualTo("completed", false)
+                                                .get()
+                                                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull com.google.android.gms.tasks.Task<QuerySnapshot> task) {
+                                                        if (task.isSuccessful()) {
+                                                            QuerySnapshot document = task.getResult();
+                                                            if (document.isEmpty()) {
+                                                                Log.d(TAG, "onComplete: Document is empty");
+                                                                //Update activity_completed
+                                                                documentReference.update("completed", true);
+
+                                                            } else {
+                                                                Log.d(TAG, "Document exist");
+                                                                documentReference.update("completed", false);
+                                                            }
+                                                        } else {
+                                                            Log.d(TAG, "Error getting documents: ");
+                                                        }
+                                                    }
+                                                });
+
+                                        // Get team where plan_id is equal to plan_id then update task_completed
+                                        String user_id = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                                        db.collection("Team")
+                                                .whereEqualTo("plan_id", plan_id)
+                                                .whereEqualTo("user_id", user_id)
+                                                .get()
+                                                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull com.google.android.gms.tasks.Task<QuerySnapshot> task) {
+                                                        if (task.isSuccessful()) {
+                                                            if (task.isSuccessful()) {
+                                                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                                                    String team_id = document.getId();
+                                                                    int completed = document.getLong("completed").intValue();
+                                                                    int total = completed + 1;
+
+                                                                    if(isChecked == true){
+                                                                        DocumentReference teamRef = db.collection("Team").document(team_id);
+                                                                        teamRef.update("completed", total);
+                                                                    }
+                                                                }
+
+                                                            } else {
+                                                                Log.d(TAG, "Error getting documents: ", task.getException());
+                                                            }
+                                                        }
+                                                    }
+                                                });
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Log.d(TAG, "onFailure: " + e.getLocalizedMessage());
                                     }
                                 });
-
-                        // Get tasks where equal to activity_id
-                        db.collection("Task")
-                                .whereEqualTo("activity_id", activity_id)
-                                .get()
-                                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                    @Override
-                                    public void onComplete(@NonNull com.google.android.gms.tasks.Task<QuerySnapshot> task) {
-                                        if (task.isSuccessful()) {
-                                            DocumentReference documentReference = db.collection("Activity").document(activity_id);
-                                            int count = 0;
-                                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                                count++;
-                                            }
-                                            documentReference.update("total_task", count);
-                                        } else {
-                                            Log.d(TAG, "Error getting documents: ", task.getException());
-                                        }
-                                    }
-                                });
-
-                        Log.d(TAG, "onSuccess: " + snapshot.getId());
                     }
                 })
-                .addOnFailureListener(new OnFailureListener() {
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.d(TAG, "onFailure: " + e.getLocalizedMessage());
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
                     }
-                });
+                })
+                .show();
+
+//        snapshot.getReference().update("completed", isChecked)
+//                .addOnSuccessListener(new OnSuccessListener<Void>() {
+//                    @Override
+//                    public void onSuccess(Void aVoid) {
+//                        final DocumentReference documentReference = db.collection("Activity").document(activity_id);
+//
+//                        // Get tasks where equal to activity_id where completed is true
+//                        db.collection("Task")
+//                                .whereEqualTo("activity_id", activity_id)
+//                                .whereEqualTo("completed", true)
+//                                .get()
+//                                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//                                    @Override
+//                                    public void onComplete(@NonNull com.google.android.gms.tasks.Task<QuerySnapshot> task) {
+//                                        if (task.isSuccessful()) {
+//                                            int count = 0;
+//                                            for (QueryDocumentSnapshot document : task.getResult()) {
+//                                                count++;
+//                                            }
+//                                            documentReference.update("completed_task", count);
+//                                        } else {
+//                                            Log.d(TAG, "Error getting documents: ", task.getException());
+//                                        }
+//                                    }
+//                                });
+//
+//                        // Get tasks where equal to activity_id
+//                        db.collection("Task")
+//                                .whereEqualTo("activity_id", activity_id)
+//                                .get()
+//                                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//                                    @Override
+//                                    public void onComplete(@NonNull com.google.android.gms.tasks.Task<QuerySnapshot> task) {
+//                                        if (task.isSuccessful()) {
+//                                            int count = 0;
+//                                            for (QueryDocumentSnapshot document : task.getResult()) {
+//                                                count++;
+//                                            }
+//                                            documentReference.update("total_task", count);
+//                                        } else {
+//                                            Log.d(TAG, "Error getting documents: ", task.getException());
+//                                        }
+//                                    }
+//                                });
+//
+//
+//                        // Get tasks where equal to activity_id where completed false
+//                        db.collection("Task")
+//                                .whereEqualTo("activity_id", activity_id)
+//                                .whereEqualTo("completed", false)
+//                                .get()
+//                                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//                                    @Override
+//                                    public void onComplete(@NonNull com.google.android.gms.tasks.Task<QuerySnapshot> task) {
+//                                        if (task.isSuccessful()) {
+//                                            QuerySnapshot document = task.getResult();
+//                                            if (document.isEmpty()) {
+//                                                Log.d(TAG, "onComplete: Document is empty");
+//                                                //Update activity_completed
+//                                                documentReference.update("completed", true);
+//
+//                                            } else {
+//                                                Log.d(TAG, "Document exist");
+//                                                documentReference.update("completed", false);
+//                                            }
+//                                        } else {
+//                                            Log.d(TAG, "Error getting documents: ");
+//                                        }
+//                                    }
+//                                });
+//
+//                        // Get team where plan_id is equal to plan_id then update task_completed
+//                        String user_id = FirebaseAuth.getInstance().getCurrentUser().getUid();
+//                        db.collection("Team")
+//                                .whereEqualTo("plan_id", plan_id)
+//                                .whereEqualTo("user_id", user_id)
+//                                .get()
+//                                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//                                    @Override
+//                                    public void onComplete(@NonNull com.google.android.gms.tasks.Task<QuerySnapshot> task) {
+//                                        if (task.isSuccessful()) {
+//                                            if (task.isSuccessful()) {
+//                                                for (QueryDocumentSnapshot document : task.getResult()) {
+//                                                    String team_id = document.getId();
+//                                                    int completed = document.getLong("completed").intValue();
+//                                                    int total = completed + 1;
+//
+//                                                    if(isChecked == true){
+//                                                        DocumentReference teamRef = db.collection("Team").document(team_id);
+//                                                        teamRef.update("completed", total);
+//                                                    }
+//                                                }
+//
+//                                            } else {
+//                                                Log.d(TAG, "Error getting documents: ", task.getException());
+//                                            }
+//                                        }
+//                                    }
+//                                });
+//                    }
+//                })
+//                .addOnFailureListener(new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull Exception e) {
+//                        Log.d(TAG, "onFailure: " + e.getLocalizedMessage());
+//                    }
+//                });
     }
 
     @Override
@@ -207,7 +383,7 @@ public class ActivityTask extends AppCompatActivity implements View.OnClickListe
 
         new AlertDialog.Builder(this)
                 .setTitle("Alert!")
-                .setMessage("Do you wish to delete this activity?")
+                .setMessage("Do you wish to delete this task?")
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {

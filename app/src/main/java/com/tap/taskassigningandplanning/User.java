@@ -1,15 +1,24 @@
 package com.tap.taskassigningandplanning;
 
 public class User {
-    public String name, email;
+    public String name, email, bio;
 
     public User(){
 
     }
 
-    public User(String name, String email) {
+    public User(String name, String email, String bio) {
         this.name = name;
         this.email = email;
+        this.bio = bio;
+    }
+
+    public String getBio() {
+        return bio;
+    }
+
+    public void setBio(String bio) {
+        this.bio = bio;
     }
 
     public String getName() {
@@ -33,6 +42,7 @@ public class User {
         return "User{" +
                 "name='" + name + '\'' +
                 ", email='" + email + '\'' +
+                ", bio='" + bio + '\'' +
                 '}';
     }
 }

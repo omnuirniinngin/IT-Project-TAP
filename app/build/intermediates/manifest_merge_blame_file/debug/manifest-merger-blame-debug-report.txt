@@ -10,97 +10,99 @@
 9        android:targetSdkVersion="29" />
 9-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml
 10
-11    <uses-permission android:name="android.permission.INTERNET" /> <!-- Although the *SdkVersion is captured in gradle build files, this is required for non gradle builds -->
-11-->[com.firebaseui:firebase-ui-firestore:6.0.2] C:\Users\user\.gradle\caches\transforms-2\files-2.1\42aeee3681f69f15983e59c4f667d3b7\firebase-ui-firestore-6.0.2\AndroidManifest.xml:11:5-67
-11-->[com.firebaseui:firebase-ui-firestore:6.0.2] C:\Users\user\.gradle\caches\transforms-2\files-2.1\42aeee3681f69f15983e59c4f667d3b7\firebase-ui-firestore-6.0.2\AndroidManifest.xml:11:22-64
-12    <!-- <uses-sdk android:minSdkVersion="14"/> -->
-13    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-13-->[com.google.firebase:firebase-database:19.1.0] C:\Users\user\.gradle\caches\transforms-2\files-2.1\d5e5bdb63793430709a2ce95c05bc9e8\firebase-database-19.1.0\AndroidManifest.xml:25:5-79
-13-->[com.google.firebase:firebase-database:19.1.0] C:\Users\user\.gradle\caches\transforms-2\files-2.1\d5e5bdb63793430709a2ce95c05bc9e8\firebase-database-19.1.0\AndroidManifest.xml:25:22-76
-14    <uses-permission android:name="android.permission.WAKE_LOCK" /> <!-- Required by older versions of Google Play services to create IID tokens -->
-14-->[com.google.android.gms:play-services-measurement-api:17.2.0] C:\Users\user\.gradle\caches\transforms-2\files-2.1\7054dbb5559935cbb009ada59a88f4fb\play-services-measurement-api-17.2.0\AndroidManifest.xml:24:5-68
-14-->[com.google.android.gms:play-services-measurement-api:17.2.0] C:\Users\user\.gradle\caches\transforms-2\files-2.1\7054dbb5559935cbb009ada59a88f4fb\play-services-measurement-api-17.2.0\AndroidManifest.xml:24:22-65
-15    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
-15-->[com.google.firebase:firebase-iid:20.0.0] C:\Users\user\.gradle\caches\transforms-2\files-2.1\02ba9850d55441e6b8139c588bcd49ae\firebase-iid-20.0.0\AndroidManifest.xml:26:5-82
-15-->[com.google.firebase:firebase-iid:20.0.0] C:\Users\user\.gradle\caches\transforms-2\files-2.1\02ba9850d55441e6b8139c588bcd49ae\firebase-iid-20.0.0\AndroidManifest.xml:26:22-79
-16    <uses-permission android:name="com.google.android.finsky.permission.BIND_GET_INSTALL_REFERRER_SERVICE" />
-16-->[com.google.android.gms:play-services-measurement:17.2.0] C:\Users\user\.gradle\caches\transforms-2\files-2.1\d02d0fa0ee877e06aa3d6b04455e1361\play-services-measurement-17.2.0\AndroidManifest.xml:26:5-110
-16-->[com.google.android.gms:play-services-measurement:17.2.0] C:\Users\user\.gradle\caches\transforms-2\files-2.1\d02d0fa0ee877e06aa3d6b04455e1361\play-services-measurement-17.2.0\AndroidManifest.xml:26:22-107
-17
-18    <application
-18-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:5:5-40:19
-19        android:name="androidx.multidex.MultiDexApplication"
-20        android:allowBackup="true"
-20-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:6:9-35
-21        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
-21-->[androidx.core:core:1.1.0] C:\Users\user\.gradle\caches\transforms-2\files-2.1\1681a92c311baa60614d5fabc6ffa64c\core-1.1.0\AndroidManifest.xml:24:18-86
-22        android:debuggable="true"
-23        android:icon="@mipmap/ic_launcher"
-23-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:7:9-43
-24        android:label="@string/app_name"
-24-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:8:9-41
-25        android:roundIcon="@mipmap/ic_launcher_round"
-25-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:9:9-54
-26        android:supportsRtl="true"
-26-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:10:9-35
-27        android:testOnly="true"
-28        android:theme="@style/AppTheme" >
-28-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:11:9-40
-29        <activity
-29-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:13:9-15:67
-30            android:name="com.tap.taskassigningandplanning.NavigationBottomActivity"
-30-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:14:13-53
-31            android:parentActivityName="com.tap.taskassigningandplanning.MainActivity" />
-31-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:15:13-55
-32        <activity
-32-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:16:9-18:75
-33            android:name="com.tap.taskassigningandplanning.Login"
-33-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:17:13-34
-34            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
-34-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:18:13-72
-35        <activity
-35-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:19:9-27:20
-36            android:name="com.tap.taskassigningandplanning.Registration"
-36-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:20:13-41
-37            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" >
-37-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:21:13-72
-38            <intent-filter>
-38-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:22:13-26:29
-39                <action android:name="android.intent.action.MAIN" />
-39-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:23:17-69
-39-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:23:25-66
-40
-41                <category android:name="android.intent.category.LAUNCHER" />
-41-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:25:17-77
-41-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:25:27-74
-42            </intent-filter>
-43        </activity>
-44        <activity
-44-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:28:9-31:68
-45            android:name="com.tap.taskassigningandplanning.MainActivity"
-45-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:29:13-41
-46            android:label="@string/app_name"
-46-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:30:13-45
-47            android:theme="@style/AppTheme.NoActionBar" />
-47-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:31:13-56
-48        <activity android:name="com.tap.taskassigningandplanning.utils.activities.Activities" />
-48-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:32:9-74
-48-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:32:19-62
-49        <activity
-49-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:33:9-35:73
-50            android:name="com.tap.taskassigningandplanning.utils.activities.ActivityClicked"
-50-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:34:13-61
-51            android:parentActivityName="com.tap.taskassigningandplanning.utils.activities.Activities" />
-51-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:35:13-70
-52        <activity android:name="com.tap.taskassigningandplanning.utils.team.TeamSearch" />
-52-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:36:9-59
-52-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:36:19-56
-53        <activity android:name="com.tap.taskassigningandplanning.RatingActivity" />
-53-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:37:9-52
-53-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:37:19-49
-54        <activity android:name="com.tap.taskassigningandplanning.utils.activities.Task.ActivityTask" />
-54-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:38:9-39:65
-54-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:39:13-63
+11    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+11-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:5:5-78
+11-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:5:22-76
+12    <uses-permission android:name="android.permission.INTERNET" />
+12-->[com.firebaseui:firebase-ui-firestore:6.0.2] C:\Users\user\.gradle\caches\transforms-2\files-2.1\42aeee3681f69f15983e59c4f667d3b7\firebase-ui-firestore-6.0.2\AndroidManifest.xml:11:5-67
+12-->[com.firebaseui:firebase-ui-firestore:6.0.2] C:\Users\user\.gradle\caches\transforms-2\files-2.1\42aeee3681f69f15983e59c4f667d3b7\firebase-ui-firestore-6.0.2\AndroidManifest.xml:11:22-64
+13    <uses-permission android:name="android.permission.WAKE_LOCK" /> <!-- Required by older versions of Google Play services to create IID tokens -->
+13-->[com.google.android.gms:play-services-measurement-api:17.2.0] C:\Users\user\.gradle\caches\transforms-2\files-2.1\7054dbb5559935cbb009ada59a88f4fb\play-services-measurement-api-17.2.0\AndroidManifest.xml:24:5-68
+13-->[com.google.android.gms:play-services-measurement-api:17.2.0] C:\Users\user\.gradle\caches\transforms-2\files-2.1\7054dbb5559935cbb009ada59a88f4fb\play-services-measurement-api-17.2.0\AndroidManifest.xml:24:22-65
+14    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+14-->[com.google.firebase:firebase-iid:20.0.0] C:\Users\user\.gradle\caches\transforms-2\files-2.1\02ba9850d55441e6b8139c588bcd49ae\firebase-iid-20.0.0\AndroidManifest.xml:26:5-82
+14-->[com.google.firebase:firebase-iid:20.0.0] C:\Users\user\.gradle\caches\transforms-2\files-2.1\02ba9850d55441e6b8139c588bcd49ae\firebase-iid-20.0.0\AndroidManifest.xml:26:22-79
+15    <uses-permission android:name="com.google.android.finsky.permission.BIND_GET_INSTALL_REFERRER_SERVICE" />
+15-->[com.google.android.gms:play-services-measurement:17.2.0] C:\Users\user\.gradle\caches\transforms-2\files-2.1\d02d0fa0ee877e06aa3d6b04455e1361\play-services-measurement-17.2.0\AndroidManifest.xml:26:5-110
+15-->[com.google.android.gms:play-services-measurement:17.2.0] C:\Users\user\.gradle\caches\transforms-2\files-2.1\d02d0fa0ee877e06aa3d6b04455e1361\play-services-measurement-17.2.0\AndroidManifest.xml:26:22-107
+16
+17    <application
+17-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:7:5-42:19
+18        android:name="androidx.multidex.MultiDexApplication"
+19        android:allowBackup="true"
+19-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:8:9-35
+20        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+20-->[androidx.core:core:1.1.0] C:\Users\user\.gradle\caches\transforms-2\files-2.1\1681a92c311baa60614d5fabc6ffa64c\core-1.1.0\AndroidManifest.xml:24:18-86
+21        android:debuggable="true"
+22        android:icon="@mipmap/ic_launcher"
+22-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:9:9-43
+23        android:label="@string/app_name"
+23-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:10:9-41
+24        android:roundIcon="@mipmap/ic_launcher_round"
+24-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:11:9-54
+25        android:supportsRtl="true"
+25-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:12:9-35
+26        android:testOnly="true"
+27        android:theme="@style/AppTheme" >
+27-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:13:9-40
+28        <activity
+28-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:15:9-17:67
+29            android:name="com.tap.taskassigningandplanning.NavigationBottomActivity"
+29-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:16:13-53
+30            android:parentActivityName="com.tap.taskassigningandplanning.MainActivity" />
+30-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:17:13-55
+31        <activity
+31-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:18:9-20:75
+32            android:name="com.tap.taskassigningandplanning.Login"
+32-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:19:13-34
+33            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
+33-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:20:13-72
+34        <activity
+34-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:21:9-29:20
+35            android:name="com.tap.taskassigningandplanning.Registration"
+35-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:22:13-41
+36            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" >
+36-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:23:13-72
+37            <intent-filter>
+37-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:24:13-28:29
+38                <action android:name="android.intent.action.MAIN" />
+38-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:25:17-69
+38-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:25:25-66
+39
+40                <category android:name="android.intent.category.LAUNCHER" />
+40-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:27:17-77
+40-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:27:27-74
+41            </intent-filter>
+42        </activity>
+43        <activity
+43-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:30:9-33:68
+44            android:name="com.tap.taskassigningandplanning.MainActivity"
+44-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:31:13-41
+45            android:label="@string/app_name"
+45-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:32:13-45
+46            android:theme="@style/AppTheme.NoActionBar" />
+46-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:33:13-56
+47        <activity android:name="com.tap.taskassigningandplanning.utils.activities.Activities" />
+47-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:34:9-74
+47-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:34:19-62
+48        <activity
+48-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:35:9-37:73
+49            android:name="com.tap.taskassigningandplanning.utils.activities.ActivityEdit"
+49-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:36:13-58
+50            android:parentActivityName="com.tap.taskassigningandplanning.utils.activities.Activities" />
+50-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:37:13-70
+51        <activity android:name="com.tap.taskassigningandplanning.utils.team.TeamSearch" />
+51-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:38:9-59
+51-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:38:19-56
+52        <activity android:name="com.tap.taskassigningandplanning.RatingActivity" />
+52-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:39:9-52
+52-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:39:19-49
+53        <activity android:name="com.tap.taskassigningandplanning.utils.activities.Task.ActivityTask" />
+53-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:40:9-72
+53-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:40:19-69
+54        <activity android:name="com.tap.taskassigningandplanning.ui.profile.ActivityProfileUpdate" />
+54-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:41:9-70
+54-->C:\Users\user\AndroidStudioProjects\IT-Project-TAP\app\src\main\AndroidManifest.xml:41:19-67
 55        <activity
 55-->[com.google.firebase:firebase-auth:19.1.0] C:\Users\user\.gradle\caches\transforms-2\files-2.1\64f3295a805e5001cec671d886a79e6c\firebase-auth-19.1.0\AndroidManifest.xml:24:9-31:50
 56            android:name="com.google.firebase.auth.internal.FederatedSignInActivity"

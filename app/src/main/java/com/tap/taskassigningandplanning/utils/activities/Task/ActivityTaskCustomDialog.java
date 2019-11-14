@@ -79,7 +79,8 @@ public class ActivityTaskCustomDialog extends DialogFragment {
         String title = tvTitle.getText().toString().trim();
         String user_id = FirebaseAuth.getInstance().getCurrentUser().getUid();
         List<String> userId = Arrays.asList(user_id);
-        Task task = new Task(title, activity_id, plan_id, userId, false, new Timestamp(new Date()));
+        String creator = user_id;
+        Task task = new Task(title, activity_id, plan_id, creator, userId, false, new Timestamp(new Date()));
 
         final DocumentReference activity_ref = db.collection("Activity").document(activity_id);
 

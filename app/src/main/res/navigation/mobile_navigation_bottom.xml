@@ -18,12 +18,6 @@
         tools:layout="@layout/fragment_progress" />
 
     <fragment
-        android:id="@+id/navigation_chart"
-        android:name="com.tap.taskassigningandplanning.utils.chart.ChartFragment"
-        android:label="@string/title_chart"
-        tools:layout="@layout/fragment_pie_chart" />
-
-    <fragment
         android:id="@+id/navigation_team"
         android:name="com.tap.taskassigningandplanning.utils.team.TeamFragment"
         android:label="@string/title_team"

@@ -12,10 +12,6 @@
         android:title="@string/title_progress" />
 
     <item
-        android:id="@+id/navigation_chart"
-        android:icon="@drawable/ic_pie_chart"
-        android:title="@string/title_chart" />
-    <item
         android:id="@+id/navigation_team"
         android:icon="@drawable/ic_team"
         android:title="@string/title_team" />

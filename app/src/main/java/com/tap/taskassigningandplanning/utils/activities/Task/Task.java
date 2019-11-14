@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Task {
 
-    private String title, activity_id, plan_id;
+    private String title, activity_id, plan_id, creator;
     List<String> user_id;
     private boolean completed;
     private Timestamp created;
@@ -14,13 +14,22 @@ public class Task {
     public Task() {
     }
 
-    public Task(String title, String activity_id, String plan_id, List<String> user_id, boolean completed, Timestamp created) {
+    public Task(String title, String activity_id, String plan_id, String creator, List<String> user_id, boolean completed, Timestamp created) {
         this.title = title;
         this.activity_id = activity_id;
         this.plan_id = plan_id;
+        this.creator = creator;
         this.user_id = user_id;
         this.completed = completed;
         this.created = created;
+    }
+
+    public String getCreator() {
+        return creator;
+    }
+
+    public void setCreator(String creator) {
+        this.creator = creator;
     }
 
     public String getPlan_id() {

@@ -48,6 +48,7 @@ public class ActivityClickedAdapter extends FirestoreRecyclerAdapter<Team, Activ
 
     class TeamHolder extends RecyclerView.ViewHolder{
         TextView tvName;
+
         public TeamHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -63,6 +64,8 @@ public class ActivityClickedAdapter extends FirestoreRecyclerAdapter<Team, Activ
                     }
                 }
             });
+
+
 
         }
         public void deleteItem(){

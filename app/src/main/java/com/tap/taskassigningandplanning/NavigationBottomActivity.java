@@ -38,8 +38,11 @@ public class NavigationBottomActivity extends AppCompatActivity {
     private static final String TAG = "NavigationBottomActivit";
 
     private String plan_id, plan_name, user_id;
-    private FirebaseFirestore db;
+
+    //FIREBASE
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private FirebaseAuth mAuth;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,8 +62,7 @@ public class NavigationBottomActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_activities, R.id.navigation_progress,
-                R.id.navigation_chart, R.id.navigation_team)
+                R.id.navigation_activities, R.id.navigation_progress, R.id.navigation_team)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
 //        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);

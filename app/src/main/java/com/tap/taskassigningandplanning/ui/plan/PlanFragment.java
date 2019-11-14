@@ -43,7 +43,7 @@ public class PlanFragment extends Fragment implements View.OnClickListener{
 
     //initialization of functions
     private EditText etPlanTitle, etStartDate, etEndDate;
-    private Button btnCreate, btnCancel;
+    private Button btnCreate;
     private ProgressDialog progressDialog;
 
     //firebase
@@ -66,14 +66,12 @@ public class PlanFragment extends Fragment implements View.OnClickListener{
         etStartDate = view.findViewById(R.id.etStartDate);
         etEndDate = view.findViewById(R.id.etEndDate);
         btnCreate = view.findViewById(R.id.btnCreate);
-        btnCancel = view.findViewById(R.id.btnCancel);
 
 
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
 
         btnCreate.setOnClickListener(this);
-        btnCancel.setOnClickListener(this);
 
 
         etStartDate.setOnClickListener(new View.OnClickListener() {
@@ -251,9 +249,6 @@ public class PlanFragment extends Fragment implements View.OnClickListener{
         switch (view.getId()){
             case R.id.btnCreate:
                 createPlan();
-                break;
-            case R.id.btnCancel:
-                getActivity().finish();
                 break;
         }
     }

@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.tap.taskassigningandplanning.R;
 
@@ -33,11 +34,17 @@ public class ActivityTaskAdapter extends FirestoreRecyclerAdapter <Task, Activit
 
         boolean completed = task.isCompleted();
 
-        if(completed == true){
-            holder.btnDelete.setEnabled(false);
+        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        String creator = task.getCreator();
+
+        if(completed==true && !userId.equals(creator)){
+            holder.cbCompleted.setEnabled(false);
+        }
+
+        if(!userId.equals(creator)){
             holder.btnDelete.setVisibility(View.INVISIBLE);
         }
-    }
+}
 
     @NonNull
     @Override

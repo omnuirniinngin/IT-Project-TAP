@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.tap.taskassigningandplanning">
+    
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
     <application
         android:allowBackup="true"
@@ -31,12 +33,12 @@
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity android:name=".utils.activities.Activities"></activity>
         <activity
-            android:name=".utils.activities.ActivityClicked"
+            android:name=".utils.activities.ActivityEdit"
             android:parentActivityName=".utils.activities.Activities" />
         <activity android:name=".utils.team.TeamSearch" />
         <activity android:name=".RatingActivity" />
-        <activity
-            android:name=".utils.activities.Task.ActivityTask"/>
+        <activity android:name=".utils.activities.Task.ActivityTask" />
+        <activity android:name=".ui.profile.ActivityProfileUpdate" />
     </application>
 
 </manifest>

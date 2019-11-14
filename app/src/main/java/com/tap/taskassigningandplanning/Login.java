@@ -2,6 +2,8 @@ package com.tap.taskassigningandplanning;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
@@ -90,11 +92,33 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
                 });
     }
 
+    private boolean haveNetwork(){
+        boolean have_WIFI = false;
+        boolean have_MobileData = false;
+
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+        NetworkInfo[] networkInfos = connectivityManager.getAllNetworkInfo();
+
+        for (NetworkInfo info:networkInfos){
+            if(info.getTypeName().equalsIgnoreCase("WIFI"))
+                if(info.isConnected())
+                    have_WIFI = true;
+            if(info.getTypeName().equalsIgnoreCase("MOBILE"))
+                if(info.isConnected())
+                    have_MobileData = true;
+        }
+        return have_MobileData || have_WIFI;
+    }
+
     @Override
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.btnLogin:
-                loginUser();
+                if(haveNetwork()){
+                    loginUser();
+                }else if(!haveNetwork()){
+                    Toast.makeText(this, "Network connection is not available", Toast.LENGTH_SHORT).show();
+                }
                 break;
             case R.id.btnCreateAccount:
                 Intent intent = new Intent(Login.this, Registration.class);
