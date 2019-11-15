@@ -198,31 +198,39 @@ public class ActivityEdit extends AppCompatActivity implements ActivitiesAdapter
                                         DateTime plan_dateEnd = new DateTime(plan_date_end);
                                         DateTime plan_dateStart = new DateTime(plan_date_start);
 
-                                        if (activity_dateStart.isBefore(plan_dateStart) || activity_dateStart.isAfter(plan_dateEnd)) {
+                                        if (activity_dateStart.isBefore(plan_dateStart)){
                                             Toast.makeText(ActivityEdit.this, "Invalid range of starting date.", Toast.LENGTH_LONG).show();
                                         }
 
-                                        if (activity_dateEnd.isAfter(plan_dateEnd) || activity_dateEnd.isBefore(plan_dateStart)) {
+                                        if (activity_dateEnd.isAfter(plan_dateEnd) ) {
                                             Toast.makeText(ActivityEdit.this, "Invalid range of ending date.", Toast.LENGTH_LONG).show();
                                         }
 
-                                        if( activity_dateEnd.isBefore(plan_dateEnd) && activity_dateStart.isAfter(plan_dateStart) ) {
+                                        if( activity_dateStart.isEqual(plan_dateEnd) && activity_dateEnd.isEqual(plan_dateStart) ) {
+                                            Toast.makeText(ActivityEdit.this, "Invalid range of dates.", Toast.LENGTH_LONG).show();
+                                        }
+
+                                        if (activity_dateEnd.isBefore(activity_dateStart)) {
+                                            Toast.makeText(ActivityEdit.this, "Invalid range of dates.", Toast.LENGTH_LONG).show();
+                                        }
+
+                                        if( activity_dateStart.isEqual(plan_dateEnd) && activity_dateEnd.isEqual(plan_dateEnd) ) {
                                             updateActivity();
                                         }
 
-                                        if( activity_dateEnd.isBefore(plan_dateEnd) && activity_dateStart.isEqual(plan_dateEnd) ) {
+                                        if( activity_dateStart.isEqual(plan_dateStart) && activity_dateEnd.isEqual(plan_dateStart) ) {
                                             updateActivity();
                                         }
 
-                                        if( activity_dateEnd.isEqual(plan_dateEnd) && activity_dateStart.isBefore(plan_dateEnd) ) {
+                                        if( activity_dateStart.isEqual(plan_dateStart) && activity_dateEnd.isEqual(plan_dateEnd) ) {
                                             updateActivity();
                                         }
 
-                                        if( activity_dateEnd.isEqual(plan_dateStart) && activity_dateStart.isEqual(plan_dateStart) ) {
+                                        if (activity_dateStart.isAfter(plan_dateStart) && activity_dateEnd.isBefore(plan_dateEnd) && activity_dateStart.isBefore(activity_dateEnd)) {
                                             updateActivity();
                                         }
 
-                                        if( activity_dateEnd.isEqual(plan_dateEnd) && activity_dateStart.isEqual(plan_dateEnd) ) {
+                                        if (activity_dateStart.isEqual(plan_dateStart) && activity_dateEnd.isBefore(plan_dateEnd) && activity_dateEnd.isAfter(plan_dateStart)) {
                                             updateActivity();
                                         }
                                     }
@@ -322,29 +330,6 @@ public class ActivityEdit extends AppCompatActivity implements ActivitiesAdapter
 
         final DocumentReference documentReference = db.collection("Activity").document(activity_id);
 
-        /*// Get data and display to field
-        documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if(task.isSuccessful()){
-                    DocumentSnapshot documentSnapshot = task.getResult();
-                    if (documentSnapshot.exists()) {
-                        Activities activities = documentSnapshot.toObject(Activities.class);
-
-                        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                        if(userId.equals(activities.getCreator())){
-                            ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
-                            itemTouchHelper.attachToRecyclerView(recyclerView);
-                        }
-                        getSupportActionBar().setTitle(activities.getTitle());
-                    } else {
-                        Log.d(TAG, "No such document");
-                    }
-                }else {
-                    Log.d(TAG, "get failed with ", task.getException());
-                }
-            }
-        });*/
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
         itemTouchHelper.attachToRecyclerView(recyclerView);
 
@@ -468,53 +453,6 @@ public class ActivityEdit extends AppCompatActivity implements ActivitiesAdapter
             }
         });
 
-
-        //Restore deleted
-        /*Snackbar.make(recyclerView, "Item deleted", Snackbar.LENGTH_LONG)
-                .setAction("Undo", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        documentReference.update("activity_id", FieldValue.arrayUnion(activity_id));
-
-                        // Add user from Activity Document
-                        documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                            @Override
-                            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                String user_id = (String) documentSnapshot.get("user_id");
-                                DocumentReference userRef = db.collection("Activity").document(activity_id);
-                                userRef.update("user_id", FieldValue.arrayUnion(user_id));
-                            }
-                        });
-
-                        // Add user back from Task Document
-                        documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                            @Override
-                            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                final String user_id = (String) documentSnapshot.get("user_id");
-
-                                db.collection("Task")
-                                        .whereEqualTo("activity_id", activity_id)
-                                        .get()
-                                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                            @Override
-                                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                                if (task.isSuccessful()) {
-                                                    for (QueryDocumentSnapshot document : task.getResult()) {
-                                                        String task_id = document.getId();
-                                                        DocumentReference userRef = db.collection("Task").document(task_id);
-                                                        userRef.update("user_id", FieldValue.arrayUnion(user_id));
-                                                    }
-                                                } else {
-                                                    Log.d(TAG, "Error getting documents: ", task.getException());
-                                                }
-                                            }
-                                        });
-                            }
-                        });
-
-                    }
-                })
-                .show();*/
     }
 
     @Override

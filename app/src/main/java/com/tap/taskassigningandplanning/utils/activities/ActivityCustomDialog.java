@@ -232,36 +232,41 @@ public class ActivityCustomDialog extends AppCompatDialogFragment implements Vie
                                             DateTime plan_dateEnd = new DateTime(plan_date_end);
                                             DateTime plan_dateStart = new DateTime(plan_date_start);
 
-                                            if (activity_dateStart.isBefore(plan_dateStart) || activity_dateStart.isAfter(plan_dateEnd)) {
+                                            if (activity_dateStart.isBefore(plan_dateStart)){
                                                 Toast.makeText(getContext(), "Invalid range of starting date.", Toast.LENGTH_LONG).show();
                                             }
 
-                                            if (activity_dateEnd.isAfter(plan_dateEnd) || activity_dateEnd.isBefore(plan_dateStart)) {
+                                            if (activity_dateEnd.isAfter(plan_dateEnd) ) {
                                                 Toast.makeText(getContext(), "Invalid range of ending date.", Toast.LENGTH_LONG).show();
-                                            } else if( activity_dateStart.isEqual(plan_dateStart) && activity_dateEnd.isBefore(plan_dateEnd) ) {
+                                            }
+
+                                            if( activity_dateStart.isEqual(plan_dateEnd) && activity_dateEnd.isEqual(plan_dateStart) ) {
+                                                Toast.makeText(getContext(), "Invalid range of dates.", Toast.LENGTH_LONG).show();
+                                            }
+
+                                            if (activity_dateEnd.isBefore(activity_dateStart)) {
+                                                Toast.makeText(getContext(), "Invalid range of dates.", Toast.LENGTH_LONG).show();
+                                            }
+
+                                            if( activity_dateStart.isEqual(plan_dateEnd) && activity_dateEnd.isEqual(plan_dateEnd) ) {
                                                 addActivity();
                                             }
 
-                                            if( activity_dateEnd.isBefore(plan_dateEnd) && activity_dateStart.isAfter(plan_dateStart) ) {
+                                            if( activity_dateStart.isEqual(plan_dateStart) && activity_dateEnd.isEqual(plan_dateStart) ) {
                                                 addActivity();
                                             }
 
-                                            if( activity_dateEnd.isBefore(plan_dateEnd) && activity_dateStart.isEqual(plan_dateEnd) ) {
+                                            if( activity_dateStart.isEqual(plan_dateStart) && activity_dateEnd.isEqual(plan_dateEnd) ) {
                                                 addActivity();
                                             }
 
-                                            if( activity_dateEnd.isEqual(plan_dateEnd) && activity_dateStart.isBefore(plan_dateEnd) ) {
+                                            if (activity_dateStart.isAfter(plan_dateStart) && activity_dateEnd.isBefore(plan_dateEnd) && activity_dateStart.isBefore(activity_dateEnd)) {
                                                 addActivity();
                                             }
 
-                                            if( activity_dateEnd.isEqual(plan_dateStart) && activity_dateStart.isEqual(plan_dateStart) ) {
+                                            if (activity_dateStart.isEqual(plan_dateStart) && activity_dateEnd.isBefore(plan_dateEnd) && activity_dateEnd.isAfter(plan_dateStart)) {
                                                 addActivity();
                                             }
-
-                                            if( activity_dateEnd.isEqual(plan_dateEnd) && activity_dateStart.isEqual(plan_dateEnd) ) {
-                                                addActivity();
-                                            }
-
 
 
                                         }
