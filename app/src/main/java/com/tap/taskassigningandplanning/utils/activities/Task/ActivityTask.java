@@ -67,6 +67,7 @@ public class ActivityTask extends AppCompatActivity implements View.OnClickListe
         activity_id = intent.getExtras().getString("activity_id");
 
         DocumentReference documentReference = db.collection("Activity").document(activity_id);
+        final String user_id = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -76,6 +77,16 @@ public class ActivityTask extends AppCompatActivity implements View.OnClickListe
                     if (documentSnapshot.exists()) {
                         Activities activities = documentSnapshot.toObject(Activities.class);
                         getSupportActionBar().setTitle(activities.getTitle());
+                        if (!user_id.equals(activities.getCreator())) {
+                            fab.setEnabled(false);
+                        } else if (user_id.equals(activities.getCreator())) {
+                            fab.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    openDialog();
+                                }
+                            });
+                        }
                     } else {
                         Log.d(TAG, "No such document");
                     }
@@ -85,7 +96,7 @@ public class ActivityTask extends AppCompatActivity implements View.OnClickListe
             }
         });
 
-        fab.setOnClickListener(this);
+
 
         setupRecyclerView();
         setResult(Activity.RESULT_OK);
@@ -115,7 +126,7 @@ public class ActivityTask extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.fab:
-                openDialog();
+//                openDialog();
                 break;
         }
     }

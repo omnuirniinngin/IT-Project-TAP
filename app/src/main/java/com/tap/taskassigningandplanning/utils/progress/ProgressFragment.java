@@ -71,7 +71,6 @@ public class ProgressFragment extends Fragment implements ProgressAdapter.Progre
 
         NavigationBottomActivity activity = (NavigationBottomActivity)getActivity();
         Bundle id_result = activity.getPlanId();
-        String plan_id = id_result.getString("plan_id");
         String plan_name = id_result.getString("plan_name");
 
         tvTitle.setText(plan_name);
@@ -79,6 +78,7 @@ public class ProgressFragment extends Fragment implements ProgressAdapter.Progre
         db = FirebaseFirestore.getInstance();
 
         getPlan();
+        updateTeamTotalActivity();
         getActivityCompleted();
         setupRecyclerView();
         return view;
@@ -144,6 +144,46 @@ public class ProgressFragment extends Fragment implements ProgressAdapter.Progre
                             }
                         } else {
                             Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
+    }
+
+    private void updateTeamTotalActivity(){NavigationBottomActivity activity = (NavigationBottomActivity)getActivity();
+        Bundle id_result = activity.getPlanId();
+        final String plan_id = id_result.getString("plan_id");
+        final String user_id = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        db.collection("Activity")
+                .whereEqualTo("plan_id", plan_id)
+                .whereArrayContains("user_id", user_id)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            int count = 0;
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                count++;
+                            }
+                            final int finalCount = count;
+                            db.collection("Team")
+                                    .whereEqualTo("plan_id", plan_id)
+                                    .whereEqualTo("user_id", user_id)
+                                    .get()
+                                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                            if (task.isSuccessful()) {
+                                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                                    String teamID = document.getId();
+                                                    Log.d(TAG, "onComplete: " + document.getId());
+                                                    DocumentReference teamRef = db.collection("Team").document(teamID);
+                                                    teamRef.update("total_activity", finalCount);
+                                                }
+                                            }
+                                        }
+                                    });
                         }
                     }
                 });

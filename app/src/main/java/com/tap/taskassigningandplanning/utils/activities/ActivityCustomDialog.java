@@ -238,6 +238,8 @@ public class ActivityCustomDialog extends AppCompatDialogFragment implements Vie
 
                                             if (activity_dateEnd.isAfter(plan_dateEnd) || activity_dateEnd.isBefore(plan_dateStart)) {
                                                 Toast.makeText(getContext(), "Invalid range of ending date.", Toast.LENGTH_LONG).show();
+                                            } else if( activity_dateStart.isEqual(plan_dateStart) && activity_dateEnd.isBefore(plan_dateEnd) ) {
+                                                addActivity();
                                             }
 
                                             if( activity_dateEnd.isBefore(plan_dateEnd) && activity_dateStart.isAfter(plan_dateStart) ) {
@@ -259,6 +261,8 @@ public class ActivityCustomDialog extends AppCompatDialogFragment implements Vie
                                             if( activity_dateEnd.isEqual(plan_dateEnd) && activity_dateStart.isEqual(plan_dateEnd) ) {
                                                 addActivity();
                                             }
+
+
 
                                         }
                                     } else {

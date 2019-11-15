@@ -61,7 +61,7 @@ public class ActivityEdit extends AppCompatActivity implements ActivitiesAdapter
     private Intent intent;
 
     private EditText etActivityTitle, etNotes, etStartDate, etEndDate, etTask;
-    private String plan_id, activity_id, title;
+    private String plan_id, activity_id;
     private ActivityClickedAdapter activityClickedAdapter;
     private RecyclerView recyclerView;
 
@@ -247,13 +247,20 @@ public class ActivityEdit extends AppCompatActivity implements ActivitiesAdapter
                 if(task.isSuccessful()){
                     DocumentSnapshot documentSnapshot = task.getResult();
                     if (documentSnapshot.exists()) {
-                        Log.d(TAG, "DocumentSnapshot data: " + documentSnapshot.getData());
                         Activities activities = documentSnapshot.toObject(Activities.class);
                         etActivityTitle.setText(activities.getTitle());
                         etActivityTitle.setSelection(activities.getTitle().length());
                         etStartDate.setText(activities.getDateStart());
                         etEndDate.setText(activities.getDateEnd());
                         etNotes.setText(activities.getNotes());
+                        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                        if(!userId.equals(activities.getCreator())){
+                            etNotes.setEnabled(false);
+                            etStartDate.setEnabled(false);
+                            etEndDate.setEnabled(false);
+                            etTask.setEnabled(false);
+                            etActivityTitle.setEnabled(false);
+                        }
 
                         getSupportActionBar().setTitle(activities.getTitle());
                     } else {
@@ -276,21 +283,6 @@ public class ActivityEdit extends AppCompatActivity implements ActivitiesAdapter
         // Get activity_id from created activity || Get plan_id created from user
         Intent intent = getIntent();
         String activity_id = intent.getExtras().getString("activity_id");
-        String plan_id = intent.getExtras().getString("plan_id");
-
-        db.collection("Team")
-                .whereEqualTo("plan_id", plan_id)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()){
-                            for (QueryDocumentSnapshot document : task.getResult()){
-                                Log.d(TAG, document.getId() + " => " + document.getData());
-                            }
-                        }
-                    }
-                });
 
         DocumentReference docRef = db.collection("Activity").document(activity_id);
 
@@ -314,6 +306,7 @@ public class ActivityEdit extends AppCompatActivity implements ActivitiesAdapter
     private void setupRecyclerView(){
         Intent intent = getIntent();
         String activity_id = intent.getExtras().getString("activity_id");
+        String plan_id = intent.getExtras().getString("plan_id");
 
         CollectionReference id = db.collection("Team");
 
@@ -327,8 +320,35 @@ public class ActivityEdit extends AppCompatActivity implements ActivitiesAdapter
         recyclerView.setAdapter(activityClickedAdapter);
         activityClickedAdapter.startListening();
 
+        final DocumentReference documentReference = db.collection("Activity").document(activity_id);
+
+        /*// Get data and display to field
+        documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if(task.isSuccessful()){
+                    DocumentSnapshot documentSnapshot = task.getResult();
+                    if (documentSnapshot.exists()) {
+                        Activities activities = documentSnapshot.toObject(Activities.class);
+
+                        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                        if(userId.equals(activities.getCreator())){
+                            ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
+                            itemTouchHelper.attachToRecyclerView(recyclerView);
+                        }
+                        getSupportActionBar().setTitle(activities.getTitle());
+                    } else {
+                        Log.d(TAG, "No such document");
+                    }
+                }else {
+                    Log.d(TAG, "get failed with ", task.getException());
+                }
+            }
+        });*/
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
         itemTouchHelper.attachToRecyclerView(recyclerView);
+
+
     }
 
 

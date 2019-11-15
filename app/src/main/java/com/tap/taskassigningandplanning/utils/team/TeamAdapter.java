@@ -10,7 +10,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.tap.taskassigningandplanning.R;
 
 public class TeamAdapter extends FirestoreRecyclerAdapter <Team, TeamAdapter.TeamHolder> {
@@ -24,9 +30,11 @@ public class TeamAdapter extends FirestoreRecyclerAdapter <Team, TeamAdapter.Tea
     }
 
     @Override
-    protected void onBindViewHolder(@NonNull TeamHolder holder, int position, @NonNull Team team) {
+    protected void onBindViewHolder(@NonNull final TeamHolder holder, int position, @NonNull Team team) {
         holder.tvName.setText(team.getName());
         holder.tvStatus.setText(team.getRequest());
+        holder.tvTaskCompleted.setText(String.valueOf(team.getTask_completed()));
+        holder.tvTotalActivity.setText(String.valueOf(team.getTotal_activity()));
     }
 
     @NonNull
@@ -34,17 +42,20 @@ public class TeamAdapter extends FirestoreRecyclerAdapter <Team, TeamAdapter.Tea
     public TeamHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View view = layoutInflater.inflate(R.layout.layout_list_team, parent, false);
+
         return new TeamHolder(view);
     }
 
     class TeamHolder extends RecyclerView.ViewHolder{
 
-        TextView tvName, tvStatus;
+        TextView tvName, tvStatus, tvTaskCompleted, tvTotalActivity;
 
         public TeamHolder(@NonNull View itemView) {
             super(itemView);
             tvName = itemView.findViewById(R.id.tvName);
             tvStatus = itemView.findViewById(R.id.tvStatus);
+            tvTaskCompleted = itemView.findViewById(R.id.tvTaskCompleted);
+            tvTotalActivity = itemView.findViewById(R.id.tvTotalActivity);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

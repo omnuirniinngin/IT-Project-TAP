@@ -92,51 +92,50 @@ public class ActivityFragment extends Fragment implements View.OnClickListener, 
 //        fab.setOnClickListener(this);
 
         setupRecyclerView();
-//        setCountActivity();
+        setCountActivity();
         return view;
     }
 
-//    private void setCountActivity(){
-//        NavigationBottomActivity activity = (NavigationBottomActivity)getActivity();
-//        Bundle id_result = activity.getPlanId();
-//        final String plan_id = id_result.getString("plan_id");
-//
-//        db.collection("Activity")
-//                .whereEqualTo("plan_id", plan_id)
-//                .get()
-//                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                        if (task.isSuccessful()) {
-//                            int count = 0;
-//                            for (final QueryDocumentSnapshot document : task.getResult()) {
-//                                count++;
-//                                boolean completed;
-//                                completed = (boolean) document.get("completed");
-//                            }
-//                            final int new_count = count;
-//                            db.collection("Plan")
-//                                    .whereEqualTo("plan_id", plan_id)
-//                                    .get()
-//                                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//                                        @Override
-//                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                                            if (task.isSuccessful()) {
-//                                                String plan_document_id = "";
-//                                                for (QueryDocumentSnapshot document : task.getResult()) {
-//                                                    plan_document_id = document.getId();
-//                                                }
-//                                                DocumentReference documentReference = db.collection("Plan").document(plan_document_id);
-//                                                documentReference.update("total_activity", new_count);
-//                                            }
-//                                        }
-//                                    });
-//                        } else {
-//                            Log.d(TAG, "Error getting documents: ", task.getException());
-//                        }
-//                    }
-//                });
-//    }
+    private void setCountActivity(){
+        NavigationBottomActivity activity = (NavigationBottomActivity)getActivity();
+        Bundle id_result = activity.getPlanId();
+        final String plan_id = id_result.getString("plan_id");
+
+        db.collection("Activity")
+                .whereEqualTo("plan_id", plan_id)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            int count = 0;
+                            for (final QueryDocumentSnapshot document : task.getResult()) {
+                                count++;
+                            }
+                            final int new_count = count;
+                            db.collection("Plan")
+                                    .whereEqualTo("plan_id", plan_id)
+                                    .get()
+                                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                            if (task.isSuccessful()) {
+                                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                                    String plan_document_id = document.getId();
+                                                    DocumentReference documentReference = db.collection("Plan").document(plan_document_id);
+                                                    documentReference.update("total_activities", new_count);
+                                                }
+                                            }
+                                        }
+                                    });
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
+    }
+
+
 
     private void setupRecyclerView(){
         String user_id = FirebaseAuth.getInstance().getCurrentUser().getUid();

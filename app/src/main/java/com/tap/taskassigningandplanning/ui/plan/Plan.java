@@ -4,7 +4,7 @@ import com.google.firebase.Timestamp;
 
 public class Plan {
 
-    private String title, dateStart, dateEnd, plan_id, user_id;
+    private String title, dateStart, dateEnd, plan_id, user_id, total_activities;
     private Timestamp created;
 
 
@@ -19,6 +19,15 @@ public class Plan {
         this.plan_id = plan_id;
         this.user_id = user_id;
         this.created = created;
+        this.total_activities = total_activities;
+    }
+
+    public String getTotal_activities() {
+        return total_activities;
+    }
+
+    public void setTotal_activities(String total_activities) {
+        this.total_activities = total_activities;
     }
 
     public String getTitle() {

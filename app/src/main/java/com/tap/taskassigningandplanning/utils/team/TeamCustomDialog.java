@@ -132,9 +132,11 @@ public class TeamCustomDialog extends DialogFragment implements View.OnClickList
                                                 if (document.exists()) {
                                                     Log.d(TAG, "DocumentSnapshot data: " + document.getData());
                                                     String creator = (String) document.get("name");
+                                                    String creator_id = current_user;
                                                     String request = "Request Pending";
+                                                    int task_completed = 0;
 
-                                                    Team team = new Team(email, plan_id, name, user_id, plan_name, creator,request, status, new Timestamp(new java.util.Date()));
+                                                    Team team = new Team(email, plan_id, name, user_id, plan_name, creator, creator_id, request, task_completed, status, new Timestamp(new java.util.Date()));
 
                                                     FirebaseFirestore.getInstance()
                                                             .collection("Team")

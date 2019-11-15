@@ -13,7 +13,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.tap.taskassigningandplanning.R;
 import com.tap.taskassigningandplanning.utils.activities.Activities;
 
@@ -26,8 +32,10 @@ import org.joda.time.format.PeriodFormatter;
 import org.joda.time.format.PeriodFormatterBuilder;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 public class ProgressAdapter extends FirestoreRecyclerAdapter <Activities, ProgressAdapter.ProgressHolder> {
@@ -47,9 +55,93 @@ public class ProgressAdapter extends FirestoreRecyclerAdapter <Activities, Progr
     }
 
     @Override
-    protected void onBindViewHolder(@NonNull ProgressHolder holder, int position, @NonNull Activities activities) {
+    protected void onBindViewHolder(@NonNull final ProgressHolder holder, int position, @NonNull final Activities activities) {
         holder.tvActivityTitle.setText(activities.getTitle());
         holder.tvCompleted.setText(String.valueOf(activities.getCompleted_task())+"/"+String.valueOf(activities.getTotal_task()));
+
+        final String plan_id = activities.getPlan_id();
+        final String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+//        FirebaseFirestore.getInstance().collection("Activity")
+//                .whereEqualTo("plan_id", plan_id)
+//                .get()
+//                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                        if (task.isSuccessful()) {
+//                            List<String> titleList = new ArrayList<>();
+//                            for (QueryDocumentSnapshot document : task.getResult()) {
+//                                titleList.add(document.get("title").toString());
+//                            }
+//                            String[] title = new String[titleList.size()];
+//                            for (int i = 0; i < title.length; i++){
+//                                FirebaseFirestore.getInstance().collection("Task")
+//                                .whereEqualTo("plan_id", plan_id)
+//                                        .whereEqualTo("title", titleList)
+//                                .whereArrayContains("user_id", userId)
+//                                .get()
+//                                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//                                    @Override
+//                                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                                        if (task.isSuccessful()) {
+//                                            int count = 0;
+//                                            for (QueryDocumentSnapshot document : task.getResult()) {
+//                                                count ++;
+//                                                holder.tvCompleted.setText(String.valueOf(activities.getCompleted_task())+"/"+count);
+//                                            }
+//                                            int completed_task = activities.getCompleted_task();
+//                                            int total_task = count;
+//
+//                                            if ( total_task == 0 ){
+//                                                holder.progressBar.setProgress(0);
+//                                                holder.tvPercent.setText("0%");
+//
+//                                            }
+//                                            if (total_task > 0 ){
+//                                                float progress = completed_task*100 / count;
+//                                                holder.progressBar.setProgress((int) progress);
+//                                                holder.tvPercent.setText((int) progress + "%");
+//                                            }
+//                                        }
+//                                    }
+//                                });
+//                            }
+//                        }
+//                    }
+//                });
+
+
+//        FirebaseFirestore.getInstance().collection("Task")
+//                .whereEqualTo("plan_id", plan_id)
+//                .whereArrayContains("user_id", userId)
+//                .get()
+//                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                        if (task.isSuccessful()) {
+//                            int count = 0;
+//                            for (QueryDocumentSnapshot document : task.getResult()) {
+//                                count ++;
+//                                holder.tvCompleted.setText(String.valueOf(activities.getCompleted_task())+"/"+count);
+//                            }
+//                            int completed_task = activities.getCompleted_task();
+//                            int total_task = count;
+//
+//                            if ( total_task == 0 ){
+//                                holder.progressBar.setProgress(0);
+//                                holder.tvPercent.setText("0%");
+//
+//                            }
+//                            if (total_task > 0 ){
+//                                float progress = completed_task*100 / count;
+//                                holder.progressBar.setProgress((int) progress);
+//                                holder.tvPercent.setText((int) progress + "%");
+//                            }
+//                        }
+//                    }
+//                });
+
+
         int completed_task = activities.getCompleted_task();
         int total_task = activities.getTotal_task();
 

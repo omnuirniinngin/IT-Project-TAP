@@ -197,12 +197,14 @@ public class PlanFragment extends Fragment implements View.OnClickListener{
                                             Log.d(TAG, "DocumentSnapshot data: " + document.getData());
                                             String email = (String) document.get("email");
                                             String creator = (String) document.get("name");
+                                            String creator_id = user_id;
                                             String name = (String) document.get("name");
                                             String plan_name = title;
                                             Boolean status = true;
+                                            int task_completed = 0;
                                             String request = "";
 
-                                            Team team = new Team(email, myId, name, user_id, plan_name, creator, request, status, new Timestamp(new java.util.Date()));
+                                            Team team = new Team(email, myId, name, user_id, plan_name, creator, creator_id, request, task_completed, status, new Timestamp(new java.util.Date()));
 
                                             FirebaseFirestore.getInstance()
                                                     .collection("Team")

@@ -3,26 +3,53 @@ package com.tap.taskassigningandplanning.utils.team;
 import com.google.firebase.Timestamp;
 
 public class Team {
-    public String email, plan_id, name, user_id, plan_name, creator, request;
+    public String email, plan_id, name, user_id, plan_name, creator, creator_id, request;
     private boolean status;
-    private int rating;
+    private int rating, task_completed, total_activity;
     private Timestamp created;
 
     public Team(){
         //Must be empty
     }
 
-    public Team(String email, String plan_id, String name, String user_id, String plan_name, String creator, String request, boolean status, Timestamp created) {
+    public Team(String email, String plan_id, String name, String user_id, String plan_name, String creator, String creator_id, String request, int task_completed, boolean status, Timestamp created) {
         this.email = email;
         this.plan_id = plan_id;
         this.name = name;
         this.user_id = user_id;
         this.plan_name = plan_name;
         this.creator = creator;
+        this.creator_id = creator_id;
         this.request = request;
         this.status = status;
         this.created = created;
         this.rating = rating;
+        this.total_activity = total_activity;
+        this.task_completed = task_completed;
+    }
+
+    public int getTotal_activity() {
+        return total_activity;
+    }
+
+    public void setTotal_activity(int total_activity) {
+        this.total_activity = total_activity;
+    }
+
+    public int getTask_completed() {
+        return task_completed;
+    }
+
+    public String getCreator_id() {
+        return creator_id;
+    }
+
+    public void setCreator_id(String creator_id) {
+        this.creator_id = creator_id;
+    }
+
+    public void setTask_completed(int task_completed) {
+        this.task_completed = task_completed;
     }
 
     public int getRating() {
@@ -116,6 +143,8 @@ public class Team {
                 ", creator='" + creator + '\'' +
                 ", request='" + request + '\'' +
                 ", status=" + status +
+                ", rating=" + rating +
+                ", task_completed=" + task_completed +
                 ", created=" + created +
                 '}';
     }

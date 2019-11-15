@@ -16,24 +16,54 @@
         android:id="@+id/tvName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="15dp"
-        android:layout_toRightOf="@id/imageView"
+        android:layout_marginStart="15dp"
+        android:layout_toEndOf="@id/imageView"
         android:ellipsize="end"
         android:maxLines="1"
         android:text="Username"
         android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvTask"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvName"
+        android:layout_marginStart="15dp"
         android:layout_toEndOf="@id/imageView"
-        android:layout_marginStart="15dp" />
+        android:text="Task Completed: " />
+
+    <TextView
+        android:id="@+id/tvTaskCompleted"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvName"
+        android:layout_toEndOf="@id/tvTask"
+        android:text="0" />
+
+    <TextView
+        android:id="@+id/tvActivity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvTask"
+        android:layout_marginStart="15dp"
+        android:layout_toEndOf="@id/imageView"
+        android:text="Total Activity: " />
+
+    <TextView
+        android:id="@+id/tvTotalActivity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvTaskCompleted"
+        android:layout_toEndOf="@id/tvActivity"
+        android:text="0" />
 
     <TextView
         android:id="@+id/tvStatus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tvName"
-        android:layout_alignParentBottom="false"
+        android:layout_alignBottom="@id/tvActivity"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
         android:ellipsize="end"
         android:maxLines="1"
         android:text="Status" />
