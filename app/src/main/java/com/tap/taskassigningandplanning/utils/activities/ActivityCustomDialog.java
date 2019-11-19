@@ -268,6 +268,9 @@ public class ActivityCustomDialog extends AppCompatDialogFragment implements Vie
                                                 addActivity();
                                             }
 
+                                            if (activity_dateStart.isEqual(activity_dateEnd) && activity_dateStart.isAfter(plan_dateStart) && activity_dateEnd.isBefore(plan_dateEnd)) {
+                                                addActivity();
+                                            }
 
                                         }
                                     } else {
