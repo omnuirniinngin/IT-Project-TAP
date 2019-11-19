@@ -233,6 +233,10 @@ public class ActivityEdit extends AppCompatActivity implements ActivitiesAdapter
                                         if (activity_dateStart.isEqual(plan_dateStart) && activity_dateEnd.isBefore(plan_dateEnd) && activity_dateEnd.isAfter(plan_dateStart)) {
                                             updateActivity();
                                         }
+
+                                        if (activity_dateStart.isEqual(activity_dateEnd) && activity_dateStart.isAfter(plan_dateStart) && activity_dateEnd.isBefore(plan_dateEnd)) {
+                                            updateActivity();
+                                        }
                                     }
                                 } else {
                                     Log.d(TAG, "Error getting documents: ", task.getException());
