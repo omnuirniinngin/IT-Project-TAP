@@ -137,25 +137,7 @@
 
         </RelativeLayout>
 
-        <RelativeLayout
-            android:id="@+id/layout_skills"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/layout_info"
-            android:layout_margin="10dp">
 
-            <TextView
-                android:id="@+id/textskill"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_marginStart="20dp"
-                android:padding="10dp"
-                android:text="SKILLS"
-                android:textColor="#03A9F4"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-        </RelativeLayout>
 
     </RelativeLayout>
 

@@ -7,7 +7,7 @@
     android:elevation="4dp"
     android:orientation="vertical">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -19,19 +19,49 @@
             android:text="@string/plan_row_title"
             android:id="@+id/tvTitle"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textStyle="bold"
             android:ellipsize="end"
             android:maxLines="1"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/plan_row_from"
+            android:id="@+id/tvStart"
             android:layout_below="@id/tvTitle"
+            android:text="Starting Date: "/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvTitle"
+            android:id="@+id/tvDateStart"
+            android:layout_toEndOf="@id/tvStart"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvEnd"
+            android:layout_below="@id/tvStart"
+            android:text="Ending Date: "/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvDateEnd"
+            android:layout_below="@id/tvStart"
+            android:layout_toEndOf="@id/tvEnd"/>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/plan_row_from"
+            android:layout_alignParentEnd="true"
             android:id="@+id/tvFrom"
-            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:layout_alignBottom="@id/tvEnd"
             android:ellipsize="end"
             android:maxLines="1"/>
 
-    </LinearLayout>
+    </RelativeLayout>
 
 </androidx.cardview.widget.CardView>
